@@ -19,9 +19,12 @@ module.exports = {
             "port": 8080
         }
     },
-    "files": false,
+    "files": "dist/**/*",
     "watchOptions": {},
-    "server": false,
+    "server": {
+        "baseDir": "./dist",
+        "index": "index.html"
+    },
     "proxy": false,
     "port": 3000,
     "middleware": false,

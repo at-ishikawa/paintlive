@@ -7,6 +7,9 @@ trim_trailing_whitespace = true
 end_of_line = lf
 insert_final_newline = true
 
+[bs-config.js]
+indent_size = 4
+
 [{*.js,*.css,*.scss}]
 indent_size = 2
 
