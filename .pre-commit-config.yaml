@@ -1,0 +1,12 @@
+- repo: https://github.com/pre-commit/pre-commit-hooks.git
+  sha: 17478a0a50faf20fd8e5b3fefe7435cea410df0b
+  hooks:
+    - id: trailing-whitespace
+    - id: check-json
+    - id: check-xml
+    - id: debug-statements
+
+- repo: https://github.com/pre-commit/mirrors-eslint.git
+  sha: 02999128135512d63e07d4a8a05d424cde3fe5d1
+  hooks:
+    - id: eslint

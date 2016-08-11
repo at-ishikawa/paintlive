@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+@import "config";
+
+.layout-container {
+  background-color: $background-color;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
