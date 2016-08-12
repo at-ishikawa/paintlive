@@ -5,7 +5,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 import Container from './components/layouts/Container';
-import IndexPage from './components/pages/IndexPage';
+import IndexPage from './containers/IndexPage';
 import ErrorPage from './components/pages/ErrorPage';
 import reducers from './reducers';
 
