@@ -21,6 +21,8 @@
     "webpack": "^1.13.1"
   },
   "devDependencies": {
-    "browser-sync": "^2.14.0"
+    "browser-sync": "^2.14.0",
+    "eslint": "^3.2.2",
+    "eslint-loader": "^1.5.0"
   }
 }
