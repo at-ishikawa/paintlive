@@ -1,4 +1,4 @@
-import PenMode from './pen-mode';
-import SelectMode from './select-mode';
+import PenMode from './PenMode';
+import SelectMode from './SelectMode';
 
 export { PenMode, SelectMode };

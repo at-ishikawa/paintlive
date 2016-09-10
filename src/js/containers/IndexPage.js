@@ -5,21 +5,25 @@ import { ModeTransitions, CanvasEvents } from '../actions/canvas';
 const mapStateToProps = (state) => {
   let mode = state.reducers.canvasModes.mode;
   return {
-    mode: mode
-  }
+    mode: mode,
+    layerCount: state.reducers.canvasModes.layerCount
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCanvasContext: (context) => {
+    init: (width, height) => {
       dispatch({
-        type: ModeTransitions.INIT,
-        canvasContext: context
+        type: 'initialize',
+        width: width,
+        height: height
       });
     },
-    onPenModeClick: () => {
+    setCanvasContext: (context) => {
       dispatch({
-        type: ModeTransitions.PEN_MODE
+        modeType: ModeTransitions.INIT,
+        type: ModeTransitions.INIT,
+        canvasContext: context
       });
     },
     onMouseDown: (point) => {

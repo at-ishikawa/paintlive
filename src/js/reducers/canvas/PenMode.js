@@ -1,4 +1,4 @@
-import CanvasMode from './canvas-mode';
+import CanvasMode from './CanvasMode';
 
 class PenMode extends CanvasMode {
   constructor(context) {

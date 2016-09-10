@@ -1,6 +1,7 @@
 import React from 'react';
 import DocumentMeta from 'react-document-meta';
 import Env from 'Env';
+import MainMenu from '../../containers/modules/menus/MainMenuContainer';
 
 class IndexPage extends React.Component {
 
@@ -10,8 +11,6 @@ class IndexPage extends React.Component {
     this.onMouseUp = this.onMouseUp.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
-    this.onLoadButtonChange = this.onLoadButtonChange.bind(this);
-    this.onAddLayerClick = this.onAddLayerClick.bind(this);
     this.onPaintButtonClick = this.onPaintButtonClick.bind(this);
     this.canvases = [];
     this.contexts = [];
@@ -51,27 +50,6 @@ class IndexPage extends React.Component {
     this.downloadLink.href = imageUrl;
   }
 
-  onLoadButtonChange(event) {
-    var files = event.target.files;
-    if (!files.length) {
-      return;
-    }
-
-    var filePath = files[0];
-    var fileReader = new FileReader();
-    fileReader.onload = (function (event) {
-      var url = event.target.result;
-
-      var image = new Image();
-      image.onload = (function() {
-        this.contexts[0].drawImage(image, 0, 0);
-      }).bind(this);
-
-      image.src = url;
-    }).bind(this);
-    fileReader.readAsDataURL(filePath);
-  }
-
   onMouseDown(event) {
     const point = this.getCanvasPoint(event);
     this.props.onMouseDown(point);
@@ -85,12 +63,6 @@ class IndexPage extends React.Component {
   onMouseMove(event) {
     const point = this.getCanvasPoint(event);
     this.props.onMouseMove(point);
-  }
-
-  onAddLayerClick() {
-    this.setState({
-      layerCount: this.state.layerCount + 1
-    });
   }
 
   onPaintButtonClick() {
@@ -165,9 +137,14 @@ class IndexPage extends React.Component {
   }
 
   render() {
+    const width = 1280;
+    const height = 640;
+
+    this.props.init(width, height);
+
     const style = {
-      width: '128px',
-      height: '64px',
+      width: '1280px',
+      height: '640px',
       border: '1px solid',
       position: 'absolute'
     };
@@ -191,10 +168,10 @@ class IndexPage extends React.Component {
         <br />
         Mode: { this.props.mode.getName() }
         <br />
-        <button type="button" onClick={ this.props.onPenModeClick }>Pen Mode</button>
+
+        <MainMenu />
+
         <button type="button" name="paintButton" onClick={ this.onPaintButtonClick }>Paint Mode</button>
-        <input type="file" name="load" onChange={ this.onLoadButtonChange } />
-        <button type="button" name="addLayer" onClick={ this.onAddLayerClick }>Add Layer</button>
 
         <a ref={ (component) => this.downloadLink = component }
            onClick={ this.onSaveButtonClick }
@@ -203,14 +180,14 @@ class IndexPage extends React.Component {
         </a>
         <br />
 
-        {Array(this.state.layerCount).fill(1).map((_, i) => (
+        {Array(this.props.layerCount).fill(1).map((_, i) => (
             <canvas ref={ (component) => this.canvases[i] = component }
-              width="128"
-              height="64"
+              width="1280"
+              height="640"
               style={ style }
               onMouseDown={ this.onMouseDown }
               onMouseUp={ this.onMouseUp }
-          onMouseMove={ this.onMouseMove }>
+              onMouseMove={ this.onMouseMove }>
 
             </canvas>
         ))}
