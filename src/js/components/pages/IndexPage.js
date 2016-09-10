@@ -7,17 +7,14 @@ class IndexPage extends React.Component {
 
   constructor(props) {
     super(props);
+    this.onClick = this.onClick.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
-    this.onPaintButtonClick = this.onPaintButtonClick.bind(this);
     this.canvases = [];
     this.contexts = [];
     this.currentLayerIndex = 0;
-    this.state = {
-      layerCount: 1
-    };
   }
 
   componentDidMount() {
@@ -50,6 +47,11 @@ class IndexPage extends React.Component {
     this.downloadLink.href = imageUrl;
   }
 
+  onClick(event) {
+    const point = this.getCanvasPoint(event);
+    this.props.onClick(point);
+  }
+
   onMouseDown(event) {
     const point = this.getCanvasPoint(event);
     this.props.onMouseDown(point);
@@ -65,80 +67,9 @@ class IndexPage extends React.Component {
     this.props.onMouseMove(point);
   }
 
-  onPaintButtonClick() {
-    const left = 0;
-    const top = 0;
-    const context = this.contexts[this.currentLayerIndex];
-    const canvas = this.canvases[this.currentLayerIndex];
-    const image = context.getImageData(left, top, canvas.width, canvas.height);
-    const data = image.data;
-
-    let maxLabel = 1;
-    const labels = [];
-    const labelPixels = [];
-    for (let i = 0; i < data.length; i += 4) {
-      // const x = (i / 4) % canvas.width;
-      const y = Math.floor((i / 4) / canvas.width);
-
-      if (labelPixels.length >= y) {
-        labelPixels.push([]);
-      }
-      const red = data[i] << 24;
-      const green = data[i + 1] << 16;
-      const blue = data[i + 2] << 8;
-      const alpha = data[i + 3];
-      const rgba = red + green + blue + alpha;
-      let label = null;
-      if (!(rgba in labels)) {
-        labels[rgba] = maxLabel;
-        label = maxLabel;
-        maxLabel++;
-      } else {
-        label = labels[rgba];
-      }
-      labelPixels[y].push(label);
-    }
-
-    let pointLabel = labelPixels[10][20];
-    let changed = [];
-    for (let i = 0; i < canvas.height; i++) {
-      changed[i] = [];
-      for (let j = 0; j < canvas.width; j++) {
-        changed[i][j] = false;
-      }
-    }
-    this.getData(changed, image, labelPixels, pointLabel, 10, 20, canvas);
-
-    context.putImageData(image, 0, 0);
-  }
-
-  getData(changed, image, labelPixels, searchLabel, y, x, canvas) {
-    if (y < 0 || x < 0 || y >= canvas.height || x >= canvas.width) {
-      return;
-    }
-    if (changed[y][x]) {
-      return;
-    }
-
-    if (labelPixels[y][x] != searchLabel) {
-      return;
-    }
-    var index = (y * canvas.width + x) * 4;
-    image.data[index] = 255;
-    image.data[index + 1] = 0;
-    image.data[index + 2] = 0;
-    image.data[index + 3] = 255;
-
-    changed[y][x] = true;
-    this.getData(changed, image, labelPixels, searchLabel, y + 1, x, canvas);
-    this.getData(changed, image, labelPixels, searchLabel, y - 1, x, canvas);
-    this.getData(changed, image, labelPixels, searchLabel, y, x + 1, canvas);
-    this.getData(changed, image, labelPixels, searchLabel, y, x - 1, canvas);
-  }
-
   render() {
-    const width = 1280;
-    const height = 640;
+    const width = 128;
+    const height = 64;
 
     this.props.init(width, height);
 
@@ -171,8 +102,6 @@ class IndexPage extends React.Component {
 
         <MainMenu />
 
-        <button type="button" name="paintButton" onClick={ this.onPaintButtonClick }>Paint Mode</button>
-
         <a ref={ (component) => this.downloadLink = component }
            onClick={ this.onSaveButtonClick }
            download="YourFilename.jpg">
@@ -182,13 +111,13 @@ class IndexPage extends React.Component {
 
         {Array(this.props.layerCount).fill(1).map((_, i) => (
             <canvas ref={ (component) => this.canvases[i] = component }
-              width="1280"
-              height="640"
+              width={ width }
+              height={ height }
               style={ style }
+              onClick={ this.onClick }
               onMouseDown={ this.onMouseDown }
               onMouseUp={ this.onMouseUp }
               onMouseMove={ this.onMouseMove }>
-
             </canvas>
         ))}
       </div>

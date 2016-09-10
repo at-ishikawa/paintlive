@@ -6,6 +6,11 @@ class CanvasMode {
   setDragging(isDragging) {
     this.isDragging = isDragging;
   }
+
+  onClick() {}
+  onMouseUp() {}
+  onMouseDown() {}
+  onMouseMove() {}
 }
 
 export default CanvasMode;

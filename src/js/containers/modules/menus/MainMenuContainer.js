@@ -19,7 +19,9 @@ const mapDispatchToProps = (dispatch) => {
 
     },
     onPaintModeClick: () => {
-
+      dispatch({
+        type: ModeTransitions.PAINT_MODE
+      });
     },
 
     onImportImageMenuChange: (event) => {

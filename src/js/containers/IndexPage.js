@@ -26,6 +26,12 @@ const mapDispatchToProps = (dispatch) => {
         canvasContext: context
       });
     },
+    onClick: (point) => {
+      dispatch({
+        type: CanvasEvents.CLICK,
+        point: point
+      });
+    },
     onMouseDown: (point) => {
       dispatch({
         type: CanvasEvents.MOUSE_DOWN,

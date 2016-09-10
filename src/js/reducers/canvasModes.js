@@ -1,4 +1,4 @@
-import { PenMode, SelectMode } from './canvas';
+import { PenMode, SelectMode, PaintMode } from './canvas';
 import { ModeTransitions, CanvasEvents } from '../actions/canvas';
 
 const initialState = {
@@ -33,6 +33,15 @@ function canvasModes(state = initialState, action) {
       mode: new SelectMode(state.canvasContext)
     };
     break;
+  case ModeTransitions.PAINT_MODE:
+    newState = {
+      mode: new PaintMode(state.canvasContext, state.width, state.height)
+    };
+    break;
+
+  case CanvasEvents.CLICK:
+    state.mode.onClick(action.point);
+    return state;
 
   case CanvasEvents.MOUSE_DOWN:
     state.mode.setDragging(true);
