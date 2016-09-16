@@ -1,12 +1,8 @@
 import CanvasMode from './CanvasMode';
 
 class SelectMode extends CanvasMode {
-  constructor() {
-    super();
-  }
-
   getName() {
-    return 'Selct Mode';
+    return "Select";
   }
 
   onMouseUp() {}

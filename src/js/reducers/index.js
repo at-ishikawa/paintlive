@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import canvasModes from './canvasModes';
+import paint from './paint';
 
 export default combineReducers({
-  canvasModes
+  paint
 });

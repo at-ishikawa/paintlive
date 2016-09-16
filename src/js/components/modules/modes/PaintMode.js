@@ -1,18 +1,12 @@
 import CanvasMode from './CanvasMode';
 
 class PaintMode extends CanvasMode {
-  constructor(context, width, height) {
-    super();
-    this.context = context;
-    this.width = width;
-    this.height = height;
-  }
-
   getName() {
-    return 'Paint Mode';
+    return "Paint";
   }
 
-  onClick(point) {
+  onClick(context, point) {
+    this.context = context;
     const left = 0;
     const top = 0;
     const image = this.context.getImageData(left, top, this.width, this.height);

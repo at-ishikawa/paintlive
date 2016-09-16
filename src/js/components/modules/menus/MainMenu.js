@@ -1,7 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import MenuItem from 'material-ui/MenuItem';
+import { PenMode, PaintMode } from '../modes/';
+import { setMode } from '../../../actions/canvas/toolbar';
+import { addLayer } from '../../../actions/canvas/layer';
 
-class MainMenu extends React.Component {
+class MainMenuComponent extends React.Component {
   render() {
     return (
       <div>
@@ -33,5 +37,48 @@ class MainMenu extends React.Component {
     );
   }
 }
+
+const mapStateToProps = () => {
+  return {
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onPenModeClick: () => {
+      dispatch(setMode(new PenMode(null)));
+    },
+    onSelectModeClick: () => {
+
+    },
+    onPaintModeClick: () => {
+      dispatch(setMode(new PaintMode(null)));
+    },
+
+    onImportImageMenuChange: (event) => {
+      var files = event.target.files;
+      if (!files.length) {
+        return;
+      }
+
+      dispatch({
+        type: 'import image',
+        files: files
+      });
+    },
+
+    onExportImageMenuClick: () => {
+    },
+
+    onAddCanvasLayerClick: () => {
+      dispatch(addLayer());
+    }
+  };
+}
+
+const MainMenu = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainMenuComponent);
 
 export default MainMenu;

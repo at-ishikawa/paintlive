@@ -7,7 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Container from './components/layouts/Container';
-import IndexPage from './containers/IndexPage';
+import IndexPage from './components/pages/IndexPage';
 import ErrorPage from './components/pages/ErrorPage';
 import reducers from './reducers';
 
