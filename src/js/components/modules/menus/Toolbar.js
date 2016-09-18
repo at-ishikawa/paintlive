@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MenuItem from 'material-ui/MenuItem';
 import { PenMode, PaintMode } from '../modes/';
-import { setMode } from '../../../actions/canvas/toolbar';
-import { addLayer } from '../../../actions/canvas/layer';
+import { setMode } from '../../../actions/paint/toolbar';
 
 class MainMenuComponent extends React.Component {
   render() {
@@ -27,11 +26,6 @@ class MainMenuComponent extends React.Component {
              <MenuItem primaryText="Export Image" onClick={ this.props.onExportImageMenuClick } />
          ]} />
         <input ref="importImageFile" type="file" style={{ "display" : "none" }} onChange={ this.props.onImportImageMenuChange } />
-
-        <MenuItem primaryText="Layer"
-          menuItems={[
-            <MenuItem primaryText="addLayer" onClick={ this.props.onAddCanvasLayerClick } />
-          ]} />
 
       </div>
     );
@@ -68,10 +62,6 @@ const mapDispatchToProps = (dispatch) => {
     },
 
     onExportImageMenuClick: () => {
-    },
-
-    onAddCanvasLayerClick: () => {
-      dispatch(addLayer());
     }
   };
 }

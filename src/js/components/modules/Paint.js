@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as PaintActions from '../../actions/canvas/paint';
+import * as PaintActions from '../../actions/paint/paint';
 
 class PaintComponent extends React.Component {
 
@@ -12,23 +12,22 @@ class PaintComponent extends React.Component {
     this.onMouseUp = this.onMouseUp.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.canvases = [];
-    this.contexts = [];
   }
 
   componentWillMount() {
-    const width = 128;
-    const height = 64;
-    this.props.initialize(width, height);
   }
 
   componentDidMount() {
-    // this.contexts[this.currentLayerIndex] = this.canvases[this.currentLayerIndex].getContext('2d');
+    const width = 128;
+    const height = 64;
+    var context = this.canvases[this.props.currentLayerIndex].getContext('2d');
+    this.props.initialize(width, height, context);
   }
 
   componentDidUpdate() {
-    if (this.contexts.length < this.canvases.length) {
-      for (var i = this.contexts.length; i < this.canvases.length; i++) {
-        this.contexts[i] = this.canvases[i].getContext('2d');
+    if (this.props.layerCount < this.canvases.length) {
+      for (var i = this.props.layerCount; i < this.canvases.length; i++) {
+        // this.contexts[i] = this.canvases[i].getContext('2d');
       }
     }
   }
@@ -46,25 +45,25 @@ class PaintComponent extends React.Component {
   onClick(event) {
     const point = this.getCanvasPoint(event);
     this.props.onClickPaint(point);
-    this.props.currentMode.onClick(this.contexts[this.props.currentLayerIndex], point);
+    this.props.currentMode.onClick(this.props.currentContext, point);
   }
 
   onMouseDown(event) {
     const point = this.getCanvasPoint(event);
     this.props.onMouseDownPaint(point);
-    this.props.currentMode.onMouseDown(this.contexts[this.props.currentLayerIndex], point);
+    this.props.currentMode.onMouseDown(this.props.currentContext, point);
   }
 
   onMouseUp(event) {
     const point = this.getCanvasPoint(event);
     this.props.onMouseUpPaint(point);
-    this.props.currentMode.onMouseUp(this.contexts[this.props.currentLayerIndex], point);
+    this.props.currentMode.onMouseUp(this.props.currentContext, point);
   }
 
   onMouseMove(event) {
     const point = this.getCanvasPoint(event);
     this.props.onMouseMovePaint(point);
-    this.props.currentMode.onMouseMove(this.contexts[this.props.currentLayerIndex], point, this.props.isDragging);
+    this.props.currentMode.onMouseMove(this.props.currentContext, point, this.props.isDragging);
   }
 
   render() {
@@ -72,8 +71,8 @@ class PaintComponent extends React.Component {
     const height = 64;
 
     const style = {
-      width: '1280px',
-      height: '640px',
+      width: '760px',
+      height: '480px',
       border: '1px solid',
       position: 'absolute'
     };

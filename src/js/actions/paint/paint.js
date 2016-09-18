@@ -7,9 +7,10 @@ export const {
   onMouseUpPaint,
   onMouseMovePaint
 } = createActions({
-  INITIALIZE: (width, height) => ({
+  INITIALIZE: (width, height, context) => ({
     width: width,
-    height: height
+    height: height,
+    context: context
   }),
   ON_CLICK_PAINT: (point) => ({
     point: point

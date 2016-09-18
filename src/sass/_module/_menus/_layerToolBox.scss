@@ -1,0 +1,30 @@
+.layerToolBox {
+  &__layerList {
+    padding: 0;
+    overflow-y: scroll;
+    height: 200px;
+
+    &__item {
+      display: flex;
+      flex-direction: row;
+      padding: 8px;
+
+      &__name {
+      }
+
+      &__visible {
+        margin: auto;
+      }
+
+      &:hover {
+        background: #dddddd;
+        opacity: 0.5;
+      }
+
+      &.isSelected {
+        background: #dddddd;
+        opacity: 0.8;
+      }
+    }
+  }
+}

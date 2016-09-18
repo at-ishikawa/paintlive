@@ -1,7 +1,7 @@
 import React from 'react';
 import DocumentMeta from 'react-document-meta';
 import Env from 'Env';
-import MainMenu from '../modules/menus/MainMenu';
+import { Toolbar, PaintToolBox, LayerToolBox } from '../modules/menus';
 import Paint from '../modules/Paint';
 
 class IndexPage extends React.Component {
@@ -30,23 +30,31 @@ class IndexPage extends React.Component {
     };
 
     return (
-      <div>
+      <div style={{ "display": "flex" }}>
         <DocumentMeta {...meta} />
-        Draw Page
-        <br />
-        Mode: { this.props.currentMode ? this.props.currentMode.getName() : 'Unset' }
-        <br />
+        <div>
+          <Toolbar />
+        </div>
 
-        <MainMenu />
+        <div style={{ "flex": 1 }}>
+          Draw Page
+          <br />
+          Mode: { this.props.currentMode ? this.props.currentMode.getName() : 'Unset' }
+          <br />
 
-        <a ref={ (component) => this.downloadLink = component }
-           onClick={ this.onSaveButtonClick }
-           download="YourFilename.jpg">
-           Download as image
-        </a>
-        <br />
+          <a ref={ (component) => this.downloadLink = component }
+             onClick={ this.onSaveButtonClick }
+             download="YourFilename.jpg">
+             Download as image
+          </a>
+          <br />
+          <Paint />
+        </div>
 
-        <Paint />
+        <div>
+          <PaintToolBox />
+          <LayerToolBox />
+        </div>
 
       </div>
     )
