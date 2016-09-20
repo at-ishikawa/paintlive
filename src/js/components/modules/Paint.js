@@ -14,20 +14,18 @@ class PaintComponent extends React.Component {
     this.canvases = [];
   }
 
-  componentWillMount() {
-  }
-
   componentDidMount() {
-    const width = 128;
-    const height = 64;
+    const width = 760;
+    const height = 480;
     var context = this.canvases[this.props.currentLayerIndex].getContext('2d');
     this.props.initialize(width, height, context);
   }
 
   componentDidUpdate() {
-    if (this.props.layerCount < this.canvases.length) {
-      for (var i = this.props.layerCount; i < this.canvases.length; i++) {
-        // this.contexts[i] = this.canvases[i].getContext('2d');
+    if (this.props.contexts.length < this.canvases.length) {
+      for (var i = this.props.contexts.length; i < this.canvases.length; i++) {
+        let context = this.canvases[i].getContext('2d');
+        this.props.setContext(i, context);
       }
     }
   }
@@ -67,8 +65,8 @@ class PaintComponent extends React.Component {
   }
 
   render() {
-    const width = 128;
-    const height = 64;
+    const width = 760;
+    const height = 480;
 
     const style = {
       width: '760px',
@@ -79,15 +77,18 @@ class PaintComponent extends React.Component {
 
     return (
       <div>
-        {Array(this.props.layerCount).fill(1).map((_, i) => (
-            <canvas ref={ (component) => this.canvases[i] = component }
+        {Array(this.props.layers.length).fill(1).map((_, i) => (
+            <canvas key={ i }
+                    ref={ (component) => this.canvases[i] = component }
                     width={ width }
                     height={ height }
                     style={ style }
                     onClick={ this.onClick }
                     onMouseDown={ this.onMouseDown }
                     onMouseUp={ this.onMouseUp }
-                    onMouseMove={ this.onMouseMove }>
+                    onMouseMove={ this.onMouseMove }
+                    hidden={ !this.props.layers[i].isVisible }
+            >
             </canvas>
         ))}
       </div>
@@ -97,7 +98,11 @@ class PaintComponent extends React.Component {
 
 
 const mapStateToProps = (state) => {
-  return state.reducers.paint;
+  const paint = state.reducers.paint;
+  const props = Object.assign({}, paint, {
+    currentContext: paint.contexts[paint.currentLayerIndex]
+  });
+  return props;
 }
 
 const mapDispatchToProps = (dispatch) => {

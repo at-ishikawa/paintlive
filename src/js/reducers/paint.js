@@ -4,13 +4,24 @@ const paint = handleActions({
   INITIALIZE: (state, action) => ({
     ...state,
     contexts: [action.payload.context],
-    currentContext: action.payload.context,
     width: action.payload.width,
     height: action.payload.height
   }),
   SET_MODE: (state, action) => ({
     ...state,
     currentMode: action.payload.mode
+  }),
+  SET_PAINT_MODE: (state, action) => ({
+    ...state,
+    currentMode: action.payload.mode
+  }),
+  SET_CONTEXT: (state, action) => ({
+    ...state,
+    contexts: (function() {
+      let newContexts = state.contexts.concat();
+      newContexts[action.payload.layerIndex] = action.payload.context;
+      return newContexts;
+    })()
   }),
 
   ADD_LAYER: (state) => ({
@@ -84,7 +95,6 @@ const paint = handleActions({
   })
 }, {
   contexts: [],
-  currentContext: null,
   width: null,
   height: null,
   layers: [{

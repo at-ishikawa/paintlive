@@ -24,17 +24,21 @@ class LayerToolBoxComponent extends React.Component {
             { this.props.layers.map((function (layer, index) {
               var className = this.props.currentLayerIndex == index ? "isSelected" : "";
               return (
-                <li className={ "layerToolBox__layerList__item " + className } onClick={ () => { this.props.selectLayer(index) } }>
+                <li key={ index }
+                    className={ "layerToolBox__layerList__item " + className }
+                    onClick={ () => { this.props.selectLayer(index) } }>
                   <TextField
                      className="layerToolBox__layerList__item__name"
                      value={ layer.name }
+                     name={ "layer_name_" + index }
                      onChange={ (event) => { this.props.setLayerName(index, event.target.value) } }
                     />
                   <span className="layerToolBox__layerList__item__visible">
                     <Checkbox
                        labelPosition="left"
+                       name={ "layer_is_visible_" + index }
                        onCheck={ (event) => { this.props.setLayerVisible(index, event.target.checked) } }
-                      checked={ layer.isVisible }
+                       defaultChecked={ layer.isVisible }
                       />
                   </span>
                 </li>

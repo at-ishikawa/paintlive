@@ -2,18 +2,27 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PaintToolBoxActions from '../../../actions/paint/paintToolBox';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import { PenMode, SelectMode, PaintMode } from '../modes/';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 
 class PaintToolBoxComponent extends React.Component {
   render() {
     return (
-      <Card>
+      <Card expanded={ true }
+            expandable={ true }>
         <CardHeader
           title="Paint Toolbox"
           showExpandableButton={ true }
           />
         <CardText expandable={ true }>
-          Paint ToolBox
+          <ul>
+            <li onClick={ () => ( this.props.setMode(new PenMode()) ) }>Pen</li>
+            <li onClick={ () => ( this.props.setMode(new SelectMode()) ) }>Select</li>
+            <li onClick={ () => ( this.props.setMode(new PaintMode()) ) }>Paint</li>
+          </ul>
+          <div>
+
+          </div>
         </CardText>
       </Card>
     );

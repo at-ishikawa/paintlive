@@ -2,6 +2,7 @@ import { createActions } from 'redux-actions';
 
 export const {
   initialize,
+  setContext,
   onClickPaint,
   onMouseDownPaint,
   onMouseUpPaint,
@@ -12,6 +13,11 @@ export const {
     height: height,
     context: context
   }),
+  SET_CONTEXT: (index, context) => ({
+    layerIndex: index,
+    context: context
+  }),
+
   ON_CLICK_PAINT: (point) => ({
     point: point
   }),

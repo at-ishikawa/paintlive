@@ -1,7 +1,9 @@
 import { createActions } from 'redux-actions';
 
 export const {
-  sample
+  setMode
 } = createActions({
-  SAMPLE: () => ({})
+  SET_MODE: (mode) => ({
+    mode: mode
+  })
 });
