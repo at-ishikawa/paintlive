@@ -27,6 +27,7 @@ const paint = handleActions({
   ADD_LAYER: (state) => ({
     ...state,
     layers: state.layers.concat({
+      id: Math.floor(Math.random() * (1 << 30)),
       name: 'Layer ' + (state.layers.length + 1),
       isVisible: true
     })
@@ -35,13 +36,23 @@ const paint = handleActions({
     ...state,
     layers: (function() {
       if (state.layers.length <= 1) {
-        return state.layers
+        return state.layers;
       }
 
       var newLayers = state.layers.concat();
       newLayers.splice(state.currentLayerIndex, 1);
 
       return newLayers;
+    })(),
+    contexts: (function() {
+      if (state.layers.length <= 1) {
+        return state.contexts;
+      }
+
+      var newContexts = state.contexts.concat();
+      newContexts.splice(state.currentLayerIndex, 1);
+
+      return newContexts;
     })(),
     currentLayerIndex: (function() {
       if (state.layers.length <= 1) {

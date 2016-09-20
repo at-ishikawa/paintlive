@@ -77,8 +77,8 @@ class PaintComponent extends React.Component {
 
     return (
       <div>
-        {Array(this.props.layers.length).fill(1).map((_, i) => (
-            <canvas key={ i }
+        {this.props.layers.map((layer, i) => (
+            <canvas key={ layer.id }
                     ref={ (component) => this.canvases[i] = component }
                     width={ width }
                     height={ height }
@@ -87,7 +87,7 @@ class PaintComponent extends React.Component {
                     onMouseDown={ this.onMouseDown }
                     onMouseUp={ this.onMouseUp }
                     onMouseMove={ this.onMouseMove }
-                    hidden={ !this.props.layers[i].isVisible }
+                    hidden={ !layer.isVisible }
             >
             </canvas>
         ))}
