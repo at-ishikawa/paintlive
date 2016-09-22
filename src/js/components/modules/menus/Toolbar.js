@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import request from 'superagent';
 import MenuItem from 'material-ui/MenuItem';
 import { PenMode, PaintMode } from '../modes/';
 import { setMode } from '../../../actions/paint/toolbar';
@@ -40,11 +41,14 @@ const mapStateToProps = () => {
 function saveImage() {
   return dispatch => {
     // console.log('saveImage immediate comment');
-    setTimeout(() => {
-      // console.log('saveImage async');
-      dispatch({
+    request.post('http://localhost:8000/images')
+      .set('Accept', 'application/json')
+      .end((error, response) => {
+        dispatch({
+          error: error,
+          message: response
+        });
       });
-    }, 5000);
   };
 }
 
