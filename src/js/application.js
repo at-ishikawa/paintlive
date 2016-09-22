@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
@@ -10,16 +10,20 @@ import Container from './components/layouts/Container';
 import IndexPage from './components/pages/IndexPage';
 import ErrorPage from './components/pages/ErrorPage';
 import reducers from './reducers';
+import { socketIoMiddleware, syncWithServer } from './middlewares/socketIoMiddleware';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
+// TODO Refactor
 const store = createStore(
   combineReducers({
     reducers,
     routing: routerReducer
-  })
+  }),
+  applyMiddleware(socketIoMiddleware)
 );
+syncWithServer(store);
 
 const history = syncHistoryWithStore(browserHistory, store);
 
