@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -21,7 +22,7 @@ const store = createStore(
     reducers,
     routing: routerReducer
   }),
-  applyMiddleware(socketIoMiddleware)
+  applyMiddleware(thunk, socketIoMiddleware)
 );
 syncWithServer(store);
 

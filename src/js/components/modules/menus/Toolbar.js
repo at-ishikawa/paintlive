@@ -10,7 +10,7 @@ class MainMenuComponent extends React.Component {
       <div>
         <MenuItem primaryText="File"
                   menuItems={[
-                      <MenuItem primaryText="Save" />,
+                      <MenuItem primaryText="Save" onClick={ this.props.onSaveClick } />,
                       <MenuItem primaryText="Open" />
                   ]}
         />
@@ -37,8 +37,22 @@ const mapStateToProps = () => {
   }
 }
 
+function saveImage() {
+  return dispatch => {
+    // console.log('saveImage immediate comment');
+    setTimeout(() => {
+      // console.log('saveImage async');
+      dispatch({
+      });
+    }, 5000);
+  };
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
+    onSaveClick: () => {
+      dispatch(saveImage());
+    },
     onPenModeClick: () => {
       dispatch(setMode(new PenMode(null)));
     },
