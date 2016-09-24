@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import request from 'superagent';
 import MenuItem from 'material-ui/MenuItem';
-import { PenMode, PaintMode } from '../modes/';
-import { setMode } from '../../../actions/paint/toolbar';
+import { PenMode, PaintMode } from './modes/';
+import { setMode } from '../../../actions/editor/toolbar';
 
 class MainMenuComponent extends React.Component {
   render() {

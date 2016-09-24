@@ -1,6 +1,3 @@
-import { combineReducers } from 'redux';
-import paint from './paint';
+import paint from './editor/paint';
 
-export default combineReducers({
-  paint
-});
+export default { paint };

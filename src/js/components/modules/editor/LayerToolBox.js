@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as LayerToolBoxActions from '../../../actions/paint/layer';
+import * as LayerToolBoxActions from '../../../actions/editor/layer';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -57,8 +57,8 @@ class LayerToolBoxComponent extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    layers: state.reducers.paint.layers,
-    currentLayerIndex: state.reducers.paint.currentLayerIndex
+    layers: state.paint.layers,
+    currentLayerIndex: state.paint.currentLayerIndex
   };
 }
 

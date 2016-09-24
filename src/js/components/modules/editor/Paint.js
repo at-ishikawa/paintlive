@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as PaintActions from '../../actions/paint/paint';
+import * as PaintActions from '../../../actions/editor/paint';
 
 class PaintComponent extends React.Component {
 
@@ -98,7 +98,7 @@ class PaintComponent extends React.Component {
 
 
 const mapStateToProps = (state) => {
-  const paint = state.reducers.paint;
+  const paint = state.paint;
   const props = Object.assign({}, paint, {
     currentContext: paint.contexts[paint.currentLayerIndex]
   });

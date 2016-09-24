@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import GoogleTagManager from '../GoogleTagManager';
+import Header from '../modules/Header';
+import Footer from '../modules/Footer';
+import GoogleTagManager from '../modules/GoogleTagManager';
 import Env from 'Env';
 
 import '_base/_base.scss';
