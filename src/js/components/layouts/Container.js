@@ -1,23 +1,20 @@
 import React from 'react';
-import Header from '../modules/Header';
-import Footer from '../modules/Footer';
 import GoogleTagManager from '../modules/GoogleTagManager';
 import Env from 'Env';
-
-import '_base/_base.scss';
-import '_layout/_layout-container.scss';
-import '_layout/_layout-main.scss';
+import DevTools from '../modules/DevTools';
 
 class Container extends React.Component {
   render() {
+    let devTools = null;
+    if (process.env.NODE_ENV === 'development') {
+      devTools = <DevTools />;
+    }
+
     return (
-      <div className="layout-container">
+      <div>
         <GoogleTagManager gtmId={Env.gtmId} />
-        <Header />
-        <main className="layout-main">
-          {this.props.children}
-        </main>
-        <Footer />
+        { this.props.children }
+        { devTools }
       </div>
     );
   }

@@ -18,7 +18,6 @@ class IndexPageComponent extends React.Component {
       description: 'Sample Description',
       canonical: Env.appUrl + this.props.location.pathname,
       meta: {
-        charset: 'utf-8',
         name: {
           keywords: 'sample'
         }
