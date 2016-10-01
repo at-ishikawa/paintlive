@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -20,9 +20,10 @@ ReactDOM.render((
   <MuiThemeProvider muiTheme={ getMuiTheme() }>
     <Provider store={ store }>
       <Router history={ history }>
+        <Route path="/" component={ IndexPage } />
         <Route path="/editor" component={ EditorPage } />
+
         <Route path="/" component={ Container }>
-          <IndexRoute component={ IndexPage } />
           <Route path="*" component={ ErrorPage } />
         </Route>
       </Router>
