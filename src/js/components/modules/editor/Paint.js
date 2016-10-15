@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PaintActions from '../../../actions/editor/paint';
 
+import "_module/_editor/_paint.scss";
+
 class PaintComponent extends React.Component {
 
   constructor(props) {
@@ -68,29 +70,31 @@ class PaintComponent extends React.Component {
     const width = 760;
     const height = 480;
 
-    const style = {
-      width: '760px',
-      height: '480px',
-      border: '1px solid',
-      position: 'absolute'
-    };
-
     return (
-      <div>
-        {this.props.layers.map((layer, i) => (
+      <div className="paint">
+        <div className="paint__header">
+          New Image
+        </div>
+        <div className="paint__canvasContainer">
+          {this.props.layers.map((layer, i) => (
             <canvas key={ layer.id }
                     ref={ (component) => this.canvases[i] = component }
-                    width={ width }
-                    height={ height }
-                    style={ style }
-                    onClick={ this.onClick }
-                    onMouseDown={ this.onMouseDown }
-                    onMouseUp={ this.onMouseUp }
-                    onMouseMove={ this.onMouseMove }
-                    hidden={ !layer.isVisible }
-            >
-            </canvas>
-        ))}
+              className="paint__canvas"
+              width={ width }
+              height={ height }
+              onClick={ this.onClick }
+              onMouseDown={ this.onMouseDown }
+              onMouseUp={ this.onMouseUp }
+              onMouseMove={ this.onMouseMove }
+              hidden={ !layer.isVisible }
+              >
+</canvas>
+          ))}
+        </div>
+
+        <div className="paint__footer">
+          Mode: PenMode, Point(x, y)
+        </div>
       </div>
     )
   }

@@ -6,6 +6,8 @@ import Toolbar from '../modules/editor/Toolbar';
 import PaintToolBox from '../modules/editor/PaintToolBox';
 import LayerToolBox from '../modules/editor/LayerToolBox';
 
+import "_page/_editor";
+
 class EditorPage extends React.Component {
 
   constructor(props) {
@@ -32,13 +34,12 @@ class EditorPage extends React.Component {
     };
 
     return (
-      <div style={{ "display": "flex" }}>
+      <div className="layout-container">
         <DocumentMeta {...meta} />
-        <div>
-          <Toolbar />
-        </div>
+        <Toolbar />
 
-        <div style={{ "flex": 1 }}>
+        <div className="layout-main">
+          {/*
           Draw Page
           <br />
           Mode: { this.props.currentMode ? this.props.currentMode.getName() : 'Unset' }
@@ -50,14 +51,20 @@ class EditorPage extends React.Component {
              Download as image
           </a>
           <br />
-          <Paint />
-        </div>
+          */}
+          <div className="page-editorContainer">
+            <div>
+              <PaintToolBox />
+            </div>
 
-        <div>
-          <PaintToolBox />
-          <LayerToolBox />
+            <div className="page-paintContainer">
+              <Paint />
+            </div>
+            <div>
+              <LayerToolBox />
+            </div>
+          </div>
         </div>
-
       </div>
     )
   }

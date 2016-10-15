@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+$white: #eeeeee;
+$gray: #bbbbbb;
+
+@mixin highlight-color($alpha: 0.5) {
+  background-color: rgba(16, 128, 240, $alpha);
+}
+
+@mixin hover-color() {
+  @include highlight-color(0.125);
+}
+
+@mixin selected-color() {
+  @include highlight-color(0.25);
+}

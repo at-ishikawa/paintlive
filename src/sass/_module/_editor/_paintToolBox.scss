@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+@import "../../_base/variable";
+
+.toolBox {
+  background-color: $white;
+  padding: 8px;
+  border: 1px solid;
+
+  &__item {
+    padding: 8px;
+    cursor: pointer;
+
+    &:hover {
+      @include hover-color;
+    }
+
+    &.isSelected {
+      @include selected-color;
+    }
+  }
+}

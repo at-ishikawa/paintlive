@@ -1,33 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import request from 'superagent';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
+import IconMenu from 'material-ui/IconMenu';
 import { PenMode, PaintMode } from './modes/';
 import { setMode } from '../../../actions/editor/toolbar';
+
+import "_module/_editor/_toolbar";
 
 class MainMenuComponent extends React.Component {
   render() {
     return (
       <div>
-        <MenuItem primaryText="File"
-                  menuItems={[
-                      <MenuItem primaryText="Save" onClick={ this.props.onSaveClick } />,
-                      <MenuItem primaryText="Open" />
-                  ]}
-        />
-        <MenuItem primaryText="Mode"
-         menuItems={[
-           <MenuItem primaryText="Pen Mode" onClick={ this.props.onPenModeClick }/>,
-           <MenuItem primaryText="Select Mode" onClick={ this.props.onSelectModeClick }/>,
-           <MenuItem primaryText="Paint Mode" onClick={ this.props.onPaintModeClick }/>
-         ]} />
-        <MenuItem primaryText="View"
-         menuItems={[
-             <MenuItem primaryText="Import Image" onClick={ () => this.refs.importImageFile.click() } />,
-             <MenuItem primaryText="Export Image" onClick={ this.props.onExportImageMenuClick } />
-         ]} />
+        <Toolbar>
+          <ToolbarGroup firstChild={ true }>
+            <IconMenu className="menu"
+                      iconButtonElement={ <FlatButton>File</FlatButton> }
+               >
+              <MenuItem primaryText="Export" onClick={ this.props.onSaveClick } />
+            </IconMenu>
+            <IconMenu className="menu"
+                      iconButtonElement={ <FlatButton>Image</FlatButton> }
+               >
+              <MenuItem primaryText="Import" />
+            </IconMenu>
+          </ToolbarGroup>
+        </Toolbar>
         <input ref="importImageFile" type="file" style={{ "display" : "none" }} onChange={ this.props.onImportImageMenuChange } />
-
       </div>
     );
   }

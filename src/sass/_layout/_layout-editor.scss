@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+@import "config";
+@import "../_base/variable";
+
+body {
+  background-color: $gray;
+}
+
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  max-width: 1600px;
+  margin: auto;
+}
+
+.layout-main {
+  flex: 1 0 auto;
+}
