@@ -6,6 +6,9 @@
   background-color: $white;
   padding: 8px;
   border: 1px solid;
+  position: relative;
+  z-index: 1;
+  width: 40px;
 
   &__item {
     padding: 8px;
