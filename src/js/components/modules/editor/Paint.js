@@ -45,24 +45,28 @@ class PaintComponent extends React.Component {
   onClick(event) {
     const point = this.getCanvasPoint(event);
     this.props.onClickPaint(point);
+    this.props.currentMode.setColor(this.props.color);
     this.props.currentMode.onClick(this.props.currentContext, point);
   }
 
   onMouseDown(event) {
     const point = this.getCanvasPoint(event);
     this.props.onMouseDownPaint(point);
+    this.props.currentMode.setColor(this.props.color);
     this.props.currentMode.onMouseDown(this.props.currentContext, point);
   }
 
   onMouseUp(event) {
     const point = this.getCanvasPoint(event);
     this.props.onMouseUpPaint(point);
+    this.props.currentMode.setColor(this.props.color);
     this.props.currentMode.onMouseUp(this.props.currentContext, point);
   }
 
   onMouseMove(event) {
     const point = this.getCanvasPoint(event);
     this.props.onMouseMovePaint(point);
+    this.props.currentMode.setColor(this.props.color);
     this.props.currentMode.onMouseMove(this.props.currentContext, point, this.props.isDragging);
   }
 
@@ -93,7 +97,8 @@ class PaintComponent extends React.Component {
         </div>
 
         <div className="paint__footer">
-          Mode: PenMode, Point(x, y)
+          Mode: { this.props.currentMode ? this.props.currentMode.getName() : 'No Select' },
+          Point: { this.props.currentPoint ? '(' + this.props.currentPoint.x + ', ' + this.props.currentPoint.y + ')' : '(x, y)' },
         </div>
       </div>
     )

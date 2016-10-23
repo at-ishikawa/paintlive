@@ -103,6 +103,11 @@ const paint = handleActions({
   ON_MOUSE_MOVE_PAINT: (state, action) => ({
     ...state,
     currentPoint: action.payload.point
+  }),
+
+  CHANGE_COLOR: (state, action) => ({
+    ...state,
+    color: action.payload.color
   })
 }, {
   contexts: [],
@@ -116,7 +121,11 @@ const paint = handleActions({
   currentMode: null,
 
   currentPoint: null,
-  isDragging: false
+  isDragging: false,
+
+  color: {
+    hex: "#ffffff"
+  }
 });
 
 export default paint;

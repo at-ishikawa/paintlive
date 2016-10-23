@@ -20,6 +20,8 @@ class PenMode extends CanvasMode {
     }
 
     context.lineTo(point.x, point.y);
+    context.strokeStyle = this.color.hex;
+    context.lineWidth = 20;
     context.stroke();
   }
 }
