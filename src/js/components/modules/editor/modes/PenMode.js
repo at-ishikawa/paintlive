@@ -1,28 +1,56 @@
 import CanvasMode from './CanvasMode';
 
 class PenMode extends CanvasMode {
-  getName() {
+
+  constructor() {
+    super();
+    this.lineWidth = 1;
+  }
+
+  getName = () => {
     return "Pen";
   }
 
-  onMouseDown(context, point) {
-    context.beginPath();
-    context.moveTo(point.x, point.y);
+  getMouseUpAction = (properties) => {
+    const { point, layer, color } = { ...properties };
+    return {
+      mode: this.getName(),
+      point: point,
+      isFirstPoint: false,
+      isLastPoint: true,
+      strokeStyle: color.hex,
+      lineWidth: this.lineWidth,
+      layerId: layer.id
+    }
   }
 
-  onMouseUp(context) {
-    context.closePath();
+  getMouseDownAction = (properties) => {
+    const { point, layer, color } = { ...properties };
+    return {
+      mode: this.getName(),
+      point: point,
+      isFirstPoint: true,
+      isLastPoint: false,
+      layerId: layer.id,
+      strokeStyle: color.hex
+    }
   }
 
-  onMouseMove(context, point, isDragging) {
+  getMouseMoveAction = (properties) => {
+    const { point, layer, color, isDragging } = { ...properties };
     if (!isDragging) {
       return;
     }
 
-    context.lineTo(point.x, point.y);
-    context.strokeStyle = this.color.hex;
-    context.lineWidth = 20;
-    context.stroke();
+    return {
+      mode: this.getName(),
+      point: point,
+      isFirstPoint: false,
+      isLastPoint: false,
+      strokeStyle: color.hex,
+      lineWidth: this.lineWidth,
+      layerId: layer.id
+    }
   }
 }
 

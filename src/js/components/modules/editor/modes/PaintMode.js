@@ -78,6 +78,13 @@ class PaintMode extends CanvasMode {
   onMouseUp() {}
   onMouseDown() {}
   onMouseMove() {}
+
+  getClickAction(point) {
+    return {
+      mode: this.getName(),
+      point: point
+    }
+  }
 }
 
 export default PaintMode;

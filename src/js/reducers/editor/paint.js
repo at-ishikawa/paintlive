@@ -1,5 +1,20 @@
 import { handleActions } from 'redux-actions';
 
+const addPaintAction = (state, logCreator, action) => {
+  var log = logCreator({
+    point: action.point,
+    layer: state.layers[state.currentLayerIndex],
+    color: state.color,
+    isDragging: state.isDragging
+  });
+  if (log) {
+    const newHistory = state.history.concat();
+    newHistory.push(log);
+    return newHistory;
+  }
+  return state.history;
+}
+
 const paint = handleActions({
   INITIALIZE: (state, action) => ({
     ...state,
@@ -88,20 +103,24 @@ const paint = handleActions({
 
   ON_CLICK_PAINT: (state, action) => ({
     ...state,
+    history: addPaintAction(state, state.currentMode.getClickAction, action.payload),
     currentPoint: action.payload.point
   }),
   ON_MOUSE_DOWN_PAINT: (state, action) => ({
     ...state,
+    history: addPaintAction(state, state.currentMode.getMouseDownAction, action.payload),
     currentPoint: action.payload.point,
     isDragging: true
   }),
   ON_MOUSE_UP_PAINT: (state, action) => ({
     ...state,
+    history: addPaintAction(state, state.currentMode.getMouseUpAction, action.payload),
     currentPoint: action.payload.point,
     isDragging: false
   }),
   ON_MOUSE_MOVE_PAINT: (state, action) => ({
     ...state,
+    history: addPaintAction(state, state.currentMode.getMouseMoveAction, action.payload),
     currentPoint: action.payload.point
   }),
 
@@ -114,6 +133,7 @@ const paint = handleActions({
   width: null,
   height: null,
   layers: [{
+    id: Math.floor(Math.random() * (1 << 30)),
     name: 'Background',
     isVisible: true
   }],
@@ -125,7 +145,9 @@ const paint = handleActions({
 
   color: {
     hex: "#ffffff"
-  }
+  },
+
+  history: []
 });
 
 export default paint;

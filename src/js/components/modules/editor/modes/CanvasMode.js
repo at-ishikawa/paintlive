@@ -8,6 +8,11 @@ class CanvasMode {
   onMouseUp() {}
   onMouseDown() {}
   onMouseMove() {}
+
+  getClickAction() {}
+  getMouseUpAction() {}
+  getMouseDownAction() {}
+  getMouseMoveAction() {}
 }
 
 export default CanvasMode;
