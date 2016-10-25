@@ -19,8 +19,11 @@ class PaintComponent extends React.Component {
     this.props.initialize(width, height, context);
 
     const render = () => {
-      this.draw();
-      requestAnimationFrame(render);
+      try {
+        this.draw();
+      } finally {
+        requestAnimationFrame(render);
+      }
     };
     requestAnimationFrame(render);
   }
@@ -31,7 +34,8 @@ class PaintComponent extends React.Component {
     });
 
     const drawFunctions = {
-      'Pen': this.drawLine
+      'Pen': this.drawLine,
+      'Paint': this.drawPaint
     };
 
     this.props.history.forEach((log) => {
@@ -63,6 +67,76 @@ class PaintComponent extends React.Component {
     }
   }
 
+  drawPaint = (log) => {
+    const context = this.getContext(log.layerId);
+    const { point, color } = { ...log };
+    const canvas = context.canvas;
+    const left = 0;
+    const top = 0;
+    const image = context.getImageData(left, top, canvas.width, canvas.height);
+
+    let changed = [];
+    for (let i = 0; i < canvas.height; i++) {
+      changed[i] = [];
+      for (let j = 0; j < canvas.width; j++) {
+        changed[i][j] = false;
+      }
+    }
+    var imageData = image.data;
+
+    let pointPixels = [point];
+    let selectedIndex = (point.y * canvas.width + point.x) * 4;
+    const selectedPointImageData = [
+      imageData[selectedIndex],
+      imageData[selectedIndex + 1],
+      imageData[selectedIndex + 2],
+      imageData[selectedIndex + 3]
+    ];
+    while (pointPixels.length > 0) {
+      var { x, y } = { ...pointPixels.pop() };
+      if (y < 0 || x < 0 || y >= canvas.height || x >= canvas.width) {
+        continue;
+      }
+      if (changed[y][x]) {
+        continue;
+      }
+
+      var index = (y * canvas.width + x) * 4;
+      const isSameColor = selectedPointImageData[0] == imageData[index] &&
+            selectedPointImageData[1] == imageData[index + 1] &&
+            selectedPointImageData[2] == imageData[index + 2] &&
+            selectedPointImageData[3] == imageData[index + 3];
+
+      if (index != selectedIndex && !isSameColor) {
+        continue;
+      }
+
+      imageData[index] = color.rgb.r;
+      imageData[index + 1] = color.rgb.g;
+      imageData[index + 2] = color.rgb.b;
+      imageData[index + 3] = color.rgb.a * 255;
+
+      changed[y][x] = true;
+      pointPixels.push({
+        y: y + 1,
+        x: x
+      });
+      pointPixels.push({
+        y: y - 1,
+        x: x
+      });
+      pointPixels.push({
+        y: y,
+        x: x + 1
+      });
+      pointPixels.push({
+        y: y,
+        x: x - 1
+      });
+    }
+    context.putImageData(image, 0, 0);
+  }
+
   componentDidUpdate() {
     if (this.props.contexts.length < this.canvases.length) {
       for (var i = this.props.contexts.length; i < this.canvases.length; i++) {
@@ -72,11 +146,11 @@ class PaintComponent extends React.Component {
     }
   }
 
-  getCanvasPoint(event) {
+  getCanvasPoint = (event) => {
     const rect = this.canvases[this.props.currentLayerIndex].getBoundingClientRect();
     const point = {
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top
+      x: Math.floor(event.clientX - rect.left),
+      y: Math.floor(event.clientY - rect.top)
     };
 
     return point;
