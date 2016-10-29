@@ -18,9 +18,7 @@ const addPaintAction = (state, logCreator, action) => {
 const paint = handleActions({
   INITIALIZE: (state, action) => ({
     ...state,
-    contexts: [action.payload.context],
-    width: action.payload.width,
-    height: action.payload.height
+    contexts: [action.payload.context]
   }),
   SET_MODE: (state, action) => ({
     ...state,
@@ -127,11 +125,27 @@ const paint = handleActions({
   CHANGE_COLOR: (state, action) => ({
     ...state,
     color: action.payload.color
+  }),
+
+  OPEN_NEW_IMAGE: (state, action) => ({
+    ...state,
+    width: action.payload.paintProperties.width,
+    height: action.payload.paintProperties.height,
+    contexts: [],
+    layers: [{
+      id: Math.floor(Math.random() * (1 << 30)),
+      name: 'Background',
+      isVisible: true
+    }],
+    history: [],
+    currentLayerIndex: 0,
+    currentMode: null,
+    isDragging: false
   })
 }, {
   contexts: [],
-  width: null,
-  height: null,
+  width: 780,
+  height: 640,
   layers: [{
     id: Math.floor(Math.random() * (1 << 30)),
     name: 'Background',

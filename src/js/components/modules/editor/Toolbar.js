@@ -1,24 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import request from 'superagent';
+import { bindActionCreators } from 'redux';
+
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
-import { PenMode, PaintMode } from './modes/';
-import { setMode } from '../../../actions/editor/toolbar';
+import TextField from 'material-ui/TextField';
+
+import Dialog from '../Dialog';
+import * as ToolbarActions from "../../../actions/editor/toolbar";
 
 import "_module/_editor/_toolbar";
+import "_module/_dialog";
 
 class MainMenuComponent extends React.Component {
   render() {
     return (
-      <div>
+      <div className="toolbar">
         <Toolbar>
           <ToolbarGroup firstChild={ true }>
             <IconMenu className="menu"
                       iconButtonElement={ <FlatButton>File</FlatButton> }
-               >
+                      >
+              <MenuItem primaryText="New" onTouchTap={ this.props.showNewImageDialog } />
               <MenuItem primaryText="Export" onClick={ this.props.onSaveClick } />
             </IconMenu>
             <IconMenu className="menu"
@@ -29,45 +34,63 @@ class MainMenuComponent extends React.Component {
           </ToolbarGroup>
         </Toolbar>
         <input ref="importImageFile" type="file" style={{ "display" : "none" }} onChange={ this.props.onImportImageMenuChange } />
+
+        <Dialog
+          isVisible={ this.props.isNewImageDialogShown }
+          header="Header"
+          footer={
+              <div>
+                <FlatButton
+                    label="OK"
+                    disabled={ this.props.widthErrorText || this.props.heightErrorText }
+                    onClick={ () => {
+                      this.props.openNewImage({
+                        width: this.props.width,
+                        height: this.props.height
+                      });
+                    } } />
+                <FlatButton
+                    label="Cancel"
+                    onClick={ this.props.cancelNewImageDialog } />
+              </div>
+          }>
+          <div>
+            <TextField
+              name="width"
+              type="number"
+              hintText="Example: 1024"
+              floatingLabelText="Width (px):"
+              errorText={ this.props.widthErrorText }
+              value={ this.props.width }
+              onChange={ (event) => { this.props.setWidthOnNewImageDialog(event.target.value); } }
+              />
+          </div>
+          <div>
+            <TextField
+              name="height"
+              type="number"
+              hintText="Example: 768"
+              floatingLabelText="Height (px):"
+              errorText={ this.props.heightErrorText }
+              value={ this.props.height }
+              onChange={ (event) => { this.props.setHeightOnNewImageDialog(event.target.value); } }
+              />
+          </div>
+        </Dialog>
       </div>
     );
   }
 }
 
-const mapStateToProps = () => {
+const mapStateToProps = (state) => {
   return {
-  }
-}
-
-function saveImage() {
-  return dispatch => {
-    // console.log('saveImage immediate comment');
-    request.post('http://localhost:8000/images')
-      .set('Accept', 'application/json')
-      .end((error, response) => {
-        dispatch({
-          error: error,
-          message: response
-        });
-      });
+    ...state.toolbar
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSaveClick: () => {
-      dispatch(saveImage());
-    },
-    onPenModeClick: () => {
-      dispatch(setMode(new PenMode(null)));
-    },
-    onSelectModeClick: () => {
-
-    },
-    onPaintModeClick: () => {
-      dispatch(setMode(new PaintMode(null)));
-    },
-
+    ...bindActionCreators(ToolbarActions, dispatch),
     onImportImageMenuChange: (event) => {
       var files = event.target.files;
       if (!files.length) {

@@ -13,10 +13,8 @@ class PaintComponent extends React.Component {
   }
 
   componentDidMount() {
-    const width = 760;
-    const height = 480;
     var context = this.canvases[this.props.currentLayerIndex].getContext('2d');
-    this.props.initialize(width, height, context);
+    this.props.initialize(context);
 
     const render = () => {
       try {
@@ -177,9 +175,6 @@ class PaintComponent extends React.Component {
   }
 
   render() {
-    const width = 760;
-    const height = 480;
-
     return (
       <div className="paint">
         <div className="paint__header">
@@ -191,8 +186,12 @@ class PaintComponent extends React.Component {
                     ref={ (component) => this.canvases[i] = component }
               id={ layer.id }
               className="paint__canvas"
-              width={ width }
-              height={ height }
+              width={ this.props.width }
+              height={ this.props.height }
+              style={{
+                width: this.props.width,
+                height: this.props.height
+              }}
               onClick={ this.onClick }
               onMouseDown={ this.onMouseDown }
               onMouseUp={ this.onMouseUp }

@@ -1,0 +1,30 @@
+.dialog {
+  z-index: 5;
+  display: block;
+  position: absolute;
+  top: 30%;
+  left: 30%;
+
+  &__header {
+    background-color: #3ffe80;
+    padding: 16px;
+    border-radius: 8px 8px 0 0;
+    width: 100%;
+  }
+
+  &__body {
+    background-color: #1fae40;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    width: 100%;
+  }
+
+  &__footer {
+    background-color: #1fae40;
+    padding: 16px;
+    border-radius: 0 0 8px 8px;
+    width: 100%;
+    text-align: center;
+  }
+}

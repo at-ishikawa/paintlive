@@ -8,9 +8,7 @@ export const {
   onMouseUpPaint,
   onMouseMovePaint
 } = createActions({
-  INITIALIZE: (width, height, context) => ({
-    width: width,
-    height: height,
+  INITIALIZE: (context) => ({
     context: context
   }),
   SET_CONTEXT: (index, context) => ({
