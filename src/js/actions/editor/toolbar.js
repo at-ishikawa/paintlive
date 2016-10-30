@@ -21,3 +21,21 @@ export const {
     height: height
   })
 });
+
+export const {
+  showExportImageDialog,
+  exportImage,
+  cancelExportImageDialog,
+  setExportImageFileType
+} = createActions({
+  SHOW_EXPORT_IMAGE_DIALOG: () => ({
+  }),
+  EXPORT_IMAGE: (properties) => ({
+    properties: properties
+  }),
+  CANCEL_EXPORT_IMAGE_DIALOG: () => ({
+  }),
+  SET_EXPORT_IMAGE_FILE_TYPE: (imageFileType) => ({
+    imageFileType: imageFileType
+  })
+});

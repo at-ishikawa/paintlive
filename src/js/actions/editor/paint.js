@@ -6,7 +6,9 @@ export const {
   onClickPaint,
   onMouseDownPaint,
   onMouseUpPaint,
-  onMouseMovePaint
+  onMouseMovePaint,
+
+  exportedImage
 } = createActions({
   INITIALIZE: (context) => ({
     context: context
@@ -27,5 +29,8 @@ export const {
   }),
   ON_MOUSE_MOVE_PAINT: (point) => ({
     point: point
+  }),
+
+  EXPORTED_IMAGE: () => ({
   })
 });

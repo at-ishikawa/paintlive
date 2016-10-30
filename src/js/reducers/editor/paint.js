@@ -141,6 +141,15 @@ const paint = handleActions({
     currentLayerIndex: 0,
     currentMode: null,
     isDragging: false
+  }),
+
+  EXPORT_IMAGE: (state, action) => ({
+    ...state,
+    imageFileType: action.payload.properties.fileType
+  }),
+  EXPORTED_IMAGE: (state) => ({
+    ...state,
+    imageFileType: null
   })
 }, {
   contexts: [],

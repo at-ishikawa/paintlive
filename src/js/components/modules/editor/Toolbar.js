@@ -6,6 +6,7 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
+import SelectField from 'material-ui/SelectField';
 import TextField from 'material-ui/TextField';
 
 import Dialog from '../Dialog';
@@ -24,7 +25,7 @@ class MainMenuComponent extends React.Component {
                       iconButtonElement={ <FlatButton>File</FlatButton> }
                       >
               <MenuItem primaryText="New" onTouchTap={ this.props.showNewImageDialog } />
-              <MenuItem primaryText="Export" onClick={ this.props.onSaveClick } />
+              <MenuItem primaryText="Export" onTouchTap={ this.props.showExportImageDialog } />
             </IconMenu>
             <IconMenu className="menu"
                       iconButtonElement={ <FlatButton>Image</FlatButton> }
@@ -36,8 +37,34 @@ class MainMenuComponent extends React.Component {
         <input ref="importImageFile" type="file" style={{ "display" : "none" }} onChange={ this.props.onImportImageMenuChange } />
 
         <Dialog
+          isVisible={ this.props.isExportImageDialogShown }
+          header="Export Image as ..."
+          footer={
+              <div>
+                <FlatButton
+                    label="OK"
+                    disabled={ this.props.imageTypeErrorText }
+                    onClick={ () => {
+                      this.props.exportImage({
+                        fileType: this.props.exportImageFileType
+                      });
+                    } } />
+                <FlatButton
+                    label="Cancel"
+                    onClick={ this.props.cancelExportImageDialog } />
+              </div>
+          }>
+          <div>
+            <SelectField value={ this.props.exportImageFileType } onChange={ (event, key, payload) => { this.props.setExportImageFileType(payload) } }>
+              <MenuItem value="png" primaryText="PNG" />
+              <MenuItem value="jpeg" primaryText="JPEG" />
+            </SelectField>
+          </div>
+        </Dialog>
+
+        <Dialog
           isVisible={ this.props.isNewImageDialogShown }
-          header="Header"
+          header="New Image"
           footer={
               <div>
                 <FlatButton
@@ -101,9 +128,6 @@ const mapDispatchToProps = (dispatch) => {
         type: 'import image',
         files: files
       });
-    },
-
-    onExportImageMenuClick: () => {
     }
   };
 }

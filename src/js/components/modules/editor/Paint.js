@@ -142,6 +142,23 @@ class PaintComponent extends React.Component {
         this.props.setContext(i, context);
       }
     }
+
+    if (this.props.imageFileType) {
+      const context = this.exportCanvas.getContext('2d');
+      context.clearRect(0, 0, this.exportCanvas.width, this.exportCanvas.height);
+      this.canvases.forEach((canvas) => {
+        context.drawImage(canvas, 0, 0);
+      });
+
+      var image = new Image();
+      image.onload = () => {
+        this.downloadLink.setAttribute('download', 'Download.png');
+        this.downloadLink.setAttribute('href', image.src);
+        this.downloadLink.click();
+        this.props.exportedImage();
+      };
+      image.src = this.exportCanvas.toDataURL("image/" + this.props.imageFileType);
+    }
   }
 
   getCanvasPoint = (event) => {
@@ -177,10 +194,18 @@ class PaintComponent extends React.Component {
   render() {
     return (
       <div className="paint">
+        <a style={{ display: "none" }}
+           ref={ (component) => { this.downloadLink = component; } }
+          />
         <div className="paint__header">
           New Image
         </div>
         <div className="paint__canvasContainer">
+          <canvas ref={ (component) => { this.exportCanvas = component; } }
+            hidden="true"
+            width={ this.props.width }
+            height={ this.props.height }
+            />
           {this.props.layers.map((layer, i) => (
             <canvas key={ layer.id }
                     ref={ (component) => this.canvases[i] = component }
