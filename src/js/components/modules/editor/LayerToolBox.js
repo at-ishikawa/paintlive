@@ -6,31 +6,30 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 
-// SCSS
-import '_module/_editor/_layerToolBox.scss';
+import style from '_module/_editor/_layerToolBox';
 
 class LayerToolBoxComponent extends React.Component {
   render() {
     return (
-      <div className="layerToolBox">
-        <div className="layerToolBox__header">
+      <div className={ style.layerToolBox }>
+        <div className={ style.layerToolBox__header }>
           Layer
         </div>
 
-        <ul className="layerToolBox__layerList">
+        <ul className={ style.layerToolBox__layerList}>
           { this.props.layers.map((function (layer, index) {
             var className = this.props.currentLayerIndex == index ? "isSelected" : "";
             return (
               <li key={ index }
-                  className={ "layerToolBox__layerList__item " + className }
+                  className={ style.layerToolBox__layerList__item + " " + className }
                   onClick={ () => { this.props.selectLayer(index) } }>
                 <TextField
-                   className="layerToolBox__layerList__item__name"
+                  className={ style.layerToolBox__layerList__item__name }
                    value={ layer.name }
                    name={ "layer_name_" + index }
                    onChange={ (event) => { this.props.setLayerName(index, event.target.value) } }
                   />
-                <span className="layerToolBox__layerList__item__visible">
+                <span className={ style.layerToolBox__layerList__item__visible}>
                   <Checkbox
                      labelPosition="left"
                      name={ "layer_is_visible_" + index }
@@ -43,7 +42,7 @@ class LayerToolBoxComponent extends React.Component {
           }).bind(this)) }
         </ul>
 
-        <ul className="layerToolBox__footer">
+        <ul className={ style.layerToolBox__footer }>
           <li>
             <FlatButton label="Add" onClick={ this.props.addLayer }/>
           </li>

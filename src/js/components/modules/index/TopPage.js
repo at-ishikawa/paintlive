@@ -14,8 +14,8 @@ import GuestFooter from '../footers/GuestFooter';
 import * as LogInActions from '../../../actions/auth/logIn';
 import * as SignUpActions from '../../../actions/auth/signUp';
 
-import '_layout/_layout-container';
-import '_layout/_layout-main';
+import containerStyle from '_layout/_layout-container';
+import mainStyle from '_layout/_layout-main';
 
 class TopPageComponent extends React.Component {
   constructor(props) {
@@ -31,9 +31,9 @@ class TopPageComponent extends React.Component {
 
   render() {
     return (
-      <div className="layout-container">
+      <div className={ containerStyle['layout-container'] }>
         <GuestHeader />
-        <main className="layout-main" style={{ "width": "1024px", "margin-left": "auto", "margin-right": "auto", "display": "flex", "flex-direction": "row", "margin-top": "64px" }}>
+        <main className={ mainStyle['layout-main'] } style={{ "width": "1024px", "margin-left": "auto", "margin-right": "auto", "display": "flex", "flex-direction": "row", "margin-top": "64px" }}>
           <div style={{ "flexGrow": "1" }}>
             <Link to="/editor">
               <FlatButton

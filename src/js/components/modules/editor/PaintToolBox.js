@@ -9,7 +9,7 @@ import ImageColorize from "material-ui/svg-icons/image/colorize";
 import ImagePhotoSizeSelectSmall from "material-ui/svg-icons/image/photo-size-select-small";
 import { PenMode, SelectMode, PaintMode } from './modes/';
 
-import "_module/_editor/_paintToolBox";
+import style from "_module/_editor/_paintToolBox";
 
 class PaintToolBoxComponent extends React.Component {
   componentDidMount() {
@@ -18,25 +18,25 @@ class PaintToolBoxComponent extends React.Component {
 
   render() {
     return (
-      <div className="toolBox">
+      <div className={ style.toolBox }>
         <span>Tool</span>
         <ul>
-          <li className={ "toolBox__item" + (this.props.name == "Select" ? " isSelected" : "") }
+          <li className={ style.toolBox__item + (this.props.name == "Select" ? " isSelected" : "") }
               onClick={ () => ( this.props.setMode(new SelectMode()) ) }>
             <ImagePhotoSizeSelectSmall />
           </li>
-          <li className={ "toolBox__item" + (this.props.name == "Pen" ? " isSelected" : "") }
+          <li className={ style.toolBox__item + (this.props.name == "Pen" ? " isSelected" : "") }
               onClick={ () => ( this.props.setMode(new PenMode()) ) }>
             <ImageEdit />
           </li>
-          <li className={ "toolBox__item" + (this.props.name == "Paint" ? " isSelected" : "") }
+          <li className={ style.toolBox__item + (this.props.name == "Paint" ? " isSelected" : "") }
               onClick={ () => ( this.props.setMode(new PaintMode()) ) }>
             <ImageColorize />
           </li>
         </ul>
 
         <ul>
-          <li className="toolBox__item toolBox__colorBox"
+          <li className={ style.toolBox__item + " " + style.toolBox__colorBox }
               onClick={ this.props.showColorPicker }
               style={{ "backgroundColor": this.props.colorPicker.selectedColor.hex }}>
           </li>

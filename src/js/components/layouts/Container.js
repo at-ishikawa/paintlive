@@ -3,8 +3,6 @@ import GoogleTagManager from '../modules/GoogleTagManager';
 import Env from 'Env';
 import DevTools from '../modules/DevTools';
 
-import "_base/_reset";
-
 class Container extends React.Component {
   render() {
     let devTools = null;

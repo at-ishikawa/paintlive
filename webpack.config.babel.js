@@ -60,7 +60,7 @@ let configs = {
         test: /\.scss$/,
         loaders: [
           "style",
-          "css",
+          "css?modules&sourceMap",
           "sass"
         ]
       }

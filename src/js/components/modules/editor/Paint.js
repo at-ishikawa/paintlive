@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PaintActions from '../../../actions/editor/paint';
 
-import "_module/_editor/_paint.scss";
+import style from "_module/_editor/_paint";
 
 class PaintComponent extends React.Component {
 
@@ -193,14 +193,14 @@ class PaintComponent extends React.Component {
 
   render() {
     return (
-      <div className="paint">
+      <div className={ style.paint }>
         <a style={{ display: "none" }}
            ref={ (component) => { this.downloadLink = component; } }
           />
-        <div className="paint__header">
+        <div className={ style.paint__header}>
           New Image
         </div>
-        <div className="paint__canvasContainer">
+        <div className={ style.paint__canvasContainer}>
           <canvas ref={ (component) => { this.exportCanvas = component; } }
             hidden="true"
             width={ this.props.width }
@@ -210,7 +210,7 @@ class PaintComponent extends React.Component {
             <canvas key={ layer.id }
                     ref={ (component) => this.canvases[i] = component }
               id={ layer.id }
-              className="paint__canvas"
+              className={ style.paint__canvas }
               width={ this.props.width }
               height={ this.props.height }
               style={{
@@ -227,7 +227,7 @@ class PaintComponent extends React.Component {
           ))}
         </div>
 
-        <div className="paint__footer">
+        <div className={ style.paint__footer }>
           Mode: { this.props.currentMode ? this.props.currentMode.getName() : 'No Select' },
           Point: { this.props.currentPoint ? '(' + this.props.currentPoint.x + ', ' + this.props.currentPoint.y + ')' : '(x, y)' },
         </div>

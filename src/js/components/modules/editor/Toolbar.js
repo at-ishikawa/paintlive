@@ -12,22 +12,21 @@ import TextField from 'material-ui/TextField';
 import Dialog from '../Dialog';
 import * as ToolbarActions from "../../../actions/editor/toolbar";
 
-import "_module/_editor/_toolbar";
-import "_module/_dialog";
+import style from "_module/_editor/_toolbar";
 
 class MainMenuComponent extends React.Component {
   render() {
     return (
-      <div className="toolbar">
+      <div className={ style.toolbar }>
         <Toolbar>
           <ToolbarGroup firstChild={ true }>
-            <IconMenu className="menu"
+            <IconMenu className={ style.menu }
                       iconButtonElement={ <FlatButton>File</FlatButton> }
                       >
               <MenuItem primaryText="New" onTouchTap={ this.props.showNewImageDialog } />
               <MenuItem primaryText="Export" onTouchTap={ this.props.showExportImageDialog } />
             </IconMenu>
-            <IconMenu className="menu"
+            <IconMenu className={ style.menu }
                       iconButtonElement={ <FlatButton>Image</FlatButton> }
                >
               <MenuItem primaryText="Import" />
