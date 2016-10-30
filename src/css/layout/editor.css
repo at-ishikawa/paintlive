@@ -1,13 +1,10 @@
 @charset "utf-8";
 
-@import "config";
-@import "../_base/variable";
-
 body {
-  background-color: $gray;
+  background-color: #bbbbbb;
 }
 
-.layout-container {
+.container {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -15,6 +12,6 @@ body {
   margin: auto;
 }
 
-.layout-main {
+.main {
   flex: 1 0 auto;
 }

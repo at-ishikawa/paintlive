@@ -1,9 +1,7 @@
 @charset "utf-8";
 
-@import "../../_base/variable";
-
 .toolBox {
-  background-color: $white;
+  background-color: #eeeeee;
   padding: 8px;
   border: 1px solid;
   position: relative;
@@ -15,11 +13,11 @@
     cursor: pointer;
 
     &:hover {
-      @include hover-color;
+      background-color: rgba(16, 128, 240, 0.125);
     }
 
     &.isSelected {
-      @include selected-color;
+      background-color: rgba(16, 128, 240, 0.25);
     }
   }
 

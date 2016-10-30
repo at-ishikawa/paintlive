@@ -9,7 +9,7 @@ import ImageColorize from "material-ui/svg-icons/image/colorize";
 import ImagePhotoSizeSelectSmall from "material-ui/svg-icons/image/photo-size-select-small";
 import { PenMode, SelectMode, PaintMode } from './modes/';
 
-import style from "_module/_editor/_paintToolBox";
+import style from "module/editor/paintToolBox";
 
 class PaintToolBoxComponent extends React.Component {
   componentDidMount() {

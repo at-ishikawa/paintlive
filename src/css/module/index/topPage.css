@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+.container {
+  composes: container from "../../layout/container";
+}
+
+.main {
+  composes: main from "../../layout/main";
+}

@@ -12,6 +12,8 @@ import EditorPage from './components/pages/EditorPage';
 import IndexPage from './components/pages/IndexPage';
 import ErrorPage from './components/pages/ErrorPage';
 
+import 'base/reset';
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 

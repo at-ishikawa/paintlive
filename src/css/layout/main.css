@@ -1,7 +1,5 @@
 @charset "utf-8";
 
-@import "config";
-
-.layout-main {
+.main {
   flex: 1 0 auto;
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PaintActions from '../../../actions/editor/paint';
 
-import style from "_module/_editor/_paint";
+import style from "module/editor/paint";
 
 class PaintComponent extends React.Component {
 

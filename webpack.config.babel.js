@@ -1,11 +1,11 @@
 import path from 'path';
 import webpack from 'webpack';
+import cssnext from 'postcss-cssnext';
 
 var environment = 'development';
 if (process.env.NODE_ENV == 'production') {
   environment = 'production';
 }
-
 const srcDir = '/src';
 const distDir = '/dist';
 
@@ -23,11 +23,11 @@ let configs = {
     extensions: [
       '',
       '.js',
-      '.scss'
+      '.css'
     ],
     root: [
       path.join(__dirname, srcDir + '/js'),
-      path.join(__dirname, srcDir + '/sass')
+      path.join(__dirname, srcDir + '/css')
     ]
   },
   module: {
@@ -53,15 +53,8 @@ let configs = {
         test: /\.css$/,
         loaders: [
           'style',
-          'css'
-        ]
-      },
-      {
-        test: /\.scss$/,
-        loaders: [
-          "style",
-          "css?modules&sourceMap",
-          "sass"
+          'css?importLoaders=1&sourceMap&modules',
+          'postcss'
         ]
       }
     ]
@@ -69,15 +62,9 @@ let configs = {
   eslint: {
     configFile: './.eslintrc'
   },
-  cssLoader: {
-    sourceMap: true
-  },
-  sassLoader: {
-    sourceMap: true,
-    includePaths: [
-      path.resolve(__dirname, srcDir + "/sass")
-    ]
-  },
+  postcss: [
+    cssnext
+  ],
   externals: {
     'Env': JSON.stringify(require('./.env.' + environment + '.json'))
   },

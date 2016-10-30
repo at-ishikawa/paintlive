@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+.container {
+  composes: container from "../layout/editor";
+}
+
+.editorContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.paintContainer {
+  flex: 1 0 auto;
+}

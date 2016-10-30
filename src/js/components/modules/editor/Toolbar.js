@@ -12,7 +12,7 @@ import TextField from 'material-ui/TextField';
 import Dialog from '../Dialog';
 import * as ToolbarActions from "../../../actions/editor/toolbar";
 
-import style from "_module/_editor/_toolbar";
+import style from "module/editor/toolbar";
 
 class MainMenuComponent extends React.Component {
   render() {

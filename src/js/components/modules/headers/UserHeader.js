@@ -1,6 +1,6 @@
 import React from 'react';
 
-import style from '_module/_header.scss';
+import style from 'module/header';
 
 class UserHeader extends React.Component {
   render() {

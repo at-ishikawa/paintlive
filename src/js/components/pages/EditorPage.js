@@ -6,7 +6,7 @@ import Toolbar from '../modules/editor/Toolbar';
 import PaintToolBox from '../modules/editor/PaintToolBox';
 import LayerToolBox from '../modules/editor/LayerToolBox';
 
-import style from "_page/_editor";
+import style from "page/editor";
 
 class EditorPage extends React.Component {
 
@@ -34,11 +34,11 @@ class EditorPage extends React.Component {
     };
 
     return (
-      <div className={ style['layout-container'] }>
+      <div className={ style.container }>
         <DocumentMeta {...meta} />
         <Toolbar />
 
-        <div className={ style['layout-main'] }>
+        <div className={ style.main }>
           {/*
           Draw Page
           <br />
@@ -52,12 +52,12 @@ class EditorPage extends React.Component {
           </a>
           <br />
           */}
-          <div className={ style['page-editorContainer'] }>
+          <div className={ style.editorContainer }>
             <div>
               <PaintToolBox />
             </div>
 
-            <div className={ style['page-paintContainer'] }>
+            <div className={ style.paintContainer }>
               <Paint />
             </div>
             <div>

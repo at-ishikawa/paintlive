@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 
-import style from '_module/_editor/_layerToolBox';
+import style from 'module/editor/layerToolBox';
 
 class LayerToolBoxComponent extends React.Component {
   render() {

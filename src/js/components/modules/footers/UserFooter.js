@@ -1,6 +1,6 @@
 import React from 'react';
 
-import style from '_module/_footer.scss';
+import style from 'module/footer';
 
 class UserFooter extends React.Component {
   render() {

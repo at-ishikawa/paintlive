@@ -6,8 +6,10 @@ import GuestFooter from '../modules/footers/GuestFooter';
 import UserHeader from '../modules/headers/UserHeader';
 import UserFooter from '../modules/footers/UserFooter';
 
-import containerStyle from '_layout/_layout-container';
-import mainStyle from '_layout/_layout-main';
+import containerStyle from 'layout/container';
+import mainStyle from 'layout/main';
+
+const style = Object.assign({}, containerStyle, mainStyle);
 
 class DefaultContainerComponent extends React.Component {
   render() {
@@ -23,9 +25,9 @@ class DefaultContainerComponent extends React.Component {
     }
 
     return (
-      <div className={ containerStyle['layout-container'] }>
+      <div className={ style.container }>
         { header }
-        <main className={ mainStyle['layout-main'] }>
+        <main className={ style.main }>
           {this.props.children}
         </main>
         { footer }
