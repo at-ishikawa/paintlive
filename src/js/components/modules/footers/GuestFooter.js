@@ -3,7 +3,7 @@ import React from 'react';
 import '_layout/_layout-footer.scss';
 import '_module/_footer.scss';
 
-class Footer extends React.Component {
+class GuestFooter extends React.Component {
   render() {
     return (
       <footer className="footer">
@@ -13,4 +13,4 @@ class Footer extends React.Component {
   }
 }
 
-export default Footer;
+export default GuestFooter;

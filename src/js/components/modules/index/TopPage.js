@@ -1,13 +1,21 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
+
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import { greenA700 } from 'material-ui/styles/colors';
 
+import GuestHeader from '../headers/GuestHeader';
+import GuestFooter from '../footers/GuestFooter';
+import * as LogInActions from '../../../actions/auth/logIn';
 import * as SignUpActions from '../../../actions/auth/signUp';
+
+import '_layout/_layout-container';
+import '_layout/_layout-main';
 
 class TopPageComponent extends React.Component {
   constructor(props) {
@@ -23,60 +31,103 @@ class TopPageComponent extends React.Component {
 
   render() {
     return (
-      <main>
-        <Card>
-          <CardHeader
-             title="Sign Up"
-             />
-          <CardText>
-            <div style={{ "display": "flex", "flex-direction": "column" }}>
-              <div>
-                <TextField
-                   hintText="Username"
-                   errorText={ this.props.errorMessages.username }
-                   name="username"
-                   onChange={ this.onTextFieldChange }
-                   />
-                {(() => {
-                  if (this.props.successMessages.username) {
-                    return <ActionDone color={ greenA700 } />
-                  }
-                })()}
-              </div>
-              <div>
-                <TextField
-                   hintText="Email"
-                   errorText={ this.props.errorMessages.email }
-                   name="email"
-                   onChange={ this.onTextFieldChange }
-                   />
-                {(() => {
-                  if (this.props.successMessages.email) {
-                    return <ActionDone color={ greenA700 } />
-                  }
-                })()}
-              </div>
-              <div>
-                <TextField
-                   hintText="Password"
-                   errorText={ this.props.errorMessages.password }
-                   name="password"
-                   type="password"
-                   onChange={ this.onTextFieldChange }
-                   />
-                {(() => {
-                  if (this.props.successMessages.password) {
-                    return <ActionDone color={ greenA700 } />
-                  }
-                })()}
-              </div>
-            </div>
-          </CardText>
-          <CardActions>
-            <FlatButton label="Sign Up" onClick={ () => { this.props.signUp(this.props.input) } } />
-          </CardActions>
-        </Card>
-      </main>
+      <div className="layout-container">
+        <GuestHeader />
+        <main className="layout-main" style={{ "width": "1024px", "margin-left": "auto", "margin-right": "auto", "display": "flex", "flex-direction": "row", "margin-top": "64px" }}>
+          <div style={{ "flexGrow": "1" }}>
+            <Link to="/editor">
+              <FlatButton
+                label="Try to paint"
+                />
+            </Link>
+          </div>
+
+          <div style={{ "flexGrow": "1" }}>
+            <Card style={{ "margin": "0 20% 5% 20%" }}>
+              <CardHeader
+                title="Log In"
+                />
+              <CardText>
+                <div style={{ "display": "flex", "flex-direction": "column" }}>
+                  <TextField
+                    ref="username"
+                    hintText="Username"
+                    name="username"
+                    onChange={ (event) => { this.username = event.target.value; } }
+                    />
+                    <TextField
+                      ref="password"
+                      hintText="Password"
+                      name="password"
+                      type="password"
+                      onChange={ (event) => { this.password = event.target.value; } }
+                      />
+                </div>
+              </CardText>
+              <CardActions>
+                <FlatButton
+                  label="Log In"
+                  onClick={ () => { this.props.logIn(this.username, this.password); } }
+                  />
+              </CardActions>
+            </Card>
+
+            <Card style={{ "margin": "0 20% 5% 20%" }}>
+              <CardHeader
+                title="Sign Up"
+                />
+              <CardText>
+                <div style={{ "display": "flex", "flex-direction": "column" }}>
+                  <div>
+                    <TextField
+                      hintText="Username"
+                      errorText={ this.props.signUpForm.errorMessages.username }
+                      name="username"
+                      onChange={ this.onTextFieldChange }
+                      />
+                    {(() => {
+                      if (this.props.signUpForm.successMessages.username) {
+                        return <ActionDone color={ greenA700 } />
+                      }
+                    })()}
+                  </div>
+                  <div>
+                    <TextField
+                      hintText="Email"
+                      errorText={ this.props.signUpForm.errorMessages.email }
+                      name="email"
+                      onChange={ this.onTextFieldChange }
+                      />
+                    {(() => {
+                      if (this.props.signUpForm.successMessages.email) {
+                        return <ActionDone color={ greenA700 } />
+                      }
+                    })()}
+                  </div>
+                  <div>
+                    <TextField
+                      hintText="Password"
+                      errorText={ this.props.signUpForm.errorMessages.password }
+                      name="password"
+                      type="password"
+                      onChange={ this.onTextFieldChange }
+                      />
+                    {(() => {
+                      if (this.props.signUpForm.successMessages.password) {
+                        return <ActionDone color={ greenA700 } />
+                      }
+                    })()}
+                  </div>
+                </div>
+              </CardText>
+              <CardActions>
+                <FlatButton label="Sign Up" onClick={ () => { this.props.signUp(this.props.signUpForm.input) } } />
+              </CardActions>
+            </Card>
+          </div>
+        </main>
+        <GuestFooter />
+      </div>
     );
   }
 }
@@ -86,12 +137,15 @@ TopPageComponent.defaultProps = {
 }
 
 const mapStateToProps = (state) => {
-  return state.auth.signUpForm;
+  return {
+    signUpForm: state.auth.signUpForm
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      ...bindActionCreators(SignUpActions, dispatch)
+    ...bindActionCreators(SignUpActions, dispatch),
+    ...bindActionCreators(LogInActions, dispatch)
   };
 }
 

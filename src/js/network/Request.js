@@ -4,7 +4,9 @@ import Env from 'Env';
 class Request {
   constructor() {
     this.request = request;
-    this.headers = {};
+    this.headers = {
+      Accept: 'application/json'
+    };
     let token = localStorage.getItem('token');
     if (token === null) {
       // this.headers['Authorization'] = 'Bearer ' + token;

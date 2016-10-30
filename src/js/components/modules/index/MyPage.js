@@ -1,12 +1,13 @@
 import React from 'react';
-//import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import * as LogInActions from '../../../actions/auth/login';
 
 class MyPageComponent extends React.Component {
   render() {
     return (
       <main>
-        Succeeded to log in.
+        Hello { this.props.user.username }!
       </main>
     );
   }
@@ -18,8 +19,9 @@ const mapStateToProps = (state) => {
   };
 }
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
   return {
+    ...bindActionCreators(LogInActions, dispatch)
   };
 }
 
@@ -29,4 +31,3 @@ const MyPage = connect(
 )(MyPageComponent);
 
 export default MyPage;
-

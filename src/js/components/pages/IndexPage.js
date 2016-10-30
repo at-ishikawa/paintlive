@@ -1,10 +1,11 @@
 import React from 'react';
-// import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
+import Env from 'Env';
+
+import DefaultContainer from '../layouts/DefaultContainer';
 import MyPage from '../modules/index/MyPage';
 import TopPage from '../modules/index/TopPage';
-import Env from 'Env';
 
 class IndexPageComponent extends React.Component {
 
@@ -26,11 +27,11 @@ class IndexPageComponent extends React.Component {
 
     if (this.props.user.isLoggedIn) {
       return (
-        <div>
+        <DefaultContainer>
           <DocumentMeta {...meta} />
           <MyPage>
           </MyPage>
-        </div>
+        </DefaultContainer>
       );
     } else {
       return (
