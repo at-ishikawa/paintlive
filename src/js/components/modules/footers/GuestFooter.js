@@ -6,7 +6,9 @@ class GuestFooter extends React.Component {
   render() {
     return (
       <footer className={ style.footer }>
-        Footer
+        <div className={ style.container }>
+            Footer
+        </div>
       </footer>
     );
   }

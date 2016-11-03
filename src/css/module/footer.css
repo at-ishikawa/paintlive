@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+@import "../base/color";
+@import "../layout/container";
+
 .footer {
-  background-color: aqua;
+  @apply --primaryColorTheme;
 }

@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import cssnext from 'postcss-cssnext';
+import postcssImport from 'postcss-import';
 
 var environment = 'development';
 if (process.env.NODE_ENV == 'production') {
@@ -53,7 +54,7 @@ let configs = {
         test: /\.css$/,
         loaders: [
           'style',
-          'css?importLoaders=1&sourceMap&modules',
+          'css?importLoaders=1&sourceMap&modules&localIdentName=[name]--[local]--[hash:base64]',
           'postcss'
         ]
       }
@@ -63,6 +64,7 @@ let configs = {
     configFile: './.eslintrc'
   },
   postcss: [
+    postcssImport,
     cssnext
   ],
   externals: {

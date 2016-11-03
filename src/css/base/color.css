@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+:root {
+  --primaryColorTheme: {
+    color: rgba(255, 255, 255, 1.0);
+    /* teal700 */
+    background-color: #00796B;
+  }
+  --secondaryColorTheme: {
+    /* teal500 */
+    background-color: #009688;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  --primaryTextColor: rgba(0, 0, 0, 0.87);
+  --secondaryTextColor: rgba(0, 0, 0, 0.54);
+
+  --hintTextColor: rgba(0, 0, 0, 0.38);
+
+  /* grey500 */
+  --bodyBackgroundColor: #9E9E9E;
+  /* grey100 */
+  --contentsBackgroundColor: #F5F5F5;
+
+  /* yellow400 */
+  --positiveAccentColor: #FFEE58;
+  --dangerAccentColorTheme: {
+    /* red700 */
+    background-color: #D32F2F;
+    color: rgba(255, 255, 255, 1.0);
+  }
+  /* grey400 */
+  --neutralAccentColor: #BDBDBD;
+}

@@ -34,7 +34,7 @@ class EditorPage extends React.Component {
     };
 
     return (
-      <div className={ style.container }>
+      <div className={ style.wrapper }>
         <DocumentMeta {...meta} />
         <Toolbar />
 

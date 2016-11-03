@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+.inputForm {
+  display: flex;
+  flex-direction: column;
+
+  &__actions {
+    text-align: right;
+  }
+}

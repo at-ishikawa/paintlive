@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
 import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import { greenA700 } from 'material-ui/styles/colors';
@@ -13,16 +12,13 @@ import GuestHeader from '../headers/GuestHeader';
 import GuestFooter from '../footers/GuestFooter';
 import * as LogInActions from '../../../actions/auth/logIn';
 import * as SignUpActions from '../../../actions/auth/signUp';
+import Button from '../ui/Button';
 
 import style from 'module/index/topPage';
 
 class TopPageComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onTextFieldChange = this.onTextFieldChange.bind(this);
-  }
 
-  onTextFieldChange(event) {
+  onTextFieldChange = (event) => {
     let input = {};
     input[event.target.name] = event.target.value;
     this.props.onInputChange(input);
@@ -30,24 +26,26 @@ class TopPageComponent extends React.Component {
 
   render() {
     return (
-      <div className={ style.container }>
+      <div className={ style.wrapper }>
         <GuestHeader />
-        <main className={ style.main } style={{ "width": "1024px", "margin-left": "auto", "margin-right": "auto", "display": "flex", "flex-direction": "row", "margin-top": "64px" }}>
-          <div style={{ "flexGrow": "1" }}>
-            <Link to="/editor">
-              <FlatButton
-                label="Try to paint"
-                />
-            </Link>
-          </div>
+        <main className={ style.main }>
+          <div className={ style.container }>
 
-          <div style={{ "flexGrow": "1" }}>
-            <Card style={{ "margin": "0 20% 5% 20%" }}>
-              <CardHeader
-                title="Log In"
-                />
+            <div className={ style.mainVisual }>
+              Paint Live ! <br />
+              Make and share your paints.<br />
+
+              <Link className={ style.mainVisual__actionButton } to="/editor">
+                <Button
+                  type="positive"
+                  label="Try to paint without save"
+                  />
+              </Link>
+            </div>
+
+            <Card>
               <CardText>
-                <div style={{ "display": "flex", "flex-direction": "column" }}>
+                <div className={ style.inputForm }>
                   <TextField
                     ref="username"
                     hintText="Username"
@@ -64,19 +62,21 @@ class TopPageComponent extends React.Component {
                 </div>
               </CardText>
               <CardActions>
-                <FlatButton
-                  label="Log In"
-                  onClick={ () => { this.props.logIn(this.username, this.password); } }
-                  />
+                <div className={ style.inputForm__actions }>
+                  <Button
+                    label="Log In"
+                    onClick={ () => { this.props.logIn(this.username, this.password); } }
+                    />
+                </div>
               </CardActions>
             </Card>
 
-            <Card style={{ "margin": "0 20% 5% 20%" }}>
+            <Card>
               <CardHeader
                 title="Sign Up"
                 />
               <CardText>
-                <div style={{ "display": "flex", "flex-direction": "column" }}>
+                <div className={ style.inputForm }>
                   <div>
                     <TextField
                       hintText="Username"
@@ -120,9 +120,16 @@ class TopPageComponent extends React.Component {
                 </div>
               </CardText>
               <CardActions>
-                <FlatButton label="Sign Up" onClick={ () => { this.props.signUp(this.props.signUpForm.input) } } />
+                <div className={ style.inputForm__actions } >
+                  <Button
+                    type='positive'
+                    label="Sign Up"
+                    onClick={ () => { this.props.signUp(this.props.signUpForm.input) } }
+                    />
+                </div>
               </CardActions>
             </Card>
+
           </div>
         </main>
         <GuestFooter />

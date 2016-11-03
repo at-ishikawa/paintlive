@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+@import "../../base/color";
+
+.button {
+  &--positve {
+    background-color: var(--positiveAccentColor);
+    margin: 8px;
+  }
+  &--neutral {
+  }
+}

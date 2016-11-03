@@ -1,9 +1,25 @@
 @charset "utf-8";
 
-.container {
-  composes: container from "../../layout/container";
-}
+@import "../../base/color";
+@import "../../layout/wrapper";
+@import "../../layout/container";
+@import "../ui/button";
+@import "../ui/inputForm";
 
 .main {
-  composes: main from "../../layout/main";
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  & > .container > * {
+    margin-top: 24px;
+  }
+}
+
+.mainVisual {
+  flex-grow: 1;
+  font-size: 2rem;
+  background-color: var(--contentsBackgroundColor);
+  text-align: center;
+  padding: 16px;
 }

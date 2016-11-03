@@ -9,7 +9,7 @@ import IconMenu from 'material-ui/IconMenu';
 import SelectField from 'material-ui/SelectField';
 import TextField from 'material-ui/TextField';
 
-import Dialog from '../Dialog';
+import Dialog from '../ui/Dialog';
 import * as ToolbarActions from "../../../actions/editor/toolbar";
 
 import style from "module/editor/toolbar";
