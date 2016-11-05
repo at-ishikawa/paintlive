@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+@import "../../base/color";
+
+.imageList {
+  display: flex;
+  flex-direction: row;
+}
+
+.imageCard {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--contentsBackgroundColor);
+  margin: 4px;
+  width: 120px;
+
+  &__info {
+    color: var(--secondaryTextColor);
+    padding: 4px;
+    font-size: 12px;
+
+    & > * {
+      margin: 4px;
+    }
+
+    &__icon {
+      vertical-align: middle;
+      font-size: 12px;
+    }
+  }
+}
+
+.imageBox {
+  display: inline-block;
+  overflow: hidden;
+  height: 120px;
+  line-height: 120px;
+  border: 1px solid;
+  border-color: var(--imageBorderColor);
+
+  &__image {
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+  }
+}

@@ -19,8 +19,15 @@ injectTapEventPlugin();
 
 const history = syncHistoryWithStore(browserHistory, store);
 
+import { teal700 } from 'material-ui/styles/colors';
+const muiTheme = getMuiTheme({
+  tabs: {
+    backgroundColor: teal700
+  }
+});
+
 ReactDOM.render((
-  <MuiThemeProvider muiTheme={ getMuiTheme() }>
+  <MuiThemeProvider muiTheme={ muiTheme }>
     <Provider store={ store }>
       <Router history={ history }>
         <Route path="/" component={ Container }>

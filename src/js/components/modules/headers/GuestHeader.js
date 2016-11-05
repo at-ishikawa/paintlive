@@ -1,6 +1,6 @@
 import React from 'react';
 
-import style from 'module/header.css';
+import style from 'module/header';
 
 class GuestHeader extends React.Component {
   render() {
