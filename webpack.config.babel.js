@@ -75,11 +75,6 @@ let configs = {
       'process.env': {
         'NODE_ENV': JSON.stringify(environment)
       }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: true
-      }
     })
   ]
 };
@@ -90,6 +85,12 @@ if (environment == 'development') {
     exclude: /node_modules/,
     loader: "eslint"
   });
+} else {
+  configs.plugins.push(new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: true
+    }
+  }));
 }
 
 export default configs;

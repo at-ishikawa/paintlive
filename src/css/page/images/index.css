@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+@import "../../base/color";
+@import "../../module/ui/textLink";
+@import "../../module/ui/image";
+
+.imageCard {
+  display: flex;
+  flex-direction: column;
+  color: var(--primaryTextColor);
+  background-color: var(--contentsBackgroundColor);
+  margin-bottom: 24px;
+
+  &__title {
+    @apply --secondaryColorTheme;
+    font-size: 1.5rem;
+    padding: 8px;
+  }
+}
+
+.imageBox {
+  height: 480px;
+  line-height: 480px;
+  margin: auto;
+}
+
+.userBox {
+  display: flex;
+
+  &__thumbnailBox {
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    margin: auto;
+  }
+
+  &__info {
+    flex-grow: 1;
+    padding: 8px;
+  }
+}
+

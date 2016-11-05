@@ -15,7 +15,7 @@
   width: 120px;
 
   &__info {
-    color: var(--secondaryTextColor);
+    color: var(--primaryTextColor);
     padding: 4px;
     font-size: 12px;
 
@@ -31,16 +31,7 @@
 }
 
 .imageBox {
-  display: inline-block;
-  overflow: hidden;
   height: 120px;
   line-height: 120px;
-  border: 1px solid;
-  border-color: var(--imageBorderColor);
-
-  &__image {
-    width: 100%;
-    text-align: center;
-    vertical-align: middle;
-  }
+  margin: auto;
 }

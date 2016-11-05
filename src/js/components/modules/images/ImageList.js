@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import Image from '../ui/Image';
+
 import style from 'module/images/imageList';
 
 class ImageList extends React.Component {
@@ -10,11 +12,9 @@ class ImageList extends React.Component {
         { this.props.images.map(image => <li>
           <Link to={"/images/" + image.id}>
             <div className={style.imageCard}>
-              <div className={style.imageBox}>
-                <img className={style.imageBox__image}
+              <Image className={style.imageBox}
                      src={image.path}
-                />
-              </div>
+                     />
               <div className={style.imageCard__info}>
                 <span>{image.name}</span>
                 <div>
