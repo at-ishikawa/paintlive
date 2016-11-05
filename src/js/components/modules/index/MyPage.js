@@ -1,12 +1,9 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
-import ImageList from '../images/ImageList';
+import ImageListSection from '../images/ImageListSection';
 import * as LogInActions from '../../../actions/auth/login';
-
-import style from 'module/index/myPage';
 
 class MyPageComponent extends React.Component {
   render() {
@@ -48,33 +45,16 @@ class MyPageComponent extends React.Component {
 
     return (
       <div>
-        <section className={ style.section }>
-          <div className={ style.section__title }>
-            New Images
-          </div>
-          <ImageList images={ popularImages } />
-          <div className={ style.section__actions }>
-            <Link to="/images/new">
-              <span className={ style.textLink }>
-                See more
-              </span>
-            </Link>
-          </div>
-        </section>
+        <ImageListSection title="New Images"
+                          images={ popularImages }
+                          allUrl="/images/new"
+                          />
 
-        <section className={ style.section }>
-          <div className={ style.section__title }>
-            Your Images
-          </div>
-          <ImageList images={ popularImages } />
-          <div className={ style.section__actions }>
-            <Link to="/account/images">
-              <span className={ style.textLink }>
-                View your images
-              </span>
-            </Link>
-          </div>
-        </section>
+        <ImageListSection title="Your Images"
+                          images={ popularImages }
+                          allUrl="/account/images"
+                          isUserImageList={ true }
+                          />
       </div>
     );
   }

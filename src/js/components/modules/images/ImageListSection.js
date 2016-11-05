@@ -12,9 +12,9 @@ class ImageLisSection extends React.Component {
     return (
       <section className={ style.imageListSection }>
         <div className={ style.imageListSection__title }>
-          Other images for this user
+          { this.props.title }
         </div>
-        <ImageList images={ images } />
+        <ImageList isUserImageList={ this.props.isUserImageList } images={ images } />
         <div className={ style.imageListSection__actions }>
           <Link to={ allUrl }>
             <span className={ style.textLink }>

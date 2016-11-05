@@ -17,10 +17,10 @@ class ImageList extends React.Component {
                      />
               <div className={style.imageCard__info}>
                 <span>{image.name}</span>
-                <div>
+                { this.props.isUserImageList ? null : <div>
                   <i className={"material-icons " + style.imageCard__info__icon}>person</i>
                   <span>{image.user.username}</span>
-                </div>
+                </div> }
                 {/*
                  <div className={ style.imageCard__info__favorites }>
                  <i className={ "material-icons " + style.imageCard__info__icon }>star</i>

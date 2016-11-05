@@ -58,13 +58,6 @@ class IndexPageComponent extends React.Component {
           <Image className={ style.imageBox }
                  src={ image.path }
                  />
-          {/*
-          <div>
-            Actions:
-            Share,
-            Favorite
-          </div>
-          */}
           <div>
             <Link className={ style.userBox }
                   to={ "/users/" + image.user.username }>
@@ -78,10 +71,11 @@ class IndexPageComponent extends React.Component {
           </div>
         </section>
 
-        <ImageListSection
-          images={ Object.values(images) }
-          allUrl={ "/user/" + image.user.username + "/images" }
-          />
+        <ImageListSection title={ "Other images for this user" }
+                          images={ Object.values(images) }
+                          allUrl={ "/user/" + image.user.username + "/images" }
+                          isUserImageList={ true }
+        />
       </div>
     );
   }
