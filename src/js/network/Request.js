@@ -18,6 +18,10 @@ class Request {
     return this;
   }
 
+  responseType(type) {
+    this.type = type;
+  }
+
   getUrl(path) {
     return Env.apiUrl + path;
   }
@@ -26,6 +30,9 @@ class Request {
     this.request = this.request.get(this.getUrl(url));
     if (this.data) {
       this.request.query(this.data);
+    }
+    if (this.type) {
+      this.request.responseType(this.type);
     }
     this.end(callback);
   }

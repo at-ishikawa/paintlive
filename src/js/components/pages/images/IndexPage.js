@@ -1,53 +1,29 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import * as ImageActions from '../../../actions/pages/images/index';
 import Image from '../../modules/ui/Image';
 import ImageListSection from '../../modules/images/ImageListSection';
 
 import style from 'page/images/index';
 
 class IndexPageComponent extends React.Component {
+
+  componentWillMount() {
+    this.props.readImage(this.props.params.id);
+  }
+
   render() {
-    const images = {
-      1: {
-        id: 1,
-        name: 'Yui Yuigahama',
-        path: '/images/ss3.jpg',
-        favoriteCount: 10000,
-        viewCount: 271820,
-
-        user: {
-          username: 'Gahama san',
-          thumbnailPath: '/images/1466085974_1_10_124dbe5ac96045c64ed4af52fcc6fc4a.jpg'
+    const image = this.props.image || {
+        name: '',
+        url: '',
+        creator: {
+          username: '',
+          thumnbnailPath: ''
         }
-      },
-      2: {
-        id: 2,
-        name: 'Haruno Yukinoshita',
-        path: '/images/81iWzz4DS7L._CR570,310,854,1590_.jpg',
-        favoriteCount: 99999,
-        viewCount: 99999,
-
-        user: {
-          username: 'Devil woman',
-          thumbnailPath: '/images/2015112609464759fs.jpg'
-        }
-      },
-      3: {
-        id: 3,
-        name: 'Iroha Isshiki',
-        path: '/images/CgLCUJ9UAAAcASF.jpg',
-        favoriteCount: 99999,
-        viewCount: 99999,
-
-        user: {
-          username: 'irohasu',
-          thumbnailPath: '/images/CidYNL5UoAA2oZO.jpg'
-        }
-      }
-    };
-
-    const image = images[this.props.params.id];
+      };
 
     return (
       <div>
@@ -56,24 +32,24 @@ class IndexPageComponent extends React.Component {
             { image.name }
           </span>
           <Image className={ style.imageBox }
-                 src={ image.path }
+                 src={ image.url }
                  />
           <div>
             <Link className={ style.userBox }
-                  to={ "/users/" + image.user.username }>
+                  to={ "/users/" + image.creator.username }>
               <Image className={ style.userBox__thumbnailBox }
-                     src={ image.user.thumbnailPath }
+                     src={ image.creator.thumbnailPath }
                      />
               <div className={ style.userBox__info }>
-                <span className={ style.textLink }>{ image.user.username }</span>
+                <span className={ style.textLink }>{ image.creator.username }</span>
               </div>
             </Link>
           </div>
         </section>
 
         <ImageListSection title={ "Other images for this user" }
-                          images={ Object.values(images) }
-                          allUrl={ "/user/" + image.user.username + "/images" }
+                          images={ this.props.userImages.filter((userImage) => { return userImage.id != image.id }) }
+                          allUrl={ "/user/" + image.creator.username + "/images" }
                           isUserImageList={ true }
         />
       </div>
@@ -81,4 +57,21 @@ class IndexPageComponent extends React.Component {
   }
 }
 
-export default IndexPageComponent;
+const mapStateToProps = (state) => {
+  return {
+    ...state.pages.images.index
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ...bindActionCreators(ImageActions, dispatch)
+  };
+};
+
+const IndexPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(IndexPageComponent);
+
+export default IndexPage;

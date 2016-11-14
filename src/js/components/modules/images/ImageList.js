@@ -13,13 +13,13 @@ class ImageList extends React.Component {
           <Link to={"/images/" + image.id}>
             <div className={style.imageCard}>
               <Image className={style.imageBox}
-                     src={image.path}
+                     src={image.url}
                      />
               <div className={style.imageCard__info}>
                 <span>{image.name}</span>
                 { this.props.isUserImageList ? null : <div>
                   <i className={"material-icons " + style.imageCard__info__icon}>person</i>
-                  <span>{image.user.username}</span>
+                  <span>{image.creator.username}</span>
                 </div> }
                 {/*
                  <div className={ style.imageCard__info__favorites }>

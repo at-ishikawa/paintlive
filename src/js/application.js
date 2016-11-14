@@ -12,6 +12,7 @@ import EditorPage from './components/pages/EditorPage';
 import IndexPage from './components/pages/IndexPage';
 import ImageIndexPage from './components/pages/images/IndexPage';
 import UserIndexPage from './components/pages/users/IndexPage';
+import AccountIndexPage from './components/pages/account/IndexPage';
 import ErrorPage from './components/pages/ErrorPage';
 
 import 'base/reset';
@@ -39,6 +40,7 @@ ReactDOM.render((
           <Route component={ DefaultContainer }>
             <Route path="/images/:id" component={ ImageIndexPage } />
             <Route path="/users/:username" component={ UserIndexPage } />
+            <Route path="/account" component={ AccountIndexPage } />
             <Route path="*" component={ ErrorPage } />
           </Route>
         </Route>

@@ -3,55 +3,26 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import ImageListSection from '../images/ImageListSection';
-import * as LogInActions from '../../../actions/auth/login';
+import * as ImageActions from 'actions/pages/myPage';
+
 
 class MyPageComponent extends React.Component {
+
+  componentWillMount() {
+    this.props.readLatestImages();
+    this.props.readUserImages(this.props.user);
+  }
+
   render() {
-    const popularImages = [
-      {
-        id: 1,
-        name: 'Yui Yuigahama',
-        path: '/images/ss3.jpg',
-        favoriteCount: 10000,
-        viewCount: 271820,
-
-        user: {
-          username: 'Gahama san'
-        }
-      },
-      {
-        id: 2,
-        name: 'Haruno Yukinoshita',
-        path: '/images/81iWzz4DS7L._CR570,310,854,1590_.jpg',
-        favoriteCount: 99999,
-        viewCount: 99999,
-
-        user: {
-          username: 'Devil woman'
-        }
-      },
-      {
-        id: 3,
-        name: 'Iroha Isshiki',
-        path: '/images/CgLCUJ9UAAAcASF.jpg',
-        favoriteCount: 99999,
-        viewCount: 99999,
-
-        user: {
-          username: 'irohasu'
-        }
-      }
-    ];
-
     return (
       <div>
         <ImageListSection title="New Images"
-                          images={ popularImages }
+                          images={ this.props.myPage.latestImages }
                           allUrl="/images/new"
                           />
 
         <ImageListSection title="Your Images"
-                          images={ popularImages }
+                          images={ this.props.myPage.userImages }
                           allUrl="/account/images"
                           isUserImageList={ true }
                           />
@@ -62,15 +33,16 @@ class MyPageComponent extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    myPage: state.pages.myPage
   };
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    ...bindActionCreators(LogInActions, dispatch)
+    ...bindActionCreators(ImageActions, dispatch)
   };
-}
+};
 
 const MyPage = connect(
   mapStateToProps,

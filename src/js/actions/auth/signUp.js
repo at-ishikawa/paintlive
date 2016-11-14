@@ -36,7 +36,7 @@ export const onInputChange = (input) => {
     dispatch(changeInput(input));
     const request = new Request();
     request.send(input)
-      .get('/accounts/validation', (response) => {
+      .get('/users/validation', (response) => {
         dispatch(endValidateInput(response));
       });
   };
@@ -46,7 +46,7 @@ export const signUp = (input) => {
   return (dispatch) => {
     dispatch(startSignUp());
     const request = new Request();
-    request.post('/accounts', input, (body, response) => {
+    request.post('/users', input, (body, response) => {
       dispatch(endSignUp());
       if (response.ok) {
         localStorage.setItem('token', body.token);
