@@ -20,6 +20,38 @@ import 'base/reset';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
+
+import Request from 'network/Request';
+import * as LoginActions from 'actions/auth/login';
+const login = () => {
+  const token = localStorage.getItem('token');
+  if (typeof token === 'undefined'){
+    return;
+  }
+
+  return dispatch => {
+    const request = new Request();
+    request.get('/authenticate', (user, response, error) => {
+      if (error) {
+        dispatch(LoginActions.failLogIn(response));
+        return;
+      }
+
+      dispatch(LoginActions.succeedLogIn(user));
+    });
+  };
+};
+store.dispatch(login());
+
+export const requireLogin = (nextState, replace) => {
+  const user = store.getState().user;
+  if (!user.isLoggedIn) {
+    replace({
+      pathname: "/"
+    });
+  }
+};
+
 const history = syncHistoryWithStore(browserHistory, store);
 
 import { teal700 } from 'material-ui/styles/colors';
@@ -37,10 +69,13 @@ ReactDOM.render((
           <IndexRoute component={ IndexPage } />
           <Route path="editor" component={ EditorPage } />
 
+          <Route component={ DefaultContainer } onEnter={ requireLogin }>
+            <Route path="/account" component={ AccountIndexPage } />
+          </Route>
+
           <Route component={ DefaultContainer }>
             <Route path="/images/:id" component={ ImageIndexPage } />
             <Route path="/users/:username" component={ UserIndexPage } />
-            <Route path="/account" component={ AccountIndexPage } />
             <Route path="*" component={ ErrorPage } />
           </Route>
         </Route>

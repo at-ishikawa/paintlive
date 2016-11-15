@@ -8,8 +8,8 @@ class Request {
       Accept: 'application/json'
     };
     let token = localStorage.getItem('token');
-    if (token === null) {
-      // this.headers['Authorization'] = 'Bearer ' + token;
+    if (token !== null) {
+      this.headers['Authorization'] = 'Bearer ' + token;
     }
   }
 
@@ -31,9 +31,6 @@ class Request {
     if (this.data) {
       this.request.query(this.data);
     }
-    if (this.type) {
-      this.request.responseType(this.type);
-    }
     this.end(callback);
   }
 
@@ -47,9 +44,17 @@ class Request {
       this.request.set(this.headers);
     }
 
+    if (this.type) {
+      this.request.responseType(this.type);
+    }
+
     this.request.end((error, response) => {
       if (typeof response === 'undefined') {
         return;
+      }
+      if ('authorization' in response.headers) {
+        const token = response.headers.authorization.split(" ")[1];
+        localStorage.setItem('token', token);
       }
 
       let body = null;

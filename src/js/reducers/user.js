@@ -12,13 +12,12 @@ const user = handleActions({
   }),
   LOG_OUT: (state) => ({
     ...state,
-    username: "Guest",
+    username: null,
     isLoggedIn: false
   })
 }, {
-  username: "Guest",
-  // TODO this should make better
-  isLoggedIn: localStorage.getItem('token')
+  username: null,
+  isLoggedIn: false
 });
 
 export default user;
