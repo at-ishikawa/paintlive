@@ -1,8 +1,9 @@
 import { handleActions } from 'redux-actions';
 
 const user = handleActions({
-  SUCCEED_SIGN_UP: (state) => ({
+  SUCCEED_SIGN_UP: (state, action) => ({
     ...state,
+    username: action.payload.user.username,
     isLoggedIn: true
   }),
   SUCCEED_LOG_IN: (state, action) => ({
@@ -12,11 +13,11 @@ const user = handleActions({
   }),
   LOG_OUT: (state) => ({
     ...state,
-    username: null,
+    username: '',
     isLoggedIn: false
   })
 }, {
-  username: null,
+  username: '',
   isLoggedIn: false
 });
 

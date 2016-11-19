@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+@import "../../base/color";
+
+.card {
+  margin-top: 24px;
+  flex-grow: 1;
+  font-size: 1rem;
+  background-color: var(--contentsBackgroundColor);
+  padding: 16px;
+
+  & > * {
+    padding: 0.5rem;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    display: block;
+  }
+
+  &__action {
+    display: block;
+    margin: 0.5rem;
+  }
+}

@@ -34,9 +34,18 @@ const signUpForm = handleActions({
       const newStates = Object.assign({}, differences, action.payload.successes);
       return newStates;
     })()
+  }),
+
+  SUCCEED_SIGN_UP_PREREGISTER: (state, action) => ({
+    ...state,
+    username: action.payload.user.username,
+    isPreregistered: true,
+    successMessages: {},
+    errorMessages: {}
   })
 }, {
   input: {},
+  isPreregistered: false,
   errorMessages: {},
   successMessages: {}
 });

@@ -12,6 +12,9 @@ import EditorPage from './components/pages/EditorPage';
 import IndexPage from './components/pages/IndexPage';
 import ImageIndexPage from './components/pages/images/IndexPage';
 import UserIndexPage from './components/pages/users/IndexPage';
+import SignUpCompletePage from './components/pages/signUp/CompletePage';
+import SignUpValidatePage from './components/pages/signUp/ValidatePage';
+import SignUpErrorPage from './components/pages/signUp/ErrorPage';
 import AccountIndexPage from './components/pages/account/IndexPage';
 import ErrorPage from './components/pages/ErrorPage';
 
@@ -29,19 +32,16 @@ const login = () => {
     return;
   }
 
-  return dispatch => {
-    const request = new Request();
-    request.get('/authenticate', (user, response, error) => {
-      if (error) {
-        dispatch(LoginActions.failLogIn(response));
-        return;
-      }
+  const request = new Request();
+  request.get('/authenticate', (user, response, error) => {
+    if (error) {
+      store.dispatch(LoginActions.failLogIn(response));
+      return;
+    }
 
-      dispatch(LoginActions.succeedLogIn(user));
-    });
-  };
+    store.dispatch(LoginActions.succeedLogIn(user));
+  });
 };
-store.dispatch(login());
 
 export const requireLogin = (nextState, replace) => {
   const user = store.getState().user;
@@ -66,17 +66,26 @@ ReactDOM.render((
     <Provider store={ store }>
       <Router history={ history }>
         <Route path="/" component={ Container }>
-          <IndexRoute component={ IndexPage } />
-          <Route path="editor" component={ EditorPage } />
-
-          <Route component={ DefaultContainer } onEnter={ requireLogin }>
-            <Route path="/account" component={ AccountIndexPage } />
+          <Route onEnter={ login }>
+            <IndexRoute component={ IndexPage } />
+            <Route path="editor" component={ EditorPage } />
           </Route>
 
           <Route component={ DefaultContainer }>
-            <Route path="/images/:id" component={ ImageIndexPage } />
-            <Route path="/users/:username" component={ UserIndexPage } />
-            <Route path="*" component={ ErrorPage } />
+            <Route path="/signup/complete" component= { SignUpCompletePage } />
+            <Route path="/signup/validate" component= { SignUpValidatePage } />
+            <Route path="/signup/error" component={ SignUpErrorPage } />
+
+            <Route onEnter={ login }>
+              <Route path="/images/:id" component={ ImageIndexPage } />
+              <Route path="/users/:username" component={ UserIndexPage } />
+
+              <Route onEnter={ requireLogin }>
+                <Route path="/account" component={ AccountIndexPage } />
+              </Route>
+
+              <Route path="*" component={ ErrorPage } />
+            </Route>
           </Route>
         </Route>
       </Router>

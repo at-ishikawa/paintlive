@@ -4,7 +4,9 @@ import Request from '../../network/Request';
 export const {
   startSignUp,
   endSignUp,
-  succeedSignUp
+  succeedSignUpPreregister,
+  succeedSignUp,
+  failValidateSignUpToken
 } = createActions({
   START_SIGN_UP: () => ({
     isSubmitted: true
@@ -12,9 +14,15 @@ export const {
   END_SIGN_UP: () => ({
     isSubmitted: false
   }),
-  SUCCEED_SIGN_UP: (response) => ({
-    response: response,
+  SUCCEED_SIGN_UP_PREREGISTER: (user) => ({
+    user: user,
     isSubmitted: false
+  }),
+  SUCCEED_SIGN_UP: (user) => ({
+    user: user
+  }),
+  FAIL_VALIDATE_SIGN_UP_TOKEN: (error) => ({
+    error: error
   })
 });
 
@@ -36,7 +44,7 @@ export const onInputChange = (input) => {
     dispatch(changeInput(input));
     const request = new Request();
     request.send(input)
-      .get('/users/validation', (response) => {
+      .get('/signup/validation', (response) => {
         dispatch(endValidateInput(response));
       });
   };
@@ -46,11 +54,13 @@ export const signUp = (input) => {
   return (dispatch) => {
     dispatch(startSignUp());
     const request = new Request();
-    request.post('/users', input, (body, response) => {
+    request.post('/signup/preregister', input, (body, response) => {
       dispatch(endSignUp());
       if (response.ok) {
-        localStorage.setItem('token', body.token);
-        dispatch(succeedSignUp(body));
+        dispatch(succeedSignUpPreregister({
+          ...body,
+          username: input.username
+        }));
       } else {
         dispatch(endValidateInput({
           'errors': body
@@ -59,3 +69,22 @@ export const signUp = (input) => {
     });
   };
 };
+
+export const validateToken = (token) => {
+  return dispatch => {
+    const request = new Request();
+    const data = {
+      token: token
+    };
+    request.post('/signup/register', data, (body, response, error) => {
+      if (error != null) {
+        dispatch(failValidateSignUpToken(body.error));
+        return;
+      }
+
+      localStorage.setItem('token', body.token);
+      dispatch(succeedSignUp(body));
+    });
+  };
+};
+

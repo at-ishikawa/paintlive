@@ -18,6 +18,16 @@ import style from 'module/index/topPage';
 
 class TopPageComponent extends React.Component {
 
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  };
+
+  componentDidUpdate() {
+    if (this.props.signUpForm.isPreregistered) {
+      this.context.router.replace('/signup/complete');
+    }
+  }
+
   onTextFieldChange = (event) => {
     let input = {};
     input[event.target.name] = event.target.value;
@@ -82,7 +92,7 @@ class TopPageComponent extends React.Component {
                       hintText="Username"
                       errorText={ this.props.signUpForm.errorMessages.username }
                       name="username"
-                      onChange={ this.onTextFieldChange }
+                      onBlur={ this.onTextFieldChange }
                       />
                     {(() => {
                       if (this.props.signUpForm.successMessages.username) {
@@ -95,7 +105,7 @@ class TopPageComponent extends React.Component {
                       hintText="Email"
                       errorText={ this.props.signUpForm.errorMessages.email }
                       name="email"
-                      onChange={ this.onTextFieldChange }
+                      onBlur={ this.onTextFieldChange }
                       />
                     {(() => {
                       if (this.props.signUpForm.successMessages.email) {
@@ -109,7 +119,7 @@ class TopPageComponent extends React.Component {
                       errorText={ this.props.signUpForm.errorMessages.password }
                       name="password"
                       type="password"
-                      onChange={ this.onTextFieldChange }
+                      onBlur={ this.onTextFieldChange }
                       />
                     {(() => {
                       if (this.props.signUpForm.successMessages.password) {
