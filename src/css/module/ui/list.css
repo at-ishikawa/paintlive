@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+.list {
+  width: 100%;
+
+  &__item {
+    padding: 16px;
+
+    & + & {
+      border-top: 1px solid var(--neutralAccentColor);
+    }
+  }
+}

@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+.userList {
+  &__item {
+    display: flex;
+
+    &__thumbnailBox {
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      margin: auto;
+    }
+
+    &__info {
+      flex-grow: 1;
+      padding: 8px;
+    }
+  }
+}

@@ -13,6 +13,8 @@
   background-color: var(--contentsBackgroundColor);
   margin: 4px;
   width: 120px;
+  z-index: 1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 
   &__info {
     color: var(--primaryTextColor);
@@ -24,7 +26,6 @@
     }
 
     &__icon {
-      vertical-align: middle;
       font-size: 12px;
     }
   }

@@ -1,5 +1,13 @@
 @charset "utf-8";
 
+@import "../../base/color";
+@import "../../module/ui/linkBox";
+
+.userCard {
+  background-color: var(--contentsBackgroundColor);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.125);
+}
+
 .userBox {
   display: flex;
   margin: 8px;
@@ -7,7 +15,18 @@
   &__summary {
     flex-grow: 1;
     padding: 8px;
+    display: flex;
+
+    &__username {
+      flex-grow: 1;
+    }
   }
+}
+
+.userActionBox {
+  padding: 16px;
+  text-align: right;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .thumbnailBox {

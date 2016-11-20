@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 @import "../../base/color";
+@import "../../module/ui/linkBox";
 @import "../../module/ui/textLink";
 @import "../../module/ui/image";
 
@@ -16,12 +17,28 @@
     font-size: 1.5rem;
     padding: 8px;
   }
+
+  &__actionBox {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    z-index: 1;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+
+    &__item {
+      width: 100%;
+      height: 100%;
+    }
+  }
 }
 
 .imageBox {
   height: 480px;
   line-height: 480px;
   margin: auto;
+  z-index: 1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.125);
 }
 
 .userBox {
@@ -40,3 +57,42 @@
   }
 }
 
+.commentsBox {
+}
+
+.commentBox {
+  width: 100%;
+
+  &__thumbnail {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    vertical-align: top;
+  }
+
+  &__content {
+    display: inline-block;
+    width: calc(100% - 64px);
+    color: var(--primaryTextColor);
+  }
+
+  &__username {
+    width: 50%;
+    display: inline-block;
+    color: var(--secondaryTextColor);
+  }
+
+  &__time {
+    width: 50%;
+    display: inline-block;
+    color: var(--secondaryTextColor);
+  }
+
+  &__text {
+
+  }
+
+  & + & {
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+  }
+}

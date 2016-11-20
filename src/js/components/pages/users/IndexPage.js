@@ -1,7 +1,9 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
+import Button from 'components/modules/ui/Button';
 import * as PageActions from 'actions/pages/users/index';
 
 import Image from '../../modules/ui/Image';
@@ -22,12 +24,29 @@ class IndexPageComponent extends React.Component {
 
     return (
       <div>
-        <section className={ style.userBox }>
-          <Image className={ style.thumbnailBox }
-                 src={ user.thumbnailPath }
-                 />
-          <div className={ style.userBox__summary }>
-            { user.username }
+        <section className={ style.userCard }>
+          <div className={ style.userBox }>
+            <Image className={ style.thumbnailBox }
+                   src={ user.thumbnailPath }
+            />
+            <div className={ style.userBox__summary }>
+              <div className={ style.userBox__summary__username }>
+                { user.username }
+              </div>
+              <div>
+                <Button
+                  type="positive"
+                >
+                  <i className="material-icons">person</i>
+                  Follow
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className={ style.userActionBox + " " + style.linkBox }>
+            <Link to={ "/users/" + user.username + "/followings" }>
+              <div>Followings</div>
+            </Link>
           </div>
         </section>
 
@@ -36,6 +55,12 @@ class IndexPageComponent extends React.Component {
                           allUrl={ "/user/" + user.username + "/images" }
                           isUserImageList={ true }
                           />
+
+        <ImageListSection title="Favorite images for this user"
+                          images={ user.images }
+                          allUrl={ "/user/" + user.username + "/images" }
+                          isUserImageList={ false }
+        />
       </div>
     )
   }
