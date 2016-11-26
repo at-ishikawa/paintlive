@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 import style from 'module/header';
 
@@ -7,7 +8,13 @@ class GuestHeader extends React.Component {
     return (
       <header className={ style.header }>
         <div className={ style.container }>
-          Guestheader
+          <div className={ style.headerContainer }>
+            <div className={ style.header__logo }>
+              <Link to="/">
+                SiteName
+              </Link>
+            </div>
+          </div>
         </div>
       </header>
     );

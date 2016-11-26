@@ -5,12 +5,12 @@ import style from 'module/ui/image';
 class Image extends React.Component {
   render() {
     return (
-      <div className={ this.props.className }
+      <div className={ style.imageBox + " " + this.props.className }
            >
-        <img className={ style.image }
-             src={ this.props.src }
-             alt={ this.props.alt ? this.props.alt : null }
-        />
+        <img className={ style.imageBox__image }
+             ref={ (c) => this.image = c }
+             src={ this.props.src ? this.props.src : "/images/nodata.jpg" }
+          />
       </div>
     )
   }

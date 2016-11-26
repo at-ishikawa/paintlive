@@ -19,7 +19,7 @@ div,main,footer,header,nav,section{
   display:block
 }
 
-ol,ul{
+ol,ul,li{
   list-style:none
 }
 

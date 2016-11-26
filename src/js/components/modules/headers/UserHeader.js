@@ -32,7 +32,7 @@ class UserHeader extends React.Component {
                  />
             */}
             <Tab label="Account"
-                 data-route="/account"
+                 data-route="/accounts"
                  onActive={ this.handleActive }
                  />
           </Tabs>

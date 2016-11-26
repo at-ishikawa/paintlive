@@ -5,4 +5,9 @@
 
 .footer {
   @apply --primaryColorTheme;
+
+  &__text {
+    padding: 16px 16px 0 16px;
+    text-align: right;
+  }
 }

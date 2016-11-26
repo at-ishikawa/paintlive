@@ -7,7 +7,9 @@ class UserFooter extends React.Component {
     return (
       <footer className={ style.footer }>
         <div className={ style.container }>
-          UserFooter
+          <div className={ style.footer__text }>
+            Copyright (C) 2016 something All Rights Reserved.
+          </div>
         </div>
       </footer>
     );

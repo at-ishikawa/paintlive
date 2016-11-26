@@ -15,17 +15,17 @@ class IndexPageComponent extends React.Component {
           <ul className={ style.list }>
             <li className={ style.list__item }>
               <Link to="/accounts/profile">
-                <div className={ style.textLink }>Edit Profile</div>
+                <div className={ style.textLink }>Edit profile</div>
               </Link>
             </li>
             <li className={ style.list__item }>
-              <Link to="/account/password">
-                <div className={ style.textLink }>Change Password</div>
+              <Link to="/accounts/password">
+                <div className={ style.textLink }>Change password</div>
               </Link>
             </li>
             <li className={ style.list__item }>
               <Link to="/" onClick={ () => { localStorage.removeItem('token'); this.props.logOut(); } }>
-                <div className={ style.textLink }>Logout</div>
+                <div className={ style.textLink }>Log out</div>
               </Link>
             </li>
           </ul>

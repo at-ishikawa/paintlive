@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 @import "../../base/color";
+@import "../../base/event";
 @import "../../module/ui/linkBox";
 @import "../../module/ui/textLink";
 @import "../../module/ui/image";
@@ -62,6 +63,10 @@
 
 .commentBox {
   width: 100%;
+
+  &:hover {
+    @apply --defaultHover;
+  }
 
   &__thumbnail {
     display: inline-block;

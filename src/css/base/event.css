@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+@import "./color";
+
+:root {
+  --defaultHover {
+    opacity: 0.8;
+    background-color: color(var(--contentsBackgroundColor) blackness(10%));
+  }
+}

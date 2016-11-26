@@ -54,6 +54,7 @@ class TopPageComponent extends React.Component {
             </div>
 
             <Card>
+              <form onSubmit={ (e) => { e.preventDefault(); this.props.logIn(this.username, this.password); } }>
               <CardText>
                 <div className={ style.inputForm }>
                   <TextField
@@ -74,11 +75,12 @@ class TopPageComponent extends React.Component {
               <CardActions>
                 <div className={ style.inputForm__actions }>
                   <Button
+                    type="submit"
                     label="Log In"
-                    onClick={ () => { this.props.logIn(this.username, this.password); } }
-                    />
+                  />
                 </div>
               </CardActions>
+              </form>
             </Card>
 
             <Card>

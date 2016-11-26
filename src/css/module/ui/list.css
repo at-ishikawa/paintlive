@@ -1,10 +1,17 @@
 @charset "utf-8";
 
+@import "../../base/color";
+@import "../../base/event";
+
 .list {
   width: 100%;
 
   &__item {
-    padding: 16px;
+    padding: 8px;
+
+    &:hover {
+      @apply --defaultHover;
+    }
 
     & + & {
       border-top: 1px solid var(--neutralAccentColor);

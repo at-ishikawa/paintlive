@@ -2,18 +2,18 @@ import React from 'react';
 import { Link } from 'react-router';
 import Image from '../ui/Image';
 
-import linkBox from 'module/ui/linkBox';
 import textLink from 'module/ui/textLink';
 import style2 from 'module/users/userList';
+import listStyle from 'module/ui/list';
 
-const style = Object.assign({}, style2, linkBox, textLink);
+const style = Object.assign({}, style2, listStyle, textLink);
 
 class UserListItem extends React.Component {
   render() {
     const user = this.props.user;
     return (
-      <div className={ style.linkBox }>
-        <Link className={ style.userList__item }
+      <li className={ style.list__item }>
+        <Link className={ style.userList__item__container }
               to={ "/users/" + user.username }>
           <Image className={ style.userList__item__thumbnailBox }
                  src={ user.thumbnailPath }
@@ -22,7 +22,7 @@ class UserListItem extends React.Component {
             <span className={ style.textLink }>{ user.username }</span>
           </div>
         </Link>
-      </div>
+      </li>
     );
   }
 }

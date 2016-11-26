@@ -7,7 +7,9 @@ class GuestFooter extends React.Component {
     return (
       <footer className={ style.footer }>
         <div className={ style.container }>
-            Footer
+          <div className={ style.footer__text }>
+            Copyright (C) 2016 something All Rights Reserved.
+          </div>
         </div>
       </footer>
     );

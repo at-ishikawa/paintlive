@@ -12,10 +12,13 @@ import EditorPage from './components/pages/EditorPage';
 import IndexPage from './components/pages/IndexPage';
 import ImageIndexPage from './components/pages/images/IndexPage';
 import UserIndexPage from './components/pages/users/IndexPage';
+import UserFollowingPage from './components/pages/users/FollowingPage';
 import SignUpCompletePage from './components/pages/signUp/CompletePage';
 import SignUpValidatePage from './components/pages/signUp/ValidatePage';
 import SignUpErrorPage from './components/pages/signUp/ErrorPage';
-import AccountIndexPage from './components/pages/account/IndexPage';
+import AccountIndexPage from './components/pages/accounts/IndexPage';
+import AccountProfilePage from './components/pages/accounts/ProfilePage';
+import AccountPasswordPage from './components/pages/accounts/PasswordPage';
 import ErrorPage from './components/pages/ErrorPage';
 
 import 'base/reset';
@@ -79,9 +82,12 @@ ReactDOM.render((
             <Route onEnter={ login }>
               <Route path="/images/:id" component={ ImageIndexPage } />
               <Route path="/users/:username" component={ UserIndexPage } />
+              <Route path="/users/:username/followings" component={ UserFollowingPage } />
 
               <Route onEnter={ requireLogin }>
-                <Route path="/account" component={ AccountIndexPage } />
+                <Route path="/accounts" component={ AccountIndexPage } />
+                <Route path="/accounts/profile" component={ AccountProfilePage } />
+                <Route path="/accounts/password" component={ AccountPasswordPage } />
               </Route>
 
               <Route path="*" component={ ErrorPage } />
