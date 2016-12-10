@@ -28,7 +28,7 @@ class IndexPageComponent extends React.Component {
       };
 
     return (
-      <div>
+      <div className={ style.contents }>
         <section className={ style.imageCard }>
           <span className={ style.imageCard__title }>
             { image.name }

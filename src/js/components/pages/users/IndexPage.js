@@ -23,10 +23,10 @@ class IndexPageComponent extends React.Component {
     }, this.props.user);
 
     return (
-      <div>
+      <div className={ style.contents }>
         <section className={ style.userCard }>
           <div className={ style.userBox }>
-            <Image className={ style.thumbnailBox }
+            <Image className={ style.userThumbnail }
                    src={ user.thumbnailPath }
             />
             <div className={ style.userBox__summary }>

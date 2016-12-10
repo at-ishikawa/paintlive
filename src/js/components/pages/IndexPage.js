@@ -5,7 +5,7 @@ import Env from 'Env';
 
 import DefaultContainer from '../layouts/DefaultContainer';
 import MyPage from './MyPage';
-import TopPage from '../modules/index/TopPage';
+import TopPage from './TopPage';
 
 class IndexPageComponent extends React.Component {
 

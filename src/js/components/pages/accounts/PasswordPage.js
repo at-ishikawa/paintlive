@@ -4,13 +4,13 @@ import TextField from 'material-ui/TextField';
 
 import Button from 'components/modules/ui/Button';
 
-import style from 'module/index/topPage';
+import style from 'page/topPage';
 
 
 class PasswordPage extends React.Component {
   render() {
     return (
-      <div>
+      <div className={ style.contents }>
         <section>
           <Card>
             <form onSubmit={ (e) => { e.preventDefault(); } }>

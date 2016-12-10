@@ -1,10 +1,11 @@
 @charset "utf-8";
 
-@import "../../base/color";
-@import "../../layout/wrapper";
-@import "../../layout/container";
-@import "../ui/button";
-@import "../ui/inputForm";
+@import "../base/color";
+@import "../layout/default";
+@import "../layout/wrapper";
+@import "../layout/container";
+@import "../module/ui/button";
+@import "../module/ui/inputForm";
 
 .main {
   flex: 1 0 auto;

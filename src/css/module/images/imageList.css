@@ -2,10 +2,13 @@
 
 @import "../../base/color";
 @import "../../base/event";
+@import "./imageThumbnail.css";
 
 .imageList {
   display: flex;
   flex-direction: row;
+  background-color: var(--contentsBackgroundColor);
+  padding: 4px;
 }
 
 .imageCard {
@@ -36,7 +39,3 @@
   }
 }
 
-.imageBox {
-  height: 120px;
-  width: 120px;
-}

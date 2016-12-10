@@ -9,7 +9,7 @@ import style from 'page/accounts/profile';
 class ProfilePage extends React.Component {
   render() {
     return (
-      <div>
+      <div className={ style.contents }>
         <section>
           <Card>
             <form onSubmit={ (e) => { e.preventDefault(); } }>

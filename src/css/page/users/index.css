@@ -1,7 +1,9 @@
 @charset "utf-8";
 
 @import "../../base/color";
+@import "../../layout/default";
 @import "../../module/ui/linkBox";
+@import "../../module/users/userThumbnail.css";
 
 .userCard {
   background-color: var(--contentsBackgroundColor);
@@ -10,7 +12,7 @@
 
 .userBox {
   display: flex;
-  margin: 8px;
+  padding: 8px;
 
   &__summary {
     flex-grow: 1;
@@ -27,9 +29,4 @@
   padding: 16px;
   text-align: right;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
-}
-
-.thumbnailBox {
-  width: 120px;
-  height: 120px;
 }

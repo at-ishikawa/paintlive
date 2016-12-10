@@ -21,7 +21,7 @@ class FollowingPage extends React.Component {
       }
     ];
     return (
-      <div>
+      <div className={ style.contents }>
         <section className={ style.imageCard }>
           <ul>
             { users.map(user => <UserListItem user={ user } />) }

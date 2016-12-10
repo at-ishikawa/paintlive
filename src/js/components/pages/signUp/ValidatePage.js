@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as Actions from 'actions/auth/signUp';
 
-import style from 'module/index/topPage';
+import style from 'page/topPage';
 
 class ValidatePageComponent extends React.Component {
 

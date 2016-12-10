@@ -1,4 +1,4 @@
-@custom-media --desktop-screen (width >= 1024px);
+@import "../base/media";
 
 .contents {
   width: 100%;

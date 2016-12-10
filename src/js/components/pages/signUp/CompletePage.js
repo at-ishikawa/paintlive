@@ -1,6 +1,6 @@
 import React from 'react';
 
-import style from 'module/index/topPage';
+import style from 'page/topPage';
 
 class CompletePage extends React.Component {
   render() {

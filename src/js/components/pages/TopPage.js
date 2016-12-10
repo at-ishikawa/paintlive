@@ -8,13 +8,13 @@ import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import { greenA700 } from 'material-ui/styles/colors';
 
-import GuestHeader from '../headers/GuestHeader';
-import GuestFooter from '../footers/GuestFooter';
-import * as LogInActions from '../../../actions/auth/logIn';
-import * as SignUpActions from '../../../actions/auth/signUp';
-import Button from '../ui/Button';
+import GuestHeader from '../modules/headers/GuestHeader';
+import GuestFooter from '../modules/footers/GuestFooter';
+import * as LogInActions from '../../actions/auth/logIn';
+import * as SignUpActions from '../../actions/auth/signUp';
+import Button from '../modules/ui/Button';
 
-import style from 'module/index/topPage';
+import style from 'page/topPage';
 
 class TopPageComponent extends React.Component {
 

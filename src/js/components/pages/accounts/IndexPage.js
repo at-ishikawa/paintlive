@@ -10,7 +10,7 @@ import style from 'page/accounts/index';
 class IndexPageComponent extends React.Component {
   render() {
     return (
-      <div>
+      <div className={ style.contents }>
         <section className={ style.menus }>
           <ul className={ style.list }>
             <li className={ style.list__item }>

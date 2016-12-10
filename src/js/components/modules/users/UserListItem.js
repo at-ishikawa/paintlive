@@ -15,7 +15,7 @@ class UserListItem extends React.Component {
       <li className={ style.list__item }>
         <Link className={ style.userList__item__container }
               to={ "/users/" + user.username }>
-          <Image className={ style.userList__item__thumbnailBox }
+          <Image className={ style.userThumbnail }
                  src={ user.thumbnailPath }
           />
           <div className={ style.userList__item__info }>

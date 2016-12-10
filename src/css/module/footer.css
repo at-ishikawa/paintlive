@@ -5,6 +5,7 @@
 
 .footer {
   @apply --primaryColorTheme;
+  margin-top: 40px;
 
   &__text {
     padding: 16px 16px 0 16px;

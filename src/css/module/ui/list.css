@@ -7,7 +7,7 @@
   width: 100%;
 
   &__item {
-    padding: 8px;
+    padding: 16px;
 
     &:hover {
       @apply --defaultHover;
