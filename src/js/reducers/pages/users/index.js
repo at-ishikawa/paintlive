@@ -12,6 +12,20 @@ const index = handleActions({
       ...state.user,
       images: action.payload.images
     }
+  }),
+  SUCCEEDED_FOLLOW_USER: (state, action) => ({
+    ...state,
+    user: {
+      ...state.user,
+      following_id: action.payload.id
+    }
+  }),
+  SUCCEEDED_UNFOLLOW_USER: (state) => ({
+    ...state,
+    user: {
+      ...state.user,
+      following_id: null
+    }
   })
 }, {
   user: null

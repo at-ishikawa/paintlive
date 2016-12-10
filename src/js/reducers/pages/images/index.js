@@ -14,18 +14,45 @@ const index = handleActions({
 
   PAGES_IMAGES_INDEX_FAVORITE_IMAGE: (state, action) => ({
     ...state,
-    image: Object.assign({}, state.image, {
+    image: {
+      ...state.image,
       favorite_id: action.payload.id,
       favorite_users_count: state.image.favorite_users_count + 1
-    })
+    }
   }),
 
   PAGES_IMAGES_INDEX_UNFAVORITE_IMAGE: (state) => ({
     ...state,
-    image: Object.assign({}, state.image, {
+    image: {
+      ...state.image,
       favorite_id: null,
       favorite_users_count: state.image.favorite_users_count - 1
-    })
+    }
+  }),
+
+  SUCCEEDED_FOLLOW_USER: (state, action) => ({
+    ...state,
+    image: {
+      ...state.image,
+      creator: (state.image && action.payload.imageId == state.image.id ? {
+        ...state.image.creator,
+        followers_count: state.image.creator.followers_count + 1,
+        following_id: action.payload.id
+      } : (state.image ? state.image.creator : {}))
+    }
+  }),
+  SUCCEEDED_UNFOLLOW_USER: (state, action) => ({
+    ...state,
+    image: {
+      ...state.image,
+      creator: (state.image ? {
+        ...state.image.creator,
+        ...(action.payload.imageId == state.image.id ? {
+          followers_count: state.image.creator.followers_count - 1,
+          following_id: null
+        } : {})
+      } : {})
+    }
   })
 }, {
   userImages: [],

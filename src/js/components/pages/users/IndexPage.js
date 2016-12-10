@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 
 import Button from 'components/modules/ui/Button';
 import * as PageActions from 'actions/pages/users/index';
+import * as UserFollowActions from 'actions/users/follow';
 
 import Image from '../../modules/ui/Image';
 import ImageListSection from '../../modules/images/ImageListSection';
@@ -35,10 +36,11 @@ class IndexPageComponent extends React.Component {
               </div>
               <div>
                 <Button
-                  type="positive"
+                  type={ user.following_id ? "positive" : 'action' }
+                  onClick={ () => user.following_id ? this.props.unfollowUser(user.username, user.following_id) : this.props.followUser(user.username) }
                 >
                   <i className="material-icons">person</i>
-                  Follow
+                  { user.following_id ? 'Following' : '+Follow' }
                 </Button>
               </div>
             </div>
@@ -74,7 +76,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    ...bindActionCreators(PageActions, dispatch)
+    ...bindActionCreators(PageActions, dispatch),
+    ...bindActionCreators(UserFollowActions, dispatch)
   };
 };
 

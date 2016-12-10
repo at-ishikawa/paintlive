@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 
 import * as ImageActions from '../../../actions/pages/images/index';
+import * as UserFollowActions from 'actions/users/follow';
 import Button from '../../modules/ui/Button';
 import Image from '../../modules/ui/Image';
 import ImageListSection from '../../modules/images/ImageListSection';
@@ -54,11 +55,13 @@ class IndexPageComponent extends React.Component {
                 icon={<i className="material-icons">favorite</i>}
                 onClick={ () => image.favorite_id ? this.props.unfavoriteImage(image.id, image.favorite_id) : this.props.favoriteImage(image.id) }
               />
-              <FlatButton
+              <Button
+                type={ image.creator.following_id ? 'action' : 'neutral' }
                 style={{ margin: "0" }}
                 className={ style.imageCard__actionBox__item }
                 label={ new String(image.creator.followers_count) }
                 icon={ <i className="material-icons">person</i> }
+                onClick={ () => image.creator.following_id ? this.props.unfollowUser(image.creator.username, image.creator.following_id, image.id) : this.props.followUser(image.creator.username, image.id) }
               />
               <FlatButton
                 style={{ margin: "0" }}
@@ -107,7 +110,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    ...bindActionCreators(ImageActions, dispatch)
+    ...bindActionCreators(ImageActions, dispatch),
+    ...bindActionCreators(UserFollowActions, dispatch)
   };
 };
 
