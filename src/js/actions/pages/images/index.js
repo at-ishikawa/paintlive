@@ -3,14 +3,20 @@ import Request from 'network/Request';
 
 export const {
   pagesImagesIndexEndReadUserImages,
-  pagesImagesIndexEndReadImage
+  pagesImagesIndexEndReadImage,
+  pagesImagesIndexFavoriteImage,
+  pagesImagesIndexUnfavoriteImage
 } = createActions({
   PAGES_IMAGES_INDEX_END_READ_USER_IMAGES: (images) => ({
     images: images
   }),
   PAGES_IMAGES_INDEX_END_READ_IMAGE: (image) => ({
     image: image
-  })
+  }),
+  PAGES_IMAGES_INDEX_FAVORITE_IMAGE: (response) => ({
+    ...response
+  }),
+  PAGES_IMAGES_INDEX_UNFAVORITE_IMAGE: () => ({})
 });
 
 const readImages = (dispatch, data, action) => {
@@ -30,6 +36,24 @@ const readImages = (dispatch, data, action) => {
         });
       });
     });
+};
+
+export const favoriteImage = (id) => {
+  return (dispatch) => {
+    const request = new Request();
+    request.post('/images/' + id + '/favorites', {}, (body) => {
+      dispatch(pagesImagesIndexFavoriteImage(body));
+    });
+  };
+};
+
+export const unfavoriteImage = (imageId, id) => {
+  return (dispatch => {
+    const request = new Request();
+    request.delete('/images/' + imageId + '/favorites/' + id, () => {
+      dispatch(pagesImagesIndexUnfavoriteImage(id));
+    });
+  })
 };
 
 export const readImage = (id) => {

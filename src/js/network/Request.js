@@ -39,6 +39,11 @@ class Request {
     this.end(callback);
   }
 
+  delete(url, callback) {
+    this.request = this.request.delete(this.getUrl(url))
+    this.end(callback)
+  }
+
   end(callback) {
     if (Object.keys(this.headers).length > 0) {
       this.request.set(this.headers);

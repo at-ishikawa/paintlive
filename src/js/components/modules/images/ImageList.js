@@ -21,6 +21,12 @@ class ImageList extends React.Component {
                   <i className={"material-icons " + style.imageCard__info__icon}>person</i>
                   <span>{image.creator.username}</span>
                 </div> }
+                <div>
+                  <i className={"material-icons " + style.imageCard__info__icon}>favorite</i>
+                  <span>{image.favorite_users_count}</span>
+                  <i className={"material-icons " + style.imageCard__info__icon}>person</i>
+                  <span>{image.creator.followers_count}</span>
+                </div>
                 {/*
                  <div className={ style.imageCard__info__favorites }>
                  <i className={ "material-icons " + style.imageCard__info__icon }>star</i>

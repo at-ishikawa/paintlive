@@ -60,34 +60,36 @@
 }
 
 .commentBox {
-  width: 100%;
 
   &:hover {
     @apply --defaultHover;
   }
 
+  &__link {
+    margin: 4px;
+    display: flex;
+  }
+
   &__thumbnail {
-    display: inline-block;
     width: 80px;
     height: 80px;
     vertical-align: top;
   }
 
   &__content {
-    display: inline-block;
-    width: calc(100% - 64px);
     color: var(--primaryTextColor);
+    flex-grow: 1;
+    &__headline {
+      display: flex;
+    }
   }
 
   &__username {
-    width: 50%;
-    display: inline-block;
     color: var(--secondaryTextColor);
+    flex-grow: 1;
   }
 
   &__time {
-    width: 50%;
-    display: inline-block;
     color: var(--secondaryTextColor);
   }
 

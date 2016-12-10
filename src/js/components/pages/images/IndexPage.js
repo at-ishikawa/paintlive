@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 
 import * as ImageActions from '../../../actions/pages/images/index';
+import Button from '../../modules/ui/Button';
 import Image from '../../modules/ui/Image';
 import ImageListSection from '../../modules/images/ImageListSection';
 import UserListItem from 'components/modules/users/UserListItem';
@@ -21,10 +22,13 @@ class IndexPageComponent extends React.Component {
     const image = this.props.image || {
         name: '',
         url: '',
+        favorite_users_count: 0,
         creator: {
           username: '',
-          thumnbnailPath: ''
-        }
+          thumnbnailPath: '',
+          follower_users_count: 0
+        },
+        comments: []
       };
 
     return (
@@ -40,54 +44,46 @@ class IndexPageComponent extends React.Component {
           <UserListItem user={ image.creator }
           />
 
-          <div className={ style.imageCard__actionBox }>
-            <FlatButton
-              style={{ margin: "0" }}
-              className={ style.imageCard__actionBox__item }
-              label="2000"
-              icon={<i className="material-icons">favorite</i>}
+          { !this.props.user.isLoggedIn ? null :
+            <div className={ style.imageCard__actionBox }>
+              <Button
+                type={ image.favorite_id ? 'action' : 'neutral' }
+                style={{ margin: "0" }}
+                className={ style.imageCard__actionBox__item }
+                label={ new String(image.favorite_users_count)  }
+                icon={<i className="material-icons">favorite</i>}
+                onClick={ () => image.favorite_id ? this.props.unfavoriteImage(image.id, image.favorite_id) : this.props.favoriteImage(image.id) }
               />
-            <FlatButton
-              style={{ margin: "0" }}
-              className={ style.imageCard__actionBox__item }
-              label="200"
-              icon={ <i className="material-icons">person</i> }
+              <FlatButton
+                style={{ margin: "0" }}
+                className={ style.imageCard__actionBox__item }
+                label={ new String(image.creator.followers_count) }
+                icon={ <i className="material-icons">person</i> }
               />
-            <FlatButton
-              style={{ margin: "0" }}
-              className={ style.imageCard__actionBox__item }
-              label="17"
-              icon={<i className="material-icons">comment</i>}
+              <FlatButton
+                style={{ margin: "0" }}
+                className={ style.imageCard__actionBox__item }
+                label={ new String(image.comments.length) }
+                icon={<i className="material-icons">comment</i>}
               />
-          </div>
+            </div>
+          }
           <div>
             <ul className={ style.commentsBox }>
-
-              <li className={ style.commentBox + " " + style.linkBox }>
-                <Link to="/">
-                  <div className={ style.commentBox__thumbnail }>Image</div>
-                  <div className={ style.commentBox__content }>
-                    <div>
-                      <div className={ style.commentBox__username }>User name</div>
-                      <div className={ style.commentBox__time }>2016/11/10</div>
+              { image.comments.map(comment =>
+                <li className={ style.commentBox + " " + style.linkBox }>
+                  <Link className={ style.commentBox__link } to={"/users/" + comment.user.username }>
+                    <div className={ style.commentBox__thumbnail }>Image</div>
+                    <div className={ style.commentBox__content }>
+                      <div className={ style.commentBox__content__headline }>
+                        <div className={ style.commentBox__username }>{ comment.user.username }</div>
+                        <div className={ style.commentBox__time }>{ new Date(comment.created_at).toLocaleDateString() }</div>
+                      </div>
+                      <p className={ style.commentBox__text }>{ comment.text }</p>
                     </div>
-                    <p className={ style.commentBox__text }>This girl is really cute!</p>
-                  </div>
-                </Link>
-              </li>
-              <li className={ style.commentBox + " " + style.linkBox }>
-                <Link to="/">
-                  <div className={ style.commentBox__thumbnail }>Image</div>
-                  <div className={ style.commentBox__content }>
-                    <div>
-                      <div className={ style.commentBox__username }>User name</div>
-                      <div className={ style.commentBox__time }>2016/11/10</div>
-                    </div>
-                    <p className={ style.commentBox__text }>This girl is really cute!</p>
-                  </div>
-                </Link>
-              </li>
-
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </section>
@@ -104,7 +100,8 @@ class IndexPageComponent extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state.pages.images.index
+    ...state.pages.images.index,
+    user: state.user
   };
 };
 
