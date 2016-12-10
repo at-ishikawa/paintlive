@@ -2,6 +2,7 @@
 
 @import "../../base/color";
 @import "../../base/event";
+@import "../../layout/default";
 @import "../../module/ui/linkBox";
 @import "../../module/ui/textLink";
 @import "../../module/ui/image";
@@ -35,9 +36,9 @@
 }
 
 .imageBox {
-  height: 480px;
-  line-height: 480px;
-  margin: auto;
+  width: 100%;
+  height: 60vh;
+  line-height: 60vh;
   z-index: 1;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.125);
 }
@@ -48,8 +49,6 @@
   &__thumbnailBox {
     width: 80px;
     height: 80px;
-    line-height: 80px;
-    margin: auto;
   }
 
   &__info {
@@ -70,8 +69,8 @@
 
   &__thumbnail {
     display: inline-block;
-    width: 64px;
-    height: 64px;
+    width: 80px;
+    height: 80px;
     vertical-align: top;
   }
 

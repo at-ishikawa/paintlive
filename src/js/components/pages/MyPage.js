@@ -2,9 +2,10 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import ImageListSection from '../images/ImageListSection';
+import ImageListSection from 'components/modules/images/ImageListSection';
 import * as ImageActions from 'actions/pages/myPage';
 
+import style from 'page/myPage';
 
 class MyPageComponent extends React.Component {
 
@@ -16,16 +17,18 @@ class MyPageComponent extends React.Component {
   render() {
     return (
       <div>
-        <ImageListSection title="New Images"
-                          images={ this.props.myPage.latestImages }
-                          allUrl="/images/new"
-                          />
+        <div className={ style.contents }>
+          <ImageListSection title="New Images"
+                            images={ this.props.myPage.latestImages }
+                            allUrl="/images/new"
+                            />
 
-        <ImageListSection title="Your Images"
-                          images={ this.props.myPage.userImages }
-                          allUrl="/account/images"
-                          isUserImageList={ true }
-                          />
+          <ImageListSection title="Your Images"
+                            images={ this.props.myPage.userImages }
+                            allUrl="/account/images"
+                            isUserImageList={ true }
+                            />
+        </div>
       </div>
     );
   }

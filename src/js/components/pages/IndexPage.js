@@ -4,7 +4,7 @@ import DocumentMeta from 'react-document-meta';
 import Env from 'Env';
 
 import DefaultContainer from '../layouts/DefaultContainer';
-import MyPage from '../modules/index/MyPage';
+import MyPage from './MyPage';
 import TopPage from '../modules/index/TopPage';
 
 class IndexPageComponent extends React.Component {

@@ -1,0 +1,11 @@
+@custom-media --desktop-screen (width >= 1024px);
+
+.contents {
+  width: 100%;
+
+  @media (--desktop-screen) {
+    width: 60%;
+    margin: auto;
+  }
+}
+

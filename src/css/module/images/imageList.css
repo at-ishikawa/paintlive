@@ -38,6 +38,5 @@
 
 .imageBox {
   height: 120px;
-  line-height: 120px;
-  margin: auto;
+  width: 120px;
 }
