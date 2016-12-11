@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 
 import * as ImageActions from '../../../actions/pages/images/index';
 import * as UserFollowActions from 'actions/users/follow';
@@ -27,7 +27,7 @@ class IndexPageComponent extends React.Component {
         creator: {
           username: '',
           thumnbnailPath: '',
-          follower_users_count: 0
+          followers_count: 0
         },
         comments: []
       };
@@ -63,11 +63,13 @@ class IndexPageComponent extends React.Component {
                 icon={ <i className="material-icons">person</i> }
                 onClick={ () => image.creator.following_id ? this.props.unfollowUser(image.creator.username, image.creator.following_id, image.id) : this.props.followUser(image.creator.username, image.id) }
               />
-              <FlatButton
+              <Button
+                type="neutral"
                 style={{ margin: "0" }}
                 className={ style.imageCard__actionBox__item }
                 label={ new String(image.comments.length) }
                 icon={<i className="material-icons">comment</i>}
+                onClick={ () => window.location.href = "#commentForm" }
               />
             </div>
           }
@@ -88,6 +90,24 @@ class IndexPageComponent extends React.Component {
                 </li>
               )}
             </ul>
+            <form
+              id="commentForm"
+              className={ style.commentForm }
+              onSubmit={ (e) => { e.preventDefault(); this.props.commentImage(image.id, this.comment); this.comment = ""; } }>
+              <TextField
+                multiLine={ true }
+                className={ style.commentForm__text }
+                placeholder="Comment"
+                value={ this.comment }
+                onChange={ (e) => { this.comment = e.target.value; } }
+              />
+              <div className={ style.commentForm__button }>
+                <Button
+                  type="neutral"
+                  label="OK"
+                  />
+              </div>
+            </form>
           </div>
         </section>
 

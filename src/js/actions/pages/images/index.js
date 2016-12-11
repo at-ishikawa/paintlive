@@ -5,7 +5,8 @@ export const {
   pagesImagesIndexEndReadUserImages,
   pagesImagesIndexEndReadImage,
   pagesImagesIndexFavoriteImage,
-  pagesImagesIndexUnfavoriteImage
+  pagesImagesIndexUnfavoriteImage,
+  pagesImagesIndexEndCommentImage
 } = createActions({
   PAGES_IMAGES_INDEX_END_READ_USER_IMAGES: (images) => ({
     images: images
@@ -16,7 +17,10 @@ export const {
   PAGES_IMAGES_INDEX_FAVORITE_IMAGE: (response) => ({
     ...response
   }),
-  PAGES_IMAGES_INDEX_UNFAVORITE_IMAGE: () => ({})
+  PAGES_IMAGES_INDEX_UNFAVORITE_IMAGE: () => ({}),
+  PAGES_IMAGES_INDEX_END_COMMENT_IMAGE: (comment) => ({
+    comment: comment
+  })
 });
 
 const readImages = (dispatch, data, action) => {
@@ -79,4 +83,13 @@ export const readUserImages = (user) => {
     };
     readImages(dispatch, data, pagesImagesIndexEndReadUserImages);
   }
+};
+
+export const commentImage = (imageId, comment) => {
+  return (dispatch => {
+    const request = new Request();
+    request.post("/images/" + imageId + "/comments", { comment: comment }, body => {
+      dispatch(pagesImagesIndexEndCommentImage(body));
+    });
+  });
 };

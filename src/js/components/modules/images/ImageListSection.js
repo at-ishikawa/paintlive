@@ -18,6 +18,10 @@ class ImageLisSection extends React.Component {
         </Link>
       </div> : null;
 
+    if (images.length <= 0) {
+      return null;
+    }
+
     return (
       <section className={ style.imageListSection }>
         <div className={ style.imageListSection__title }>

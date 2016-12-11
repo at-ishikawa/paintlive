@@ -30,6 +30,16 @@ const index = handleActions({
     }
   }),
 
+  PAGES_IMAGES_INDEX_END_COMMENT_IMAGE: (state, action) => ({
+    ...state,
+    image: {
+      ...state.image,
+      comments: [
+        action.payload.comment
+      ].concat(state.image.comments)
+    }
+  }),
+
   SUCCEEDED_FOLLOW_USER: (state, action) => ({
     ...state,
     image: {
