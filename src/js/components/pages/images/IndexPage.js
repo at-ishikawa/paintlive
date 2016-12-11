@@ -47,22 +47,26 @@ class IndexPageComponent extends React.Component {
 
           { !this.props.user.isLoggedIn ? null :
             <div className={ style.imageCard__actionBox }>
-              <Button
-                type={ image.favorite_id ? 'action' : 'neutral' }
-                style={{ margin: "0" }}
-                className={ style.imageCard__actionBox__item }
-                label={ new String(image.favorite_users_count)  }
-                icon={<i className="material-icons">favorite</i>}
-                onClick={ () => image.favorite_id ? this.props.unfavoriteImage(image.id, image.favorite_id) : this.props.favoriteImage(image.id) }
-              />
-              <Button
-                type={ image.creator.following_id ? 'action' : 'neutral' }
-                style={{ margin: "0" }}
-                className={ style.imageCard__actionBox__item }
-                label={ new String(image.creator.followers_count) }
-                icon={ <i className="material-icons">person</i> }
-                onClick={ () => image.creator.following_id ? this.props.unfollowUser(image.creator.username, image.creator.following_id, image.id) : this.props.followUser(image.creator.username, image.id) }
-              />
+              { this.props.user.username != image.creator.username &&
+                <Button
+                  type={ image.favorite_id ? 'action' : 'neutral' }
+                  style={{ margin: "0" }}
+                  className={ style.imageCard__actionBox__item }
+                  label={ new String(image.favorite_users_count)  }
+                  icon={<i className="material-icons">favorite</i>}
+                  onClick={ () => image.favorite_id ? this.props.unfavoriteImage(image.id, image.favorite_id) : this.props.favoriteImage(image.id) }
+                />
+              }
+              { this.props.user.username != image.creator.username &&
+                <Button
+                  type={ image.creator.following_id ? 'action' : 'neutral' }
+                  style={{ margin: "0" }}
+                  className={ style.imageCard__actionBox__item }
+                  label={ new String(image.creator.followers_count) }
+                  icon={ <i className="material-icons">person</i> }
+                  onClick={ () => image.creator.following_id ? this.props.unfollowUser(image.creator.username, image.creator.following_id, image.id) : this.props.followUser(image.creator.username, image.id) }
+                />
+              }
               <Button
                 type="neutral"
                 style={{ margin: "0" }}

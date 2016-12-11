@@ -67,7 +67,7 @@ const muiTheme = getMuiTheme({
 ReactDOM.render((
   <MuiThemeProvider muiTheme={ muiTheme }>
     <Provider store={ store }>
-      <Router history={ history }>
+      <Router onUpdate={ () => window.scrollTo(0, 0) } history={ history }>
         <Route path="/" component={ Container }>
           <Route onEnter={ login }>
             <IndexRoute component={ IndexPage } />

@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 
+import following from './following';
+
 const index = handleActions({
   PAGES_USERS_INDEX_END_READ_USER: (state, action) => ({
     ...state,
@@ -32,6 +34,7 @@ const index = handleActions({
 });
 
 export default combineReducers({
-  index
+  index,
+  following
 });
 

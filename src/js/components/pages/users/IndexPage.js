@@ -34,15 +34,17 @@ class IndexPageComponent extends React.Component {
               <div className={ style.userBox__summary__username }>
                 { user.username }
               </div>
-              <div>
-                <Button
-                  type={ user.following_id ? "positive" : 'action' }
-                  onClick={ () => user.following_id ? this.props.unfollowUser(user.username, user.following_id) : this.props.followUser(user.username) }
-                >
-                  <i className="material-icons">person</i>
-                  { user.following_id ? 'Following' : '+Follow' }
-                </Button>
-              </div>
+              { this.props.loginUser.username != user.username &&
+                <div>
+                  <Button
+                    type={ user.following_id ? "positive" : 'action' }
+                    onClick={ () => user.following_id ? this.props.unfollowUser(user.username, user.following_id) : this.props.followUser(user.username) }
+                  >
+                    <i className="material-icons">person</i>
+                    { user.following_id ? 'Following' : '+Follow' }
+                  </Button>
+                </div>
+              }
             </div>
           </div>
           <div className={ style.userActionBox + " " + style.linkBox }>
@@ -52,13 +54,13 @@ class IndexPageComponent extends React.Component {
           </div>
         </section>
 
-        <ImageListSection title="Other images for this user"
+        <ImageListSection title={ "Other images of " + user.username }
                           images={ user.images }
                           allUrl={ "/user/" + user.username + "/images" }
                           isUserImageList={ true }
                           />
 
-        <ImageListSection title="Favorite images for this user"
+        <ImageListSection title={ "Favorite images of " + user.username }
                           images={ user.images }
                           allUrl={ "/user/" + user.username + "/images" }
                           isUserImageList={ false }
@@ -70,7 +72,8 @@ class IndexPageComponent extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    ...state.pages.users.index
+    ...state.pages.users.index,
+    loginUser: state.user
   };
 };
 
