@@ -8,7 +8,7 @@ class Image extends React.Component {
       <div className={ style.imageBox + " " + this.props.className }
            >
         <img className={ style.imageBox__image }
-             ref={ (c) => this.image = c }
+             ref="image"
              src={ this.props.src ? this.props.src : "/images/nodata.jpg" }
           />
       </div>

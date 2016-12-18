@@ -83,64 +83,66 @@ class TopPageComponent extends React.Component {
               </form>
             </Card>
 
-            <Card>
-              <CardHeader
-                title="Sign Up"
-                />
-              <CardText>
-                <div className={ style.inputForm }>
-                  <div>
-                    <TextField
-                      hintText="Username"
-                      errorText={ this.props.signUpForm.errorMessages.username }
-                      name="username"
-                      onBlur={ this.onTextFieldChange }
-                      />
-                    {(() => {
-                      if (this.props.signUpForm.successMessages.username) {
-                        return <ActionDone color={ greenA700 } />
-                      }
-                    })()}
+            <form onSubmit={ (e) => { e.preventDefault(); this.props.signUp(this.props.signUpForm.input); } }>
+              <Card>
+                <CardHeader
+                  title="Sign Up"
+                  />
+                <CardText>
+                  <div className={ style.inputForm }>
+                    <div>
+                      <TextField
+                        hintText="Username"
+                        errorText={ this.props.signUpForm.errorMessages.username }
+                        name="username"
+                        onBlur={ this.onTextFieldChange }
+                        />
+                      {(() => {
+                        if (this.props.signUpForm.successMessages.username) {
+                          return <ActionDone color={ greenA700 } />
+                        }
+                      })()}
+                    </div>
+                    <div>
+                      <TextField
+                        hintText="Email"
+                        errorText={ this.props.signUpForm.errorMessages.email }
+                        name="email"
+                        onBlur={ this.onTextFieldChange }
+                        />
+                      {(() => {
+                        if (this.props.signUpForm.successMessages.email) {
+                          return <ActionDone color={ greenA700 } />
+                        }
+                      })()}
+                    </div>
+                    <div>
+                      <TextField
+                        hintText="Password"
+                        errorText={ this.props.signUpForm.errorMessages.password }
+                        name="password"
+                        type="password"
+                        onBlur={ this.onTextFieldChange }
+                        />
+                      {(() => {
+                        if (this.props.signUpForm.successMessages.password) {
+                          return <ActionDone color={ greenA700 } />
+                        }
+                      })()}
+                    </div>
                   </div>
-                  <div>
-                    <TextField
-                      hintText="Email"
-                      errorText={ this.props.signUpForm.errorMessages.email }
-                      name="email"
-                      onBlur={ this.onTextFieldChange }
+                </CardText>
+                <CardActions>
+                  <div className={ style.inputForm__actions } >
+                    <Button
+                      type='positive'
+                      label="Sign Up"
+                      onClick={ () => { this.props.signUp(this.props.signUpForm.input) } }
                       />
-                    {(() => {
-                      if (this.props.signUpForm.successMessages.email) {
-                        return <ActionDone color={ greenA700 } />
-                      }
-                    })()}
                   </div>
-                  <div>
-                    <TextField
-                      hintText="Password"
-                      errorText={ this.props.signUpForm.errorMessages.password }
-                      name="password"
-                      type="password"
-                      onBlur={ this.onTextFieldChange }
-                      />
-                    {(() => {
-                      if (this.props.signUpForm.successMessages.password) {
-                        return <ActionDone color={ greenA700 } />
-                      }
-                    })()}
-                  </div>
-                </div>
-              </CardText>
-              <CardActions>
-                <div className={ style.inputForm__actions } >
-                  <Button
-                    type='positive'
-                    label="Sign Up"
-                    onClick={ () => { this.props.signUp(this.props.signUpForm.input) } }
-                    />
-                </div>
-              </CardActions>
-            </Card>
+                </CardActions>
+              </Card>
+            </form>
 
           </div>
         </main>

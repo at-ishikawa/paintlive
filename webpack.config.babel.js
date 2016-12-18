@@ -11,7 +11,7 @@ const srcDir = '/src';
 const distDir = '/dist';
 
 let configs = {
-  devtool: 'eval-source-map',
+  devtool: 'inline-source-map',
   entry: {
     application: path.join(__dirname, srcDir + '/js/application.js')
   },
