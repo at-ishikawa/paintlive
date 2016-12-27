@@ -11,6 +11,7 @@ import TextField from 'material-ui/TextField';
 
 import Dialog from '../ui/Dialog';
 import * as ToolbarActions from "../../../actions/editor/toolbar";
+import * as PaintActions from "actions/editor/paint";
 
 import style from "module/editor/toolbar";
 
@@ -24,7 +25,7 @@ class MainMenuComponent extends React.Component {
                       iconButtonElement={ <FlatButton>File</FlatButton> }
                       >
               <MenuItem primaryText="New" onTouchTap={ this.props.showNewImageDialog } />
-              <MenuItem primaryText="Export" onTouchTap={ this.props.showExportImageDialog } />
+              <MenuItem primaryText="Save" onTouchTap={ () => { this.props.saveImage(this.props.paint); } } />
             </IconMenu>
             <IconMenu className={ style.menu }
                       iconButtonElement={ <FlatButton>Image</FlatButton> }
@@ -110,13 +111,15 @@ class MainMenuComponent extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state.toolbar
+    ...state.toolbar,
+    paint: state.paint
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     ...bindActionCreators(ToolbarActions, dispatch),
+    ...bindActionCreators(PaintActions, dispatch),
     onImportImageMenuChange: (event) => {
       var files = event.target.files;
       if (!files.length) {

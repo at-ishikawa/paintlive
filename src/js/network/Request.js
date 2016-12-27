@@ -20,7 +20,7 @@ class Request {
       return this;
     }
 
-    this.headers['Accept'] = file.type;
+    // this.headers['Accept'] = file.type;
     this.files[name] = file;
     return this;
   }
@@ -68,8 +68,23 @@ class Request {
 
   sendData() {
     if (Object.keys(this.files).length > 0) {
-      Object.keys(this.data).forEach((key) => {
-        this.request.field(key, this.data[key]);
+      const setFields = (data, key) => {
+        if (Array.isArray(data)) {
+          data.forEach((value, index) => {
+            setFields(value, key + "[" + index + "]");
+          });
+        } else if (typeof data === 'object') {
+          Object.keys(data).forEach(key2 => {
+            setFields(data[key2], key + "[" + key2 + "]");
+          });
+        } else if (typeof data === 'boolean') {
+          this.request.field(key, data ? 1 : 0);
+        } else {
+          this.request.field(key, data);
+        }
+      };
+      Object.keys(this.data).forEach(key => {
+        setFields(this.data[key], key);
       });
       Object.keys(this.files).forEach((name) => {
         const file = this.files[name];

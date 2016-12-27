@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as PaintActions from '../../../actions/editor/paint';
+import * as PaintActions from 'actions/editor/paint';
 
 import style from "module/editor/paint";
 
@@ -198,7 +198,7 @@ class PaintComponent extends React.Component {
            ref={ (component) => { this.downloadLink = component; } }
           />
         <div className={ style.paint__header}>
-          New Image
+          { this.props.name }
         </div>
         <div className={ style.paint__canvasContainer}>
           <canvas ref={ (component) => { this.exportCanvas = component; } }
@@ -228,6 +228,7 @@ class PaintComponent extends React.Component {
         </div>
 
         <div className={ style.paint__footer }>
+          { this.props.isSaved ? 'Saved' : 'Changing...' },
           Mode: { this.props.currentMode ? this.props.currentMode.getName() : 'No Select' },
           Point: { this.props.currentPoint ? '(' + this.props.currentPoint.x + ', ' + this.props.currentPoint.y + ')' : '(x, y)' },
         </div>

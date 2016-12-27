@@ -150,9 +150,15 @@ const paint = handleActions({
   EXPORTED_IMAGE: (state) => ({
     ...state,
     imageFileType: null
+  }),
+
+  END_SAVE_IMAGE: (state) => ({
+    ...state,
+    isSaved: true
   })
 }, {
   contexts: [],
+  name: 'Untitled',
   width: 780,
   height: 640,
   layers: [{
@@ -165,6 +171,7 @@ const paint = handleActions({
 
   currentPoint: null,
   isDragging: false,
+  isSaved: true,
 
   color: {
     hex: "#ffffff"
