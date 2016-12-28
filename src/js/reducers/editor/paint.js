@@ -135,7 +135,9 @@ const paint = handleActions({
     layers: [{
       id: Math.floor(Math.random() * (1 << 30)),
       name: 'Background',
-      isVisible: true
+      isVisible: true,
+      isBackground: true,
+      url: null
     }],
     history: [],
     currentLayerIndex: 0,
@@ -152,6 +154,12 @@ const paint = handleActions({
     imageFileType: null
   }),
 
+  END_LOAD_IMAGE: (state, action) => ({
+    ...state,
+    name: action.payload.image.name,
+    layers: action.payload.image.layers,
+    isSaved: true
+  }),
   END_SAVE_IMAGE: (state) => ({
     ...state,
     isSaved: true
@@ -161,11 +169,7 @@ const paint = handleActions({
   name: 'Untitled',
   width: 780,
   height: 640,
-  layers: [{
-    id: Math.floor(Math.random() * (1 << 30)),
-    name: 'Background',
-    isVisible: true
-  }],
+  layers: [],
   currentLayerIndex: 0,
   currentMode: null,
 
@@ -174,7 +178,7 @@ const paint = handleActions({
   isSaved: true,
 
   color: {
-    hex: "#ffffff"
+    hex: "#000"
   },
 
   history: []

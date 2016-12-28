@@ -10,6 +10,7 @@ export const {
   onMouseMovePaint,
 
   exportedImage,
+  endLoadImage,
   endSaveImage
 } = createActions({
   INITIALIZE: (context) => ({
@@ -36,6 +37,10 @@ export const {
   EXPORTED_IMAGE: () => ({
   }),
 
+  END_LOAD_IMAGE: (image) => ({
+    image: image
+  }),
+
   END_SAVE_IMAGE: () => ({
   })
 });
@@ -46,6 +51,23 @@ const canvasToBlob = canvas => {
       resolve(blob);
     });
   });
+};
+
+export const loadImage = id => {
+  return dispatch => {
+    const request = new Request();
+    request.get('/images/' + id, image => {
+      let imageLayerCount = 0;
+      image.layers.forEach(layer => {
+        const request = new Request();
+        layer.isVisible = layer.visibility;
+        layer.url = request.getUrl('/images/' + id + '/layers/' + layer.id + '/load');
+        if (image.layers.length >= ++imageLayerCount) {
+          dispatch(endLoadImage(image));
+        }
+      });
+    });
+  }
 };
 
 export const saveImage = paint => {

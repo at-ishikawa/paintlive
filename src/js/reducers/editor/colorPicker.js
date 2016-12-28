@@ -18,10 +18,10 @@ const colorpicker = handleActions({
 }, {
   isShown: false,
   color: {
-    hex: "#ffffff"
+    hex: "#000"
   },
   selectedColor: {
-    hex: "#ffffff"
+    hex: "#000"
   }
 });
 

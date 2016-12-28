@@ -27,7 +27,6 @@
   }
 
   &__canvas {
-    background-color: #eeeeee;
     width: 720px;
     height: 480px;
     position: absolute;

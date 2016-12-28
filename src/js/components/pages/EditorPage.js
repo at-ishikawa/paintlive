@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import DocumentMeta from 'react-document-meta';
 import Env from 'Env';
 import Paint from '../modules/editor/Paint';
@@ -6,12 +8,20 @@ import Toolbar from '../modules/editor/Toolbar';
 import PaintToolBox from '../modules/editor/PaintToolBox';
 import LayerToolBox from '../modules/editor/LayerToolBox';
 
+import * as PaintActions from 'actions/editor/paint';
 import style from "page/editor";
 
-class EditorPage extends React.Component {
+class EditorPageComponent extends React.Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+    const query = this.props.location.query || {};
+    if ('id' in query) {
+      this.props.loadImage(query.id);
+    }
   }
 
   onSaveButtonClick() {
@@ -69,5 +79,14 @@ class EditorPage extends React.Component {
     )
   }
 }
+
+const EditorPage = connect(
+  () => ({}),
+  dispatch => {
+    return {
+      ...bindActionCreators(PaintActions, dispatch)
+    }
+  }
+)(EditorPageComponent);
 
 export default EditorPage;

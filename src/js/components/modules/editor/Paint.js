@@ -13,8 +13,8 @@ class PaintComponent extends React.Component {
   }
 
   componentDidMount() {
-    var context = this.canvases[this.props.currentLayerIndex].getContext('2d');
-    this.props.initialize(context);
+    // var context = this.canvases[this.props.currentLayerIndex].getContext('2d');
+    // this.props.initialize(context);
 
     const render = () => {
       try {
@@ -27,8 +27,19 @@ class PaintComponent extends React.Component {
   }
 
   draw = () => {
-    this.props.contexts.forEach((context) => {
-      context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    this.props.contexts.forEach((context, index) => {
+      const layer = this.props.layers[index];
+      if (layer.isBackground) {
+        context.fillStyle = '#fff';
+        context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+      } else {
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+      }
+      if (layer.url) {
+        const image = new Image();
+        image.src = layer.url;
+        context.drawImage(image, 0, 0, image.width, image.height);
+      }
     });
 
     const drawFunctions = {
@@ -137,7 +148,14 @@ class PaintComponent extends React.Component {
 
   componentDidUpdate() {
     if (this.props.contexts.length < this.canvases.length) {
-      for (var i = this.props.contexts.length; i < this.canvases.length; i++) {
+      for (var i = 0; i < this.props.contexts.length; i++) {
+        const context = this.canvases[i].getContext('2d');
+        if (context === this.props.contexts[i]) {
+          continue;
+        }
+        this.props.setContext(i, context);
+      }
+      for (i = this.props.contexts.length; i < this.canvases.length; i++) {
         let context = this.canvases[i].getContext('2d');
         this.props.setContext(i, context);
       }
