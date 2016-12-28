@@ -9,6 +9,7 @@ export const {
   onMouseUpPaint,
   onMouseMovePaint,
 
+  importImage,
   exportedImage,
   endLoadImage,
   endSaveImage
@@ -34,6 +35,10 @@ export const {
     point: point
   }),
 
+  IMPORT_IMAGE: (name, url) => ({
+    name: name,
+    url: url
+  }),
   EXPORTED_IMAGE: () => ({
   }),
 

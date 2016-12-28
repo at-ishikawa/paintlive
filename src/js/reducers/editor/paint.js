@@ -145,6 +145,16 @@ const paint = handleActions({
     isDragging: false
   }),
 
+  IMPORT_IMAGE: (state, action) => ({
+    ...state,
+    layers: state.layers.concat([{
+      id: Math.floor(Math.random() * (1 << 30)),
+      name: action.payload.name,
+      isVisible: true,
+      isBackground: false,
+      url: action.payload.url
+    }])
+  }),
   EXPORT_IMAGE: (state, action) => ({
     ...state,
     imageFileType: action.payload.properties.fileType

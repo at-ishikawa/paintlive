@@ -30,7 +30,7 @@ class MainMenuComponent extends React.Component {
             <IconMenu className={ style.menu }
                       iconButtonElement={ <FlatButton>Image</FlatButton> }
                >
-              <MenuItem primaryText="Import" />
+              <MenuItem primaryText="Import" onTouchTap={ () => { this.refs.importImageFile.click(); } } />
             </IconMenu>
           </ToolbarGroup>
         </Toolbar>
@@ -126,10 +126,10 @@ const mapDispatchToProps = (dispatch) => {
         return;
       }
 
-      dispatch({
-        type: 'import image',
-        files: files
-      });
+      const file = files[0];
+      const name = file.name.split(".").shift();
+      const url = URL.createObjectURL(file);
+      dispatch(PaintActions.importImage(name, url));
     }
   };
 }

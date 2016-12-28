@@ -38,7 +38,9 @@ class PaintComponent extends React.Component {
       if (layer.url) {
         const image = new Image();
         image.src = layer.url;
-        context.drawImage(image, 0, 0, image.width, image.height);
+        const dstWidth = context.canvas.width > image.width ? image.width : context.canvas.width;
+        const dstHeight = context.canvas.height > image.height ? image.height : context.canvas.height;
+        context.drawImage(image, 0, 0, image.width, image.height, 0, 0, dstWidth, dstHeight);
       }
     });
 
