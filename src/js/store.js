@@ -2,7 +2,6 @@ import { createStore, compose, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { routerReducer } from 'react-router-redux';
 import reducers from './reducers';
-import { socketIoMiddleware, syncWithServer } from './middlewares/socketIoMiddleware';
 import DevTools from './components/modules/DevTools';
 import createLogger from 'redux-logger';
 
@@ -12,12 +11,11 @@ let middlewares = null;
 if (isDevelopment) {
   const logger = createLogger();
   middlewares = compose(
-    applyMiddleware(thunk, socketIoMiddleware, logger),
+    applyMiddleware(thunk, logger),
     DevTools.instrument()
   );
 } else {
-  middlewares = applyMiddleware(thunk, socketIoMiddleware);
-
+  middlewares = applyMiddleware(thunk);
 }
 
 const store = createStore(
@@ -27,6 +25,5 @@ const store = createStore(
   }),
   middlewares
 );
-syncWithServer(store);
 
 export default store;

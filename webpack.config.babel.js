@@ -10,8 +10,47 @@ if (process.env.NODE_ENV == 'production') {
 const srcDir = '/src';
 const distDir = '/dist';
 
+let cache = false;
+let devtool = '#cheap-source-map';
+let babelLoader = {
+  test: /\.js$/,
+  exclude: /node_modules/,
+  loader: "babel",
+  query: {
+    presets: [
+      "react",
+      "es2015",
+      "stage-0"
+    ]
+  }
+};
+let cssLoader = "css?importLoaders=1&modules";
+let plugins = [
+  new webpack.DefinePlugin({
+    'process.env': {
+      'NODE_ENV': JSON.stringify(environment)
+    }
+  })
+];
+
+if (environment == 'development') {
+  cache = true;
+  devtool = 'inline-source-map';
+  babelLoader.query.cacheDirectory = true;
+  cssLoader += "&sourceMap&localIdentName=[name]--[local]--[hash:base64]";
+} else {
+  plugins.push(new webpack.optimize.UglifyJsPlugin({
+    sourceMap: false,
+    comments: false,
+    compress: {
+      warnings: false
+    }
+  }));
+}
+
 let configs = {
-  devtool: 'inline-source-map',
+  devtool: devtool,
+  cache: cache,
   entry: {
     application: path.join(__dirname, srcDir + '/js/application.js')
   },
@@ -32,36 +71,21 @@ let configs = {
     ]
   },
   module: {
-    preLoaders: [],
     loaders: [
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         loader: 'file'
       },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: "babel",
-        query: {
-          presets: [
-            "react",
-            "es2015",
-            "stage-0"
-          ]
-        }
-      },
+      babelLoader,
       {
         test: /\.css$/,
         loaders: [
           'style',
-          'css?importLoaders=1&sourceMap&modules&localIdentName=[name]--[local]--[hash:base64]',
+          cssLoader,
           'postcss'
         ]
       }
     ]
-  },
-  eslint: {
-    configFile: './.eslintrc'
   },
   postcss: [
     postcssImport,
@@ -70,27 +94,7 @@ let configs = {
   externals: {
     'Env': JSON.stringify(require('./.env.' + environment + '.json'))
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(environment)
-      }
-    })
-  ]
+  plugins: plugins
 };
-
-if (environment == 'development') {
-  configs['module']['preLoaders'].push({
-    test: /\.js$/,
-    exclude: /node_modules/,
-    loader: "eslint"
-  });
-} else {
-  configs.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: true
-    }
-  }));
-}
 
 export default configs;
