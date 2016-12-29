@@ -2,11 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import FlatButton from 'material-ui/FlatButton';
-import MenuItem from 'material-ui/MenuItem';
-import IconMenu from 'material-ui/IconMenu';
-import SelectField from 'material-ui/SelectField';
+import Button from 'components/modules/ui/Button';
 import TextField from 'components/modules/ui/TextField';
 
 import Dialog from '../ui/Dialog';
@@ -20,21 +16,23 @@ class MainMenuComponent extends React.Component {
     return (
       <div className={ style.toolbar }>
 
+        {/*
         <Toolbar>
           <ToolbarGroup firstChild={ true }>
             <IconMenu className={ style.menu }
-                      iconButtonElement={ <FlatButton>File</FlatButton> }
+                      iconButtonElement={ <Button>File</Button> }
                       >
               <MenuItem primaryText="New" onTouchTap={ this.props.showNewImageDialog } />
               <MenuItem primaryText="Save" onTouchTap={ () => { this.props.saveImage(this.props.paint); } } />
             </IconMenu>
             <IconMenu className={ style.menu }
-                      iconButtonElement={ <FlatButton>Image</FlatButton> }
+                      iconButtonElement={ <Button>Image</Button> }
                >
               <MenuItem primaryText="Import" onTouchTap={ () => { this.refs.importImageFile.click(); } } />
             </IconMenu>
           </ToolbarGroup>
         </Toolbar>
+         */}
         <input ref="importImageFile" type="file" style={{ "display" : "none" }} onChange={ this.props.onImportImageMenuChange } />
 
         <Dialog
@@ -42,24 +40,26 @@ class MainMenuComponent extends React.Component {
           header="Export Image as ..."
           footer={
               <div>
-                <FlatButton
-                    label="OK"
+                <Button
                     disabled={ this.props.imageTypeErrorText }
                     onClick={ () => {
                       this.props.exportImage({
                         fileType: this.props.exportImageFileType
                       });
-                    } } />
-                <FlatButton
-                    label="Cancel"
-                    onClick={ this.props.cancelExportImageDialog } />
+                    } }>
+                    OK
+                </Button>
+                <Button
+                    onClick={ this.props.cancelExportImageDialog }>
+                    Cancel
+                </Button>
               </div>
           }>
           <div>
-            <SelectField value={ this.props.exportImageFileType } onChange={ (event, key, payload) => { this.props.setExportImageFileType(payload) } }>
-              <MenuItem value="png" primaryText="PNG" />
-              <MenuItem value="jpeg" primaryText="JPEG" />
-            </SelectField>
+            <select onChange={ (event, key, payload) => { this.props.setExportImageFileType(payload) } }>
+              <option value="png" selected={ this.props.exportImageFileType == 'png' }>PNG</option>
+              <option value="jpeg" selected={ this.props.exportImageFileType == 'jpeg' }>JPEG</option>
+            </select>
           </div>
         </Dialog>
 
@@ -68,26 +68,28 @@ class MainMenuComponent extends React.Component {
           header="New Image"
           footer={
               <div>
-                <FlatButton
-                    label="OK"
+                <Button
                     disabled={ this.props.widthErrorText || this.props.heightErrorText }
                     onClick={ () => {
                       this.props.openNewImage({
                         width: this.props.width,
                         height: this.props.height
                       });
-                    } } />
-                <FlatButton
-                    label="Cancel"
-                    onClick={ this.props.cancelNewImageDialog } />
+                    } }>
+                  OK
+                </Button>
+                <Button
+                    onClick={ this.props.cancelNewImageDialog }>
+                  Cancel
+                </Button>
               </div>
           }>
           <div>
+            <label>Width(px):</label>
             <TextField
               name="width"
               type="number"
               placeholder="Example: 1024"
-              floatingLabelText="Width (px):"
               isError={ this.props.widthErrorText }
               value={ this.props.width }
               onChange={ (event) => { this.props.setWidthOnNewImageDialog(event.target.value); } }
@@ -95,11 +97,11 @@ class MainMenuComponent extends React.Component {
             <div>{ this.props.widthErrorText }</div>
           </div>
           <div>
+            <label>Height (px):</label>
             <TextField
               name="height"
               type="number"
               placeholder="Example: 768"
-              floatingLabelText="Height (px):"
               value={ this.props.height }
               onChange={ (event) => { this.props.setHeightOnNewImageDialog(event.target.value); } }
               />

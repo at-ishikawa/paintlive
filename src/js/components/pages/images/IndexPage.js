@@ -49,32 +49,32 @@ class IndexPageComponent extends React.Component {
             <div className={ style.imageCard__actionBox }>
               { this.props.user.username != image.creator.username &&
                 <Button
-                  type={ image.favorite_id ? 'action' : 'neutral' }
-                  style={{ margin: "0" }}
+                  styleType={ image.favorite_id ? 'action' : 'neutral' }
                   className={ style.imageCard__actionBox__item }
-                  label={ new String(image.favorite_users_count)  }
-                  icon={<i className="material-icons">favorite</i>}
                   onClick={ () => image.favorite_id ? this.props.unfavoriteImage(image.id, image.favorite_id) : this.props.favoriteImage(image.id) }
-                />
+                >
+                  <i className="material-icons">favorite</i>
+                  { image.favorite_users_count }
+                </Button>
               }
               { this.props.user.username != image.creator.username &&
                 <Button
-                  type={ image.creator.following_id ? 'action' : 'neutral' }
-                  style={{ margin: "0" }}
+                  styleType={ image.creator.following_id ? 'action' : 'neutral' }
                   className={ style.imageCard__actionBox__item }
-                  label={ new String(image.creator.followers_count) }
-                  icon={ <i className="material-icons">person</i> }
                   onClick={ () => image.creator.following_id ? this.props.unfollowUser(image.creator.username, image.creator.following_id, image.id) : this.props.followUser(image.creator.username, image.id) }
-                />
+                >
+                  <i className="material-icons">person</i>
+                  image.creator.followers_count
+                </Button>
               }
               <Button
-                type="neutral"
-                style={{ margin: "0" }}
+                styleType="neutral"
                 className={ style.imageCard__actionBox__item }
-                label={ new String(image.comments.length) }
-                icon={<i className="material-icons">comment</i>}
                 onClick={ () => window.location.href = "#commentForm" }
-              />
+              >
+                <i className="material-icons">comment</i>
+                { image.comments.length }
+              </Button>
             </div>
           }
           <div>
@@ -106,9 +106,9 @@ class IndexPageComponent extends React.Component {
               />
               <div className={ style.commentForm__button }>
                 <Button
-                  type="neutral"
-                  label="OK"
-                  />
+                  styleType="neutral">
+                  OK
+                </Button>
               </div>
             </form>
           </div>

@@ -30,9 +30,9 @@ class PasswordPage extends React.Component {
                 />
                 <div className={ style.inputForm__actions }>
                   <Button
-                    type="submit"
-                    label="Complete"
-                  />
+                    type="submit">
+                    Complete
+                  </Button>
                 </div>
               </div>
             </form>

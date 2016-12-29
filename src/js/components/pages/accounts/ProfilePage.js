@@ -69,9 +69,9 @@ class ProfilePageComponent extends React.Component {
                 </div>
                 <div className={ style.inputForm__actions }>
                   <Button
-                    type="submit"
-                    label="Complete"
-                  />
+                    type="submit">
+                    Complete
+                  </Button>
                 </div>
               </div>
             </form>

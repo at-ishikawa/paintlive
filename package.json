@@ -12,7 +12,6 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.16.0",
     "css-loader": "^0.23.1",
-    "material-ui": "^0.15.4",
     "postcss": "^5.2.5",
     "postcss-cssnext": "^2.8.0",
     "postcss-for": "^2.1.1",

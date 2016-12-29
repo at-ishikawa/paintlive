@@ -1,35 +1,30 @@
-import FlatButton from "material-ui/FlatButton";
-import { yellow400, grey400, orange400 } from 'material-ui/styles/colors';
+import React from 'react';
 
 import style from 'module/ui/button';
 
-class Button extends FlatButton {
+class Button extends React.Component {
   render() {
     let defaultProps = {
-      style: {
-        margin: '8px'
-      }
     };
-    let typeProps = {
+    let styleTypeProps = {
       'positive': {
-        backgroundColor: yellow400,
         className: style.button + " " + style['button--positive']
       },
       'neutral': {
-        backgroundColor: grey400,
         className: style.button + " " + style['button--neutral']
       },
       'action': {
-        backgroundColor: orange400,
         className: style.button + " " + style['button--action']
       }
     };
-    const props = Object.assign({}, defaultProps, typeProps['neutral'], typeProps[this.props.type], this.props);
+    const props = Object.assign({}, defaultProps, styleTypeProps['neutral'], styleTypeProps[this.props.styleType], this.props);
 
     return (
-      <FlatButton
+      <button
         { ...props }
-        />
+        >
+        { props.children }
+      </button>
     );
   }
 }

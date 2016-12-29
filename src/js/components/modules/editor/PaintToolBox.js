@@ -4,9 +4,6 @@ import { bindActionCreators } from 'redux';
 import { PhotoshopPicker as ColorPicker } from 'react-color';
 import * as PaintToolBoxActions from '../../../actions/editor/paintToolBox';
 import * as ColorPickerActions from '../../../actions/editor/colorPicker';
-import ImageEdit from "material-ui/svg-icons/image/edit";
-import ImageColorize from "material-ui/svg-icons/image/colorize";
-import ImagePhotoSizeSelectSmall from "material-ui/svg-icons/image/photo-size-select-small";
 import { PenMode, SelectMode, PaintMode } from './modes/';
 
 import style from "module/editor/paintToolBox";
@@ -23,15 +20,15 @@ class PaintToolBoxComponent extends React.Component {
         <ul>
           <li className={ style.toolBox__item + (this.props.name == "Select" ? " isSelected" : "") }
               onClick={ () => ( this.props.setMode(new SelectMode()) ) }>
-            <ImagePhotoSizeSelectSmall />
+            <i className="material-icons">photo_size_select_small</i>
           </li>
           <li className={ style.toolBox__item + (this.props.name == "Pen" ? " isSelected" : "") }
               onClick={ () => ( this.props.setMode(new PenMode()) ) }>
-            <ImageEdit />
+            <i className="material-icons">edit</i>
           </li>
           <li className={ style.toolBox__item + (this.props.name == "Paint" ? " isSelected" : "") }
               onClick={ () => ( this.props.setMode(new PaintMode()) ) }>
-            <ImageColorize />
+            <i className="material-icons">colorize</i>
           </li>
         </ul>
 

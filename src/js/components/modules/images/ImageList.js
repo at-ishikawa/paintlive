@@ -12,7 +12,8 @@ class ImageList extends React.Component {
         { this.props.images.map(image => <li>
           <Link to={"/images/" + image.id}>
             <div className={style.imageCard}>
-              <Image className={style.imageBox}
+              <Image key={image.id}
+                     className={style.imageBox}
                      src={image.url}
                      />
               <div className={style.imageCard__info}>

@@ -3,9 +3,18 @@
 @import "../../base/color";
 
 .button {
-  &--positve {
+  padding: 8px;
+  font-size: 1.6rem;
+
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    transition: opacity 0.3s;
+    opacity: 0.5;
+  }
+  &--positive {
     background-color: var(--positiveAccentColor);
-    margin: 8px;
   }
   &--neutral {
   }

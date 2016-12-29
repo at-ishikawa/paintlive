@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as LayerToolBoxActions from '../../../actions/editor/layer';
-import FlatButton from 'material-ui/FlatButton';
-import Checkbox from 'material-ui/Checkbox';
+import Button from 'components/modules/ui/Button';
+import Checkbox from 'components/modules/ui/Checkbox';
 
 import TextField from 'components/modules/ui/TextField';
 import style from 'module/editor/layerToolBox';
@@ -44,10 +44,14 @@ class LayerToolBoxComponent extends React.Component {
 
         <ul className={ style.layerToolBox__footer }>
           <li>
-            <FlatButton label="Add" onClick={ this.props.addLayer }/>
+            <Button onClick={ this.props.addLayer }>
+              Add
+            </Button>
           </li>
           <li>
-            <FlatButton label="Remove" onClick={ this.props.removeLayer } />
+            <Button onClick={ this.props.removeLayer } >
+              Remove
+            </Button>
           </li>
         </ul>
       </div>

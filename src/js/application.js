@@ -2,8 +2,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import store from './store';
 import Container from './components/layouts/Container';
@@ -57,44 +55,35 @@ export const requireLogin = (nextState, replace) => {
 
 const history = syncHistoryWithStore(browserHistory, store);
 
-import { teal700 } from 'material-ui/styles/colors';
-const muiTheme = getMuiTheme({
-  tabs: {
-    backgroundColor: teal700
-  }
-});
-
 ReactDOM.render((
-  <MuiThemeProvider muiTheme={ muiTheme }>
-    <Provider store={ store }>
-      <Router onUpdate={ () => window.scrollTo(0, 0) } history={ history }>
-        <Route path="/" component={ Container }>
+  <Provider store={ store }>
+    <Router onUpdate={ () => window.scrollTo(0, 0) } history={ history }>
+      <Route path="/" component={ Container }>
+        <Route onEnter={ login }>
+          <IndexRoute component={ IndexPage }/>
+          <Route path="editor" component={ EditorPage }/>
+        </Route>
+
+        <Route component={ DefaultContainer }>
+          <Route path="/signup/complete" component={ SignUpCompletePage }/>
+          <Route path="/signup/validate" component={ SignUpValidatePage }/>
+          <Route path="/signup/error" component={ SignUpErrorPage }/>
+
           <Route onEnter={ login }>
-            <IndexRoute component={ IndexPage } />
-            <Route path="editor" component={ EditorPage } />
-          </Route>
+            <Route path="/images/:id" component={ ImageIndexPage }/>
+            <Route path="/users/:username" component={ UserIndexPage }/>
+            <Route path="/users/:username/followings" component={ UserFollowingPage }/>
 
-          <Route component={ DefaultContainer }>
-            <Route path="/signup/complete" component= { SignUpCompletePage } />
-            <Route path="/signup/validate" component= { SignUpValidatePage } />
-            <Route path="/signup/error" component={ SignUpErrorPage } />
-
-            <Route onEnter={ login }>
-              <Route path="/images/:id" component={ ImageIndexPage } />
-              <Route path="/users/:username" component={ UserIndexPage } />
-              <Route path="/users/:username/followings" component={ UserFollowingPage } />
-
-              <Route onEnter={ requireLogin }>
-                <Route path="/accounts" component={ AccountIndexPage } />
-                <Route path="/accounts/profile" component={ AccountProfilePage } />
-                <Route path="/accounts/password" component={ AccountPasswordPage } />
-              </Route>
-
-              <Route path="*" component={ ErrorPage } />
+            <Route onEnter={ requireLogin }>
+              <Route path="/accounts" component={ AccountIndexPage }/>
+              <Route path="/accounts/profile" component={ AccountProfilePage }/>
+              <Route path="/accounts/password" component={ AccountPasswordPage }/>
             </Route>
+
+            <Route path="*" component={ ErrorPage }/>
           </Route>
         </Route>
-      </Router>
-    </Provider>
-  </MuiThemeProvider>
+      </Route>
+    </Router>
+  </Provider>
 ), document.getElementById("react"));

@@ -37,7 +37,7 @@ class IndexPageComponent extends React.Component {
               { this.props.loginUser.username != user.username &&
                 <div>
                   <Button
-                    type={ user.following_id ? "positive" : 'action' }
+                    styleType={ user.following_id ? "positive" : 'action' }
                     onClick={ () => user.following_id ? this.props.unfollowUser(user.username, user.following_id) : this.props.followUser(user.username) }
                   >
                     <i className="material-icons">person</i>

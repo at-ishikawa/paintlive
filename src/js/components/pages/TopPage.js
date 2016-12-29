@@ -44,9 +44,9 @@ class TopPageComponent extends React.Component {
 
               <Link className={ style.mainVisual__actionButton } to="/editor">
                 <Button
-                  type="positive"
-                  label="Try to paint without save"
-                  />
+                  styleType="positive">
+                  Try to paint without save
+                </Button>
               </Link>
             </div>
 
@@ -70,9 +70,9 @@ class TopPageComponent extends React.Component {
                   />
                   <div className={ style.inputForm__actions }>
                     <Button
-                      type="submit"
-                      label="Log In"
-                    />
+                      type="submit">
+                      Log In
+                    </Button>
                   </div>
                 </div>
               </form>
@@ -121,10 +121,10 @@ class TopPageComponent extends React.Component {
                   </div>
                   <div className={ style.inputForm__actions }>
                     <Button
-                      type='positive'
-                      label="Sign Up"
-                      onClick={ () => { this.props.signUp(this.props.signUpForm.input) } }
-                    />
+                      styleType='positive'
+                      onClick={ () => { this.props.signUp(this.props.signUpForm.input) } }>
+                      Sign Up
+                    </Button>
                   </div>
                 </div>
               </div>

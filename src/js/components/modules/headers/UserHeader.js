@@ -1,41 +1,43 @@
 import React from 'react';
 
-import { Tabs, Tab } from 'material-ui/Tabs';
+import style from 'module/ui/tab';
 
 class UserHeader extends React.Component {
 
   static contextTypes = {
-    router: React.PropTypes.object
+    router: React.PropTypes.object,
+    location: React.PropTypes.object
   }
 
   constructor(context) {
     super(context);
   }
 
-  handleActive = (tab) => {
-    const url = tab.props['data-route']
+  handleActive = (event) => {
+    const url = event.currentTarget.dataset.route;
     this.context.router.push(url);
   }
 
   render() {
+    const isAccountActive = this.context.location.pathname.startsWith('/accounts');
+    const isTopActive = !isAccountActive;
+
     return (
       <header>
-        <Tabs>
-            <Tab label="TOP Icon"
+        <div className={ style.tabs }>
+            <div className={ style.tab + (isTopActive ? " " + style.isActive : '') }
                  data-route="/"
-                 onActive={ this.handleActive }
-                 />
-            {/*
-            <Tab label="Timeline"
-                 data-route="/timeline"
-                 onActive={ this.handleActive }
-                 />
-            */}
-            <Tab label="Account"
+                 onClick={ this.handleActive }
+                 >
+              TOP Icon
+            </div>
+            <div className={ style.tab + (isAccountActive ? " " + style.isActive : '') }
                  data-route="/accounts"
-                 onActive={ this.handleActive }
-                 />
-          </Tabs>
+                 onClick={ this.handleActive }
+                 >
+              Account
+            </div>
+          </div>
       </header>
     );
   }
