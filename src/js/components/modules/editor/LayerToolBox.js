@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as LayerToolBoxActions from '../../../actions/editor/layer';
 import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 
+import TextField from 'components/modules/ui/TextField';
 import style from 'module/editor/layerToolBox';
 
 class LayerToolBoxComponent extends React.Component {

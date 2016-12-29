@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Card, CardActions, CardText } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
+import TextField from 'components/modules/ui/TextField';
 
 import * as Actions from 'actions/pages/accounts/profile';
 import Button from 'components/modules/ui/Button';
@@ -45,21 +45,30 @@ class ProfilePageComponent extends React.Component {
                         } }
                     />
                   </div>
-                  <TextField
-                    ref="username"
-                    errorText={ this.props.errorMessages.username }
-                    name="username"
-                    value={ this.props.username }
-                    onChange={ (event) => { this.props.pagesAccountProfileChangeField({ username: event.target.value }); } }
-                  />
-                  <TextField
-                    ref="email"
-                    errorText={ this.props.errorMessages.email }
-                    name="email"
-                    value={ this.props.email }
-                    onChange={ (event) => { this.props.pagesAccountProfileChangeField({ email: event.target.value}); } }
-                  />
-
+                  <div className={ style.inputForm__row }>
+                    <TextField
+                      ref="username"
+                      isError={ this.props.errorMessages.username }
+                      name="username"
+                      value={ this.props.username }
+                      onChange={ (event) => { this.props.pagesAccountProfileChangeField({ username: event.target.value }); } }
+                    />
+                    <div className={ style.inputForm__errorText }>
+                      { this.props.errorMessages.username }
+                    </div>
+                  </div>
+                  <div className={ style.inputForm__row }>
+                    <TextField
+                      ref="email"
+                      isError={ this.props.errorMessages.email }
+                      name="email"
+                      value={ this.props.email }
+                      onChange={ (event) => { this.props.pagesAccountProfileChangeField({ email: event.target.value}); } }
+                    />
+                    <div className={ style.inputForm__errorText }>
+                      { this.props.errorMessages.email }
+                    </div>
+                  </div>
                 </div>
               </CardText>
               <CardActions>

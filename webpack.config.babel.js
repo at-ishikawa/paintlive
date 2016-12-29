@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import cssnext from 'postcss-cssnext';
+import postcssFor from 'postcss-for';
 import postcssImport from 'postcss-import';
 
 var environment = 'development';
@@ -89,6 +90,7 @@ let configs = {
   },
   postcss: [
     postcssImport,
+    postcssFor,
     cssnext
   ],
   externals: {

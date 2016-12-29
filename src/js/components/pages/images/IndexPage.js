@@ -2,13 +2,13 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import TextField from 'material-ui/TextField';
 
 import * as ImageActions from '../../../actions/pages/images/index';
 import * as UserFollowActions from 'actions/users/follow';
 import Button from '../../modules/ui/Button';
 import Image from '../../modules/ui/Image';
 import ImageListSection from '../../modules/images/ImageListSection';
+import TextField from 'components/modules/ui/TextField';
 import UserListItem from 'components/modules/users/UserListItem';
 
 import style from 'page/images/index';
@@ -100,7 +100,6 @@ class IndexPageComponent extends React.Component {
               onSubmit={ (e) => { e.preventDefault(); this.props.commentImage(image.id, this.comment); this.comment = ""; } }>
               <TextField
                 multiLine={ true }
-                className={ style.commentForm__text }
                 placeholder="Comment"
                 value={ this.comment }
                 onChange={ (e) => { this.comment = e.target.value; } }

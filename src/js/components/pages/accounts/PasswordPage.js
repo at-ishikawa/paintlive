@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardActions, CardText } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
 
+import TextField from 'components/modules/ui/TextField';
 import Button from 'components/modules/ui/Button';
 
 import style from 'page/topPage';
@@ -17,15 +17,17 @@ class PasswordPage extends React.Component {
               <CardText>
                 <div className={ style.inputForm }>
                   <TextField
+                    className={ style.inputForm__row }
                     type="password"
                     ref="password"
-                    hintText="Password"
+                    placeholder="Password"
                     name="password"
                     onBlur={ (event) => { this.password = event.target.value; } }
                   />
                   <TextField
+                    className={ style.inputForm__row }
                     type="password"
-                    hintText="The same password"
+                    placeholder="The same password"
                     name="password_confirmation"
                     onBlur={ (event) => { this.passwordConfirmation = event.target.value; } }
                   />

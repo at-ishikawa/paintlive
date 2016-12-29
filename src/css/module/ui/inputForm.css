@@ -1,8 +1,18 @@
 @charset "utf-8";
 
+@import "../../base/color";
+
 .inputForm {
   display: flex;
   flex-direction: column;
+
+  &__row {
+    margin-bottom: 8px;
+  }
+
+  &__errorText {
+    color: var(--dangerAccentColor);
+  }
 
   &__actions {
     text-align: right;

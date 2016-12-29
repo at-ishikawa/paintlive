@@ -3,10 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import TextField from 'material-ui/TextField';
+import TextField from 'components/modules/ui/TextField';
 import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
-import ActionDone from 'material-ui/svg-icons/action/done';
-import { greenA700 } from 'material-ui/styles/colors';
 
 import GuestHeader from '../modules/headers/GuestHeader';
 import GuestFooter from '../modules/footers/GuestFooter';
@@ -59,17 +57,19 @@ class TopPageComponent extends React.Component {
                 <div className={ style.inputForm }>
                   <TextField
                     ref="username"
-                    hintText="Username"
+                    className={ style.inputForm__row }
+                    placeholder="Username"
                     name="username"
                     onChange={ (event) => { this.username = event.target.value; } }
-                    />
-                    <TextField
-                      ref="password"
-                      hintText="Password"
-                      name="password"
-                      type="password"
-                      onChange={ (event) => { this.password = event.target.value; } }
-                      />
+                  />
+                  <TextField
+                    ref="password"
+                    className={ style.inputForm__row }
+                    placeholder="Password"
+                    name="password"
+                    type="password"
+                    onChange={ (event) => { this.password = event.target.value; } }
+                  />
                 </div>
               </CardText>
               <CardActions>
@@ -90,45 +90,40 @@ class TopPageComponent extends React.Component {
                   />
                 <CardText>
                   <div className={ style.inputForm }>
-                    <div>
+                    <div className={ style.inputForm__row }>
                       <TextField
-                        hintText="Username"
-                        errorText={ this.props.signUpForm.errorMessages.username }
+                        placeholder="Username"
+                        isError={ this.props.signUpForm.errorMessages.username }
                         name="username"
                         onBlur={ this.onTextFieldChange }
                         />
-                      {(() => {
-                        if (this.props.signUpForm.successMessages.username) {
-                          return <ActionDone color={ greenA700 } />
-                        }
-                      })()}
+                      <div className={ style.inputForm__errorText }>
+                        { this.props.signUpForm.errorMessages.username }
+                      </div>
                     </div>
-                    <div>
+                    <div className={ style.inputForm__row }>
                       <TextField
-                        hintText="Email"
-                        errorText={ this.props.signUpForm.errorMessages.email }
+                        placeholder="Email"
+                        isError={ this.props.signUpForm.errorMessages.email }
+                        type="email"
                         name="email"
                         onBlur={ this.onTextFieldChange }
                         />
-                      {(() => {
-                        if (this.props.signUpForm.successMessages.email) {
-                          return <ActionDone color={ greenA700 } />
-                        }
-                      })()}
+                      <div className={ style.inputForm__errorText }>
+                        { this.props.signUpForm.errorMessages.email }
+                      </div>
                     </div>
-                    <div>
+                    <div className={ style.inputForm__row }>
                       <TextField
-                        hintText="Password"
-                        errorText={ this.props.signUpForm.errorMessages.password }
+                        placeholder="Password"
+                        isError={ this.props.signUpForm.errorMessages.password }
                         name="password"
                         type="password"
                         onBlur={ this.onTextFieldChange }
                         />
-                      {(() => {
-                        if (this.props.signUpForm.successMessages.password) {
-                          return <ActionDone color={ greenA700 } />
-                        }
-                      })()}
+                      <div className={ style.inputForm__errorText }>
+                        { this.props.signUpForm.errorMessages.password }
+                      </div>
                     </div>
                   </div>
                 </CardText>

@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
 import SelectField from 'material-ui/SelectField';
-import TextField from 'material-ui/TextField';
+import TextField from 'components/modules/ui/TextField';
 
 import Dialog from '../ui/Dialog';
 import * as ToolbarActions from "../../../actions/editor/toolbar";
@@ -19,6 +19,7 @@ class MainMenuComponent extends React.Component {
   render() {
     return (
       <div className={ style.toolbar }>
+
         <Toolbar>
           <ToolbarGroup firstChild={ true }>
             <IconMenu className={ style.menu }
@@ -85,23 +86,24 @@ class MainMenuComponent extends React.Component {
             <TextField
               name="width"
               type="number"
-              hintText="Example: 1024"
+              placeholder="Example: 1024"
               floatingLabelText="Width (px):"
-              errorText={ this.props.widthErrorText }
+              isError={ this.props.widthErrorText }
               value={ this.props.width }
               onChange={ (event) => { this.props.setWidthOnNewImageDialog(event.target.value); } }
               />
+            <div>{ this.props.widthErrorText }</div>
           </div>
           <div>
             <TextField
               name="height"
               type="number"
-              hintText="Example: 768"
+              placeholder="Example: 768"
               floatingLabelText="Height (px):"
-              errorText={ this.props.heightErrorText }
               value={ this.props.height }
               onChange={ (event) => { this.props.setHeightOnNewImageDialog(event.target.value); } }
               />
+            <div>{ this.props.heightErrorText }</div>
           </div>
         </Dialog>
       </div>
