@@ -3,6 +3,7 @@
 @import "../../base/color";
 @import "../../layout/default";
 @import "../../module/ui/button";
+@import "../../module/ui/card";
 @import "../../module/ui/inputForm";
 
 .thumbnail {

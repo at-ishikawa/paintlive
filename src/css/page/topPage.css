@@ -5,6 +5,7 @@
 @import "../layout/wrapper";
 @import "../layout/container";
 @import "../module/ui/button";
+@import "../module/ui/card";
 @import "../module/ui/inputForm";
 @import "../module/utility/space";
 

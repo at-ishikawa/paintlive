@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import TextField from 'components/modules/ui/TextField';
-import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
 
 import GuestHeader from '../modules/headers/GuestHeader';
 import GuestFooter from '../modules/footers/GuestFooter';
@@ -51,9 +50,8 @@ class TopPageComponent extends React.Component {
               </Link>
             </div>
 
-            <Card>
+            <div className={ style.card }>
               <form onSubmit={ (e) => { e.preventDefault(); this.props.logIn(this.username, this.password); } }>
-              <CardText>
                 <div className={ style.inputForm }>
                   <TextField
                     ref="username"
@@ -70,73 +68,66 @@ class TopPageComponent extends React.Component {
                     type="password"
                     onChange={ (event) => { this.password = event.target.value; } }
                   />
+                  <div className={ style.inputForm__actions }>
+                    <Button
+                      type="submit"
+                      label="Log In"
+                    />
+                  </div>
                 </div>
-              </CardText>
-              <CardActions>
-                <div className={ style.inputForm__actions }>
-                  <Button
-                    type="submit"
-                    label="Log In"
-                  />
-                </div>
-              </CardActions>
               </form>
-            </Card>
+            </div>
 
             <form onSubmit={ (e) => { e.preventDefault(); this.props.signUp(this.props.signUpForm.input); } }>
-              <Card>
-                <CardHeader
-                  title="Sign Up"
-                  />
-                <CardText>
-                  <div className={ style.inputForm }>
-                    <div className={ style.inputForm__row }>
-                      <TextField
-                        placeholder="Username"
-                        isError={ this.props.signUpForm.errorMessages.username }
-                        name="username"
-                        onBlur={ this.onTextFieldChange }
-                        />
-                      <div className={ style.inputForm__errorText }>
-                        { this.props.signUpForm.errorMessages.username }
-                      </div>
-                    </div>
-                    <div className={ style.inputForm__row }>
-                      <TextField
-                        placeholder="Email"
-                        isError={ this.props.signUpForm.errorMessages.email }
-                        type="email"
-                        name="email"
-                        onBlur={ this.onTextFieldChange }
-                        />
-                      <div className={ style.inputForm__errorText }>
-                        { this.props.signUpForm.errorMessages.email }
-                      </div>
-                    </div>
-                    <div className={ style.inputForm__row }>
-                      <TextField
-                        placeholder="Password"
-                        isError={ this.props.signUpForm.errorMessages.password }
-                        name="password"
-                        type="password"
-                        onBlur={ this.onTextFieldChange }
-                        />
-                      <div className={ style.inputForm__errorText }>
-                        { this.props.signUpForm.errorMessages.password }
-                      </div>
+              <div className={ style.card }>
+                <div className={ style.card__title }>
+                  Sign Up
+                </div>
+                <div className={ style.inputForm }>
+                  <div className={ style.inputForm__row }>
+                    <TextField
+                      placeholder="Username"
+                      isError={ this.props.signUpForm.errorMessages.username }
+                      name="username"
+                      onBlur={ this.onTextFieldChange }
+                    />
+                    <div className={ style.inputForm__errorText }>
+                      { this.props.signUpForm.errorMessages.username }
                     </div>
                   </div>
-                </CardText>
-                <CardActions>
-                  <div className={ style.inputForm__actions } >
+                  <div className={ style.inputForm__row }>
+                    <TextField
+                      placeholder="Email"
+                      isError={ this.props.signUpForm.errorMessages.email }
+                      type="email"
+                      name="email"
+                      onBlur={ this.onTextFieldChange }
+                    />
+                    <div className={ style.inputForm__errorText }>
+                      { this.props.signUpForm.errorMessages.email }
+                    </div>
+                  </div>
+                  <div className={ style.inputForm__row }>
+                    <TextField
+                      placeholder="Password"
+                      isError={ this.props.signUpForm.errorMessages.password }
+                      name="password"
+                      type="password"
+                      onBlur={ this.onTextFieldChange }
+                    />
+                    <div className={ style.inputForm__errorText }>
+                      { this.props.signUpForm.errorMessages.password }
+                    </div>
+                  </div>
+                  <div className={ style.inputForm__actions }>
                     <Button
                       type='positive'
                       label="Sign Up"
                       onClick={ () => { this.props.signUp(this.props.signUpForm.input) } }
-                      />
+                    />
                   </div>
-                </CardActions>
-              </Card>
+                </div>
+              </div>
             </form>
 
           </div>
