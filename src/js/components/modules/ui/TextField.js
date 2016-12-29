@@ -1,6 +1,6 @@
 import React from 'react';
 
-import style from 'module/ui/textField';
+import style from 'modules/ui/textField';
 
 class TextField extends React.Component {
   render() {

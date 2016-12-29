@@ -1,6 +1,6 @@
 import React from 'react';
 
-import style from 'module/ui/button';
+import style from 'modules/ui/button';
 
 class Button extends React.Component {
   render() {

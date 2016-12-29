@@ -1,7 +1,0 @@
-@charset "utf-8";
-
-@import "../../base/color";
-@import "../../layout/container";
-@import "../../module/ui/card";
-@import "../../module/ui/textLink";
-@import "../../module/utility/alignment";

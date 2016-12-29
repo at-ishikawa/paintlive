@@ -1,7 +1,7 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 
-import style from 'module/ui/dialog';
+import style from 'modules/ui/dialog';
 
 class Dialog extends React.Component {
   render() {

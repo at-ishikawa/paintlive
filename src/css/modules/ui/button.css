@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+@import "../../bases/color";
+
+.button {
+  padding: 8px;
+  font-size: 1.6rem;
+
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    transition: opacity 0.3s;
+    opacity: 0.5;
+  }
+  &--positive {
+    background-color: var(--positiveAccentColor);
+  }
+  &--neutral {
+  }
+}

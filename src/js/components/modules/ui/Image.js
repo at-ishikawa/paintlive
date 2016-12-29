@@ -1,6 +1,6 @@
 import React from 'react';
 
-import style from 'module/ui/image';
+import style from 'modules/ui/image';
 
 class Image extends React.Component {
   render() {

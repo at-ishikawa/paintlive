@@ -1,8 +1,0 @@
-@charset "utf-8";
-
-@import "../../base/color";
-
-.textLink {
-  text-decoration: underline;
-  color: var(--linkTextColor);
-}

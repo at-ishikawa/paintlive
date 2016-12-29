@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+@import "../bases/color";
+
+.wrapper {
+  background-color: var(--bodyBackgroundColor);
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  margin: 0;
+}

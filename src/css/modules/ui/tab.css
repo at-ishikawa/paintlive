@@ -1,0 +1,17 @@
+@import "../../bases/color";
+
+.tabs {
+  width: 100%;
+  display: flex;
+
+  @apply --primaryColorTheme;
+}
+.tab {
+  padding: 8px;
+  width: 100%;
+  text-align: center;
+
+  &.isActive {
+    border-bottom: 2px solid var(--positiveAccentColor);
+  }
+}

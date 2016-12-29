@@ -1,17 +1,13 @@
 import user from './user';
-import colorPicker from './editor/colorPicker';
-import paint from './editor/paint';
-import paintToolBox from './editor/paintToolBox';
-import toolbar from './editor/toolbar';
-import auth from './auth/';
-import pages from './pages/';
+import colorPicker from './colorPicker';
+import paint from './paint';
+import paintToolBox from './paintToolBox';
+import toolbar from './toolbar';
 
 export default {
   user,
   colorPicker,
   paint,
   paintToolBox,
-  toolbar,
-  auth,
-  pages
+  toolbar
 };

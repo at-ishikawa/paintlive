@@ -1,7 +1,0 @@
-@charset "utf-8";
-
-.linkBox {
-  &:active {
-    background-color: rgba(0, 0, 0, 0.125);
-  }
-}
