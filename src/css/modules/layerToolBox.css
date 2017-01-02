@@ -1,8 +1,10 @@
 @charset "utf-8";
 
+@import "../bases/color";
+
 .layerToolBox {
   background-color: #eeeeee;
-  border: 1px solid;
+  color: var(--primaryTextColor);
 
   &__header {
     padding: 8px;

@@ -1,14 +1,16 @@
 @charset "utf-8";
 
 :root {
+  --primaryColor: #00796B;
   --primaryColorTheme: {
     color: rgba(255, 255, 255, 1.0);
     /* teal700 */
-    background-color: #00796B;
+    background-color: var(--primaryColor);
   }
+  --secondaryColor: #009688;
   --secondaryColorTheme: {
     /* teal500 */
-    background-color: #009688;
+    background-color: var(--secondaryColor);
     color: rgba(255, 255, 255, 0.7);
   }
   --primaryTextColor: rgba(0, 0, 0, 0.87);

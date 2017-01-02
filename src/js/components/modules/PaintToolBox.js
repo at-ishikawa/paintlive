@@ -16,7 +16,6 @@ class PaintToolBoxComponent extends React.Component {
   render() {
     return (
       <div className={ style.toolBox }>
-        <span>Tool</span>
         <ul>
           <li className={ style.toolBox__item + (this.props.name == "Select" ? " isSelected" : "") }
               onClick={ () => ( this.props.setMode(new SelectMode()) ) }>

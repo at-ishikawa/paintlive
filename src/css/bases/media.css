@@ -1,2 +1,2 @@
 @custom-media --desktop-screen (width >= 1024px);
-
+@custom-media --mobile-screen (width <= 1024px);

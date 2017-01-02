@@ -5,8 +5,8 @@ import DocumentMeta from 'react-document-meta';
 import Env from 'Env';
 import Paint from 'components/modules/Paint';
 import Toolbar from 'components/modules/Toolbar';
-import PaintToolBox from 'components/modules/PaintToolBox';
 import LayerToolBox from 'components/modules/LayerToolBox';
+import PaintToolBox from 'components/modules/PaintToolBox';
 
 import * as PaintActions from 'actions/paint';
 import style from "pages/painter";
@@ -46,35 +46,29 @@ class PainterPageComponent extends React.Component {
     return (
       <div className={ style.wrapper }>
         <DocumentMeta {...meta} />
+
         <Toolbar />
+        <main className={ style.main }>
+          <ul className={ style.components }>
+            <li className={ style.menu }>
+              <div className={ style.menu__title }>Tool</div>
+              <div className={ style.menu__item }>
+                <PaintToolBox />
+              </div>
+            </li>
 
-        <div className={ style.main }>
-          {/*
-          Draw Page
-          <br />
-          Mode: { this.props.currentMode ? this.props.currentMode.getName() : 'Unset' }
-          <br />
-
-          <a ref={ (component) => this.downloadLink = component }
-             onClick={ this.onSaveButtonClick }
-             download="YourFilename.jpg">
-             Download as image
-          </a>
-          <br />
-          */}
-          <div className={ style.editorContainer }>
-            <div>
-              <PaintToolBox />
-            </div>
-
-            <div className={ style.paintContainer }>
+            <li className={ style.paintContainer }>
               <Paint />
-            </div>
-            <div>
-              <LayerToolBox />
-            </div>
-          </div>
-        </div>
+            </li>
+
+            <li className={ style.menu + " " + style.layerToolBox }>
+              <div className={ style.menu__title }>Layers</div>
+              <div className={ style.menu__item }>
+                <LayerToolBox />
+              </div>
+            </li>
+          </ul>
+        </main>
       </div>
     )
   }

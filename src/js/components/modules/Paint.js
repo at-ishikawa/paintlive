@@ -217,9 +217,6 @@ class PaintComponent extends React.Component {
         <a style={{ display: "none" }}
            ref={ (component) => { this.downloadLink = component; } }
           />
-        <div className={ style.paint__header}>
-          { this.props.name }
-        </div>
         <div className={ style.paint__canvasContainer}>
           <canvas ref={ (component) => { this.exportCanvas = component; } }
             hidden="true"

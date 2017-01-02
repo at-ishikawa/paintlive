@@ -12,10 +12,6 @@ class LayerToolBoxComponent extends React.Component {
   render() {
     return (
       <div className={ style.layerToolBox }>
-        <div className={ style.layerToolBox__header }>
-          Layer
-        </div>
-
         <ul className={ style.layerToolBox__layerList}>
           { this.props.layers.map((function (layer, index) {
             var className = this.props.currentLayerIndex == index ? "isSelected" : "";

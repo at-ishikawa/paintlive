@@ -11,28 +11,34 @@ import * as PaintActions from "actions/paint";
 
 import style from "modules/toolbar";
 
-class MainMenuComponent extends React.Component {
+class ToolbarComponent extends React.Component {
   render() {
     return (
-      <div className={ style.toolbar }>
-
-        {/*
-        <Toolbar>
-          <ToolbarGroup firstChild={ true }>
-            <IconMenu className={ style.menu }
-                      iconButtonElement={ <Button>File</Button> }
-                      >
-              <MenuItem primaryText="New" onTouchTap={ this.props.showNewImageDialog } />
-              <MenuItem primaryText="Save" onTouchTap={ () => { this.props.saveImage(this.props.paint); } } />
-            </IconMenu>
-            <IconMenu className={ style.menu }
-                      iconButtonElement={ <Button>Image</Button> }
-               >
-              <MenuItem primaryText="Import" onTouchTap={ () => { this.refs.importImageFile.click(); } } />
-            </IconMenu>
-          </ToolbarGroup>
-        </Toolbar>
-         */}
+      <div>
+        <ul className={ style.toolbar }>
+          <li className={ style.menu }>
+            <div className={ style.menu__title }>File</div>
+            <ul className={ style.dropdownMenu }>
+              <li className={ style.dropdownMenu__item }
+                  onClick={ this.props.showNewImageDialog }>
+                New
+              </li>
+              <li className={ style.dropdownMenu__item }
+                  onClick={ () => { this.props.saveImage(this.props.paint); } }>
+                Save
+              </li>
+            </ul>
+          </li>
+          <li className={ style.menu }>
+            <div className={ style.menu__title }>Image</div>
+            <ul className={ style.dropdownMenu }>
+              <li className={ style.dropdownMenu__item }
+                  onClick={ () => { this.refs.importImageFile.click() } }>
+                Import
+              </li>
+            </ul>
+          </li>
+        </ul>
         <input ref="importImageFile" type="file" style={{ "display" : "none" }} onChange={ this.props.onImportImageMenuChange } />
 
         <Dialog
@@ -138,9 +144,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-const MainMenu = connect(
+const Toolbar = connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainMenuComponent);
+)(ToolbarComponent);
 
-export default MainMenu;
+export default Toolbar;
