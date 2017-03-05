@@ -3,8 +3,9 @@
 @import "../bases/color";
 
 .layerToolBox {
-  background-color: #eeeeee;
+  background-color: var(--contentsBackgroundColor);
   color: var(--primaryTextColor);
+  width: 100%;
 
   &__header {
     padding: 8px;
@@ -13,31 +14,38 @@
   &__layerList {
     padding: 0;
     overflow-y: scroll;
-    height: 200px;
+    height: 400px;
 
     &__item {
       display: flex;
       flex-direction: row;
       padding: 8px;
 
-      &__name {
-      }
-
-      &__visible {
-        margin: auto;
-      }
-
       &:hover {
-        @include hover-color;
+         background-color: color(var(--secondaryColor) alpha(0.3));
       }
 
       &.isSelected {
-        @include selected-color;
+         background-color: color(var(--secondaryColor) alpha(0.5));
+      }
+
+      &__visible {
+         margin: auto;
+         margin-left: 8px;
       }
     }
   }
 
   &__footer {
     display: flex;
+  }
+}
+
+.textField {
+  padding: 2px;
+  border: 0;
+  background-color: initial;
+  &:focus {
+     background-color: white;
   }
 }

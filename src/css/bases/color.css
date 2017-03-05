@@ -11,7 +11,7 @@
   --secondaryColorTheme: {
     /* teal500 */
     background-color: var(--secondaryColor);
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 1.0);
   }
   --primaryTextColor: rgba(0, 0, 0, 0.87);
   --secondaryTextColor: rgba(0, 0, 0, 0.54);
@@ -30,6 +30,8 @@
 
   /* yellow400 */
   --positiveAccentColor: #FFEE58;
+  /* orange400 */
+  --actionColor: #FFA726;
   /* red700 */
   --dangerAccentColor: #D32F2F;
   /* orange400: #FFA726 */

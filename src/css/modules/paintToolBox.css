@@ -15,11 +15,11 @@
     cursor: pointer;
 
     &:hover {
-      background-color: rgba(16, 128, 240, 0.125);
+      background-color: color(var(--secondaryColor) alpha(0.2));
     }
 
     &.isSelected {
-      background-color: rgba(16, 128, 240, 0.25);
+      background-color: color(var(--secondaryColor) alpha(0.5));
     }
   }
 

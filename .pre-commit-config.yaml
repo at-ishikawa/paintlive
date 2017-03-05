@@ -10,3 +10,4 @@
   sha: 02999128135512d63e07d4a8a05d424cde3fe5d1
   hooks:
     - id: eslint
+      additional_dependencies: ['eslint', 'eslint-plugin-react', 'babel-eslint']

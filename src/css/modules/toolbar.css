@@ -32,7 +32,7 @@
   flex-direction: column;
   position: absolute;
   top: var(--toolbarHeight);
-  z-index: 2000;
+  z-index: 1001;
   @apply --primaryColorTheme;
 
   &__item {
@@ -51,5 +51,23 @@
 @media (--desktop-screen) {
   .toolbar {
     padding: 0 5%;
+    box-sizing: border-box;
+  }
+}
+
+.item {
+  display: block;
+}
+.sizeText {
+  width: 64px;
+}
+.errorText {
+  margin: 8px;
+  color: var(--dangerAccentColor);
+}
+.actions {
+  margin: 16px auto 0;
+  & > * {
+    margin: 0 8px;
   }
 }

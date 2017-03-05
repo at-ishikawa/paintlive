@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import store from './store';
@@ -10,8 +10,8 @@ import ErrorPage from './components/pages/ErrorPage';
 
 import 'bases/reset';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
+// import injectTapEventPlugin from 'react-tap-event-plugin';
+// injectTapEventPlugin();
 
 import Request from 'network/Request';
 import * as LoginActions from 'actions/auth/login';
@@ -38,7 +38,7 @@ ReactDOM.render((
   <Provider store={ store }>
     <Router onUpdate={ () => window.scrollTo(0, 0) } history={ history }>
       <Route path="/" component={ Container } onEnter={ login }>
-        <Route path="painter" component={ PainterPage }/>
+        <IndexRoute component={ PainterPage }/>
         <Route path="*" component={ ErrorPage } status={ 404 } />
       </Route>
     </Router>

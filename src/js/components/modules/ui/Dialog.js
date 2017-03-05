@@ -17,9 +17,6 @@ class Dialog extends React.Component {
               <div className={ style.dialog__body }>
                 { this.props.children }
               </div>
-              <div className={ style.dialog__footer }>
-                { this.props.footer }
-              </div>
             </div>
           </Draggable>
       </div>

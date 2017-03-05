@@ -17,15 +17,15 @@ class PaintToolBoxComponent extends React.Component {
     return (
       <div className={ style.toolBox }>
         <ul>
-          <li className={ style.toolBox__item + (this.props.name == "Select" ? " isSelected" : "") }
+          <li className={ style.toolBox__item + (this.props.name == "Select" ? " " + style.isSelected : "") }
               onClick={ () => ( this.props.setMode(new SelectMode()) ) }>
             <i className="material-icons">photo_size_select_small</i>
           </li>
-          <li className={ style.toolBox__item + (this.props.name == "Pen" ? " isSelected" : "") }
+          <li className={ style.toolBox__item + (this.props.name == "Pen" ? " " + style.isSelected : "") }
               onClick={ () => ( this.props.setMode(new PenMode()) ) }>
             <i className="material-icons">edit</i>
           </li>
-          <li className={ style.toolBox__item + (this.props.name == "Paint" ? " isSelected" : "") }
+          <li className={ style.toolBox__item + (this.props.name == "Paint" ? " " + style.isSelected : "") }
               onClick={ () => ( this.props.setMode(new PaintMode()) ) }>
             <i className="material-icons">colorize</i>
           </li>
