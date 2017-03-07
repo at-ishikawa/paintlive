@@ -13,6 +13,9 @@ import style from "modules/toolbar";
 
 class ToolbarComponent extends React.Component {
   render() {
+
+    let painting = this.props.paint.contexts.length > 0;
+
     return (
       <div>
         <ul className={ style.toolbar }>
@@ -31,15 +34,17 @@ class ToolbarComponent extends React.Component {
               */}
             </ul>
           </li>
-          <li className={ style.menu }>
-            <div className={ style.menu__title }>Image</div>
-            <ul className={ style.dropdownMenu }>
-              <li className={ style.dropdownMenu__item }
-                  onClick={ () => { this.refs.importImageFile.click() } }>
-                Import
-              </li>
-            </ul>
-          </li>
+          { painting &&
+            <li className={ style.menu }>
+              <div className={ style.menu__title }>Image</div>
+              <ul className={ style.dropdownMenu }>
+                <li className={ style.dropdownMenu__item }
+                    onClick={ () => { this.refs.importImageFile.click() } }>
+                  Import
+                </li>
+              </ul>
+            </li>
+          }
         </ul>
         <input ref="importImageFile" type="file" style={{ "display" : "none" }} onChange={ this.props.onImportImageMenuChange } />
 
@@ -47,9 +52,9 @@ class ToolbarComponent extends React.Component {
           isVisible={ this.props.isExportImageDialogShown }
           header="Export Image as ...">
           <div>
-            <select onChange={ (event, key, payload) => { this.props.setExportImageFileType(payload) } }>
-              <option value="png" selected={ this.props.exportImageFileType == 'png' }>PNG</option>
-              <option value="jpeg" selected={ this.props.exportImageFileType == 'jpeg' }>JPEG</option>
+            <select onChange={ (event, key, payload) => { this.props.setExportImageFileType(payload) } } defaultValue={ this.props.exportImageFileType }>
+              <option value="png">PNG</option>
+              <option value="jpeg">JPEG</option>
             </select>
           </div>
           <div>

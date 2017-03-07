@@ -13,7 +13,7 @@ class LayerToolBoxComponent extends React.Component {
     return (
       <div className={ style.layerToolBox }>
         <ul className={ style.layerToolBox__layerList}>
-          { this.props.layers.map((function (layer, index) {
+          { this.props.layers.map((layer, index) => {
             var className = this.props.currentLayerIndex == index ? style.isSelected : "";
             return (
               <li key={ index }
@@ -27,15 +27,14 @@ class LayerToolBoxComponent extends React.Component {
                   />
                 <div className={ style.layerToolBox__layerList__item__visible}>
                   <Checkbox
-                     labelPosition="left"
                      name={ "layer_is_visible_" + index }
-                     onCheck={ (event) => { this.props.setLayerVisible(index, event.target.checked) } }
+                     onChange={ (event) => { this.props.setLayerVisible(index, event.target.checked) } }
                      defaultChecked={ layer.isVisible }
                     />
                 </div>
               </li>
             );
-          }).bind(this)) }
+          }) }
         </ul>
 
         <ul className={ style.layerToolBox__footer }>

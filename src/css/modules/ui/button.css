@@ -5,6 +5,7 @@
 .button {
   padding: 8px;
   font-size: 1.6rem;
+  min-width: 64px;
 
   &:hover {
     opacity: 0.8;

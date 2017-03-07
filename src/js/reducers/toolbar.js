@@ -4,8 +4,8 @@ const toolbar = handleActions({
   SHOW_NEW_IMAGE_DIALOG: (state) => ({
     ...state,
     isNewImageDialogShown: true,
-    width: '',
-    height: ''
+    width: '600',
+    height: '400'
   }),
   OPEN_NEW_IMAGE: (state) => ({
     ...state,

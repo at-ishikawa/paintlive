@@ -150,6 +150,11 @@ class PaintComponent extends React.Component {
 
   componentDidUpdate() {
     if (this.props.contexts.length < this.canvases.length) {
+      // After create new images, delete canvas properties
+      this.canvases = this.canvases.filter(canvas => {
+        return canvas != null;
+      });
+
       for (var i = 0; i < this.props.contexts.length; i++) {
         const context = this.canvases[i].getContext('2d');
         if (context === this.props.contexts[i]) {
@@ -231,8 +236,8 @@ class PaintComponent extends React.Component {
               width={ this.props.width }
               height={ this.props.height }
               style={{
-                width: this.props.width,
-                height: this.props.height
+                width: this.props.width + "px",
+                height: this.props.height + "px"
               }}
               onClick={ this.onClick }
               onMouseDown={ this.onMouseDown }
@@ -240,7 +245,7 @@ class PaintComponent extends React.Component {
               onMouseMove={ this.onMouseMove }
               hidden={ !layer.isVisible }
               >
-</canvas>
+            </canvas>
           ))}
         </div>
 

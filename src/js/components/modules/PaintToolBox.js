@@ -4,31 +4,36 @@ import { bindActionCreators } from 'redux';
 import { PhotoshopPicker as ColorPicker } from 'react-color';
 import * as PaintToolBoxActions from 'actions/paintToolBox';
 import * as ColorPickerActions from 'actions/colorPicker';
-import { PenMode, SelectMode, PaintMode } from './modes/';
+// import { PenMode, SelectMode, PaintMode } from './modes/';
+import { PenMode } from './modes/';
 
 import style from "modules/paintToolBox";
 
 class PaintToolBoxComponent extends React.Component {
   componentDidMount() {
-    this.props.setMode(new SelectMode());
+    this.props.setMode(new PenMode());
   }
 
   render() {
     return (
       <div className={ style.toolBox }>
         <ul>
+          {/* TODO
           <li className={ style.toolBox__item + (this.props.name == "Select" ? " " + style.isSelected : "") }
               onClick={ () => ( this.props.setMode(new SelectMode()) ) }>
             <i className="material-icons">photo_size_select_small</i>
           </li>
+          */}
           <li className={ style.toolBox__item + (this.props.name == "Pen" ? " " + style.isSelected : "") }
               onClick={ () => ( this.props.setMode(new PenMode()) ) }>
             <i className="material-icons">edit</i>
           </li>
+          {/* TODO
           <li className={ style.toolBox__item + (this.props.name == "Paint" ? " " + style.isSelected : "") }
               onClick={ () => ( this.props.setMode(new PaintMode()) ) }>
             <i className="material-icons">colorize</i>
           </li>
+          */}
         </ul>
 
         <ul>

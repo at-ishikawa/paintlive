@@ -13,6 +13,7 @@ import 'bases/reset';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 // injectTapEventPlugin();
 
+/*
 import Request from 'network/Request';
 import * as LoginActions from 'actions/auth/login';
 const login = () => {
@@ -31,6 +32,8 @@ const login = () => {
     store.dispatch(LoginActions.succeedLogIn(user));
   });
 };
+ */
+const login = () => {};
 
 const history = syncHistoryWithStore(browserHistory, store);
 

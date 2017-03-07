@@ -36,12 +36,13 @@ class PainterPageComponent extends React.Component {
       description: 'Sample Description',
       canonical: Env.appUrl + this.props.location.pathname,
       meta: {
-        charset: 'utf-8',
         name: {
           keywords: 'sample'
         }
       }
     };
+
+    let painting = this.props.paint.contexts.length > 0;
 
     return (
       <div className={ style.wrapper }>
@@ -50,23 +51,27 @@ class PainterPageComponent extends React.Component {
         <Toolbar />
         <main className={ style.main }>
           <ul className={ style.components }>
-            <li className={ style.menu }>
-              <div className={ style.menu__title }>Tool</div>
-              <div className={ style.menu__item }>
-                <PaintToolBox />
-              </div>
-            </li>
+            { painting &&
+              <li className={ style.menu }>
+                <div className={ style.menu__title }>Tool</div>
+                <div className={ style.menu__item }>
+                  <PaintToolBox />
+                </div>
+              </li>
+            }
 
             <li className={ style.paintContainer }>
               <Paint />
             </li>
 
-            <li className={ style.menu + " " + style.layerToolBox }>
-              <div className={ style.menu__title }>Layers</div>
-              <div className={ style.menu__item }>
-                <LayerToolBox />
-              </div>
-            </li>
+            { painting &&
+              <li className={ style.menu + " " + style.layerToolBox }>
+                <div className={ style.menu__title }>Layers</div>
+                <div className={ style.menu__item }>
+                  <LayerToolBox />
+                </div>
+              </li>
+            }
           </ul>
         </main>
       </div>
@@ -75,7 +80,11 @@ class PainterPageComponent extends React.Component {
 }
 
 const PainterPage = connect(
-  () => ({}),
+  state => {
+    return {
+      paint: state.paint
+    };
+  },
   dispatch => {
     return {
       ...bindActionCreators(PaintActions, dispatch)
