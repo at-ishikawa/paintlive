@@ -1,0 +1,82 @@
+@charset "utf-8";
+
+@import "../bases/color";
+@import "../bases/media";
+@import "../layouts/wrapper";
+
+.paintContainer {
+  flex: 1 0 auto;
+}
+
+.components {
+  position: relative;
+}
+
+.menu {
+}
+
+:root {
+  --menuHeight: 40px;
+}
+
+@media (--mobile-screen) {
+
+  .components {
+    height: var(--menuHeight);
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .menu {
+    z-index: 1000;
+    @apply --secondaryColorTheme;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    &:hover {
+      background-color: color(var(--secondaryColor) blackness(20));
+    }
+
+    &:hover > .menu__item {
+      visibility: visible;
+    }
+
+    &__item {
+      visibility: hidden;
+      position: absolute;
+      left: 0;
+      top: var(--menuHeight);
+    }
+  }
+
+  .paintContainer {
+    position: absolute;
+    top: var(--menuHeight);
+    width: 100%;
+  }
+}
+
+@media (--desktop-screen) {
+  .main {
+    margin: 0 5%;
+  }
+
+  .components {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .layerToolBox {
+    width: 240px;
+  }
+
+  .menu {
+    &__title {
+      @apply --secondaryColorTheme;
+      padding: 8px;
+    }
+  }
+}

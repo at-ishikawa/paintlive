@@ -1,0 +1,73 @@
+@charset "utf-8";
+
+@import "../bases/color";
+@import "../bases/media";
+
+:root {
+  --toolbarHeight: 40px;
+}
+
+.toolbar {
+  width: 100%;
+  height: var(--toolbarHeight);
+  display: flex;
+  @apply --primaryColorTheme;
+}
+
+.menu {
+  cursor: pointer;
+  height: 100%;
+  box-sizing: border-box;
+
+  &__title {
+    padding: 8px;
+    height: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.dropdownMenu {
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: var(--toolbarHeight);
+  z-index: 1001;
+  @apply --primaryColorTheme;
+
+  &__item {
+    padding: 8px;
+  }
+}
+
+.menu:hover > .dropdownMenu, .dropdownMenu:hover {
+  visibility: visible;
+}
+
+.menu:hover > .menu__title, .dropdownMenu__item:hover {
+  background-color: color(var(--primaryColor) blackness(40));
+}
+
+@media (--desktop-screen) {
+  .toolbar {
+    padding: 0 5%;
+    box-sizing: border-box;
+  }
+}
+
+.item {
+  display: block;
+}
+.sizeText {
+  width: 64px;
+}
+.errorText {
+  margin: 8px;
+  color: var(--dangerAccentColor);
+}
+.actions {
+  margin: 16px auto 0;
+  & > * {
+    margin: 0 8px;
+  }
+}

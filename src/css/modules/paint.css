@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+@import "../bases/color";
+
+.paint {
+  background-color: #eeeeee;
+  border: 1px solid;
+  color: var(--primaryTextColor);
+
+  &__canvasContainer {
+    background-color: #bbbbbb;
+    width: 100%;
+    height: calc(100vh - 80px);
+    overflow: scroll;
+    position: relative;
+  }
+
+  &__canvas {
+    width: 720px;
+    height: 480px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  &__footer {
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 8px;
+    @apply --primaryColorTheme;
+  }
+}

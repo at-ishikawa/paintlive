@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+:root {
+  --primaryColor: #00796B;
+  --primaryColorTheme: {
+    color: rgba(255, 255, 255, 1.0);
+    /* teal700 */
+    background-color: var(--primaryColor);
+  }
+  --secondaryColor: #009688;
+  --secondaryColorTheme: {
+    /* teal500 */
+    background-color: var(--secondaryColor);
+    color: rgba(255, 255, 255, 1.0);
+  }
+  --primaryTextColor: rgba(0, 0, 0, 0.87);
+  --secondaryTextColor: rgba(0, 0, 0, 0.54);
+  /* blue500 */
+  --linkTextColor: #2196F3;
+
+  --hintTextColor: rgba(0, 0, 0, 0.38);
+
+  /* grey500 */
+  --bodyBackgroundColor: #9E9E9E;
+  /* grey100 */
+  --contentsBackgroundColor: #F5F5F5;
+
+  --borderColor: rgba(0, 0, 0, 0.25);
+  --imageBorderColor: rgba(0, 0, 0, 0.54);
+
+  /* yellow400 */
+  --positiveAccentColor: #FFEE58;
+  /* orange400 */
+  --actionColor: #FFA726;
+  /* red700 */
+  --dangerAccentColor: #D32F2F;
+  /* orange400: #FFA726 */
+  --dangerAccentColorTheme: {
+    /* red700 */
+    background-color: var(--dangerAccentColor);
+    color: rgba(255, 255, 255, 1.0);
+  }
+  /* grey400 */
+  --neutralAccentColor: #BDBDBD;
+}

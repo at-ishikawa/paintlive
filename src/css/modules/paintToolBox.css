@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+@import "../bases/color";
+
+.toolBox {
+  background-color: #eeeeee;
+  color: var(--primaryTextColor);
+  padding: 8px;
+  position: relative;
+  z-index: 1;
+  width: 40px;
+
+  &__item {
+    padding: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: color(var(--secondaryColor) alpha(0.2));
+    }
+
+    &.isSelected {
+      background-color: color(var(--secondaryColor) alpha(0.5));
+    }
+  }
+
+  &__colorBox {
+    height: 8px;
+    width: 8px;
+    border: 1px solid;
+  }
+}

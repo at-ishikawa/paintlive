@@ -1,0 +1,57 @@
+@charset "utf-8";
+
+@import "./color";
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+html {
+  font-size: 62.5%;
+}
+body{
+  font-size: 16px;
+  line-height:1
+}
+
+div,main,footer,header,nav,section{
+  display:block
+}
+
+ol,ul,li{
+  list-style:none
+}
+
+table{
+  border-collapse:collapse;
+  border-spacing:0
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='checkbox'] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+i {
+  vertical-align: middle;
+}
