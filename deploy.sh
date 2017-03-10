@@ -1,5 +1,5 @@
 #! /bin/bash
-source deploy.vars
+
 IP=`curl -s inet-ip.info`
 
 end() {
