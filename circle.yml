@@ -2,6 +2,10 @@ machine:
   timezone:
     Asia/Tokyo
 
+tests:
+  override:
+    - echo "test"
+
 deployment:
   production:
     branch: [master]
