@@ -32,12 +32,12 @@ class PainterPageComponent extends React.Component {
 
   render() {
     const meta = {
-      title: 'Sample Title',
-      description: 'Sample Description',
+      title: 'Paintlive - a toy painting tool',
+      description: 'A tool to draw a simple painting',
       canonical: Env.appUrl + this.props.location.pathname,
       meta: {
         name: {
-          keywords: 'sample'
+          keywords: 'paintlive,painting'
         }
       }
     };
