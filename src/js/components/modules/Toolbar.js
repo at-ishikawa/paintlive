@@ -32,6 +32,12 @@ class ToolbarComponent extends React.Component {
                 Save
               </li>
               */}
+              { painting &&
+                <li className={ style.dropdownMenu__item }
+                    onClick={ this.props.showExportImageDialog }>
+                  Export
+                </li>
+              }
             </ul>
           </li>
           { painting &&
@@ -51,13 +57,15 @@ class ToolbarComponent extends React.Component {
         <Dialog
           isVisible={ this.props.isExportImageDialogShown }
           header="Export Image as ...">
-          <div>
-            <select onChange={ (event, key, payload) => { this.props.setExportImageFileType(payload) } } defaultValue={ this.props.exportImageFileType }>
+          <div className={ style.item }>
+            Format:
+            <select onChange={ (event) => { this.props.setExportImageFileType(event.target.value) } } value={ this.props.exportImageFileType }>
               <option value="png">PNG</option>
               <option value="jpeg">JPEG</option>
             </select>
           </div>
-          <div>
+
+          <div className={ style.actions }>
             <Button
               disabled={ this.props.imageTypeErrorText }
               onClick={ () => {
