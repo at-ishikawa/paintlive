@@ -169,20 +169,23 @@ class PaintComponent extends React.Component {
     }
 
     if (this.props.imageFileType) {
+      const imageFileType = this.props.imageFileType;
+      this.props.exportedImage();
+
       const context = this.exportCanvas.getContext('2d');
       context.clearRect(0, 0, this.exportCanvas.width, this.exportCanvas.height);
       this.canvases.forEach((canvas) => {
         context.drawImage(canvas, 0, 0);
       });
 
-      var image = new Image();
+      const image = new Image();
       image.onload = () => {
-        this.downloadLink.setAttribute('download', 'Download.png');
+        // There is the limit of a file size to download an image
+        this.downloadLink.setAttribute('download', 'Download.' + imageFileType);
         this.downloadLink.setAttribute('href', image.src);
         this.downloadLink.click();
-        this.props.exportedImage();
       };
-      image.src = this.exportCanvas.toDataURL("image/" + this.props.imageFileType);
+      image.src = this.exportCanvas.toDataURL("image/" + imageFileType);
     }
   }
 
