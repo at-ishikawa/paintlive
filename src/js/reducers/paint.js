@@ -153,7 +153,8 @@ const paint = handleActions({
       isVisible: true,
       isBackground: false,
       url: action.payload.url
-    }])
+    }]),
+    currentLayerIndex: state.layers.length
   }),
   EXPORT_IMAGE: (state, action) => ({
     ...state,
