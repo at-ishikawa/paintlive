@@ -23,7 +23,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    margin: auto;
+    margin: 0 auto auto 0;
   }
 
   &__footer {
