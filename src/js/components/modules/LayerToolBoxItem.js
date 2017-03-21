@@ -1,12 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as LayerToolBoxActions from 'actions/layer';
 
 import TextField from 'components/modules/ui/TextField';
 import Checkbox from 'components/modules/ui/Checkbox';
 import style from 'modules/layerToolBoxItem';
 
-class LayerToolBoxItem extends React.Component {
+class LayerToolBoxItemComponent extends React.Component {
   render() {
-    const { layer, index } = { ...this.props };
+    const { index } = { ...this.props };
+    const layer = this.props.layers[index];
     var className = this.props.currentLayerIndex == index ? style.isSelected : "";
 
     return (
@@ -29,5 +33,24 @@ class LayerToolBoxItem extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    layers: state.paint.layers,
+    currentLayerIndex: state.paint.currentLayerIndex
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ...bindActionCreators(LayerToolBoxActions, dispatch)
+  }
+};
+
+const LayerToolBoxItem = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LayerToolBoxItemComponent);
+
 
 export default LayerToolBoxItem;
