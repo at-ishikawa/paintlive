@@ -15,39 +15,11 @@
     padding: 0;
     overflow-y: scroll;
     height: 400px;
-
-    &__item {
-      display: flex;
-      flex-direction: row;
-      padding: 8px;
-
-      &:hover {
-         background-color: color(var(--secondaryColor) alpha(0.3));
-      }
-
-      &.isSelected {
-         background-color: color(var(--secondaryColor) alpha(0.5));
-      }
-
-      &__visible {
-         margin: auto;
-         margin-left: 8px;
-      }
-    }
   }
 
   &__footer {
     display: flex;
     padding: 8px;
     justify-content: space-around;
-  }
-}
-
-.textField {
-  padding: 2px;
-  border: 0;
-  background-color: initial;
-  &:focus {
-     background-color: white;
   }
 }

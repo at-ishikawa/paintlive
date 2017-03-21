@@ -78,6 +78,17 @@ const paint = handleActions({
       return state.currentLayerIndex;
     })()
   }),
+  MOVE_LAYER: (state, action) => ({
+    ...state,
+    layers: (() => {
+      const layers = state.layers;
+      const sourceIndex = layers.map(layer => layer.id).indexOf(action.payload.sourceId);
+      const targetIndex = layers.map(layer => layer.id).indexOf(action.payload.targetId);
+      [layers[sourceIndex], layers[targetIndex]] = [layers[targetIndex], layers[sourceIndex]];
+      return layers;
+    })(),
+    currentLayerIndex: state.layers.map(layer => layer.id).indexOf(action.payload.sourceId)
+  }),
   SELECT_LAYER: (state, action) => ({
     ...state,
     currentLayerIndex: action.payload.layerIndex

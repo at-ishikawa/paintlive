@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as LayerToolBoxActions from 'actions/layer';
 import Button from 'components/modules/ui/Button';
-import Checkbox from 'components/modules/ui/Checkbox';
+import LayerToolBoxItem from './LayerToolBoxItem';
 
-import TextField from 'components/modules/ui/TextField';
 import style from 'modules/layerToolBox';
 
 class LayerToolBoxComponent extends React.Component {
@@ -14,25 +13,10 @@ class LayerToolBoxComponent extends React.Component {
       <div className={ style.layerToolBox }>
         <ul className={ style.layerToolBox__layerList}>
           { this.props.layers.map((layer, index) => {
-            var className = this.props.currentLayerIndex == index ? style.isSelected : "";
             return (
-              <li key={ index }
-                  className={ style.layerToolBox__layerList__item + " " + className }
-                  onClick={ () => { this.props.selectLayer(index) } }>
-                <TextField
-                  className={ style.textField }
-                   value={ layer.name }
-                   name={ "layer_name_" + index }
-                   onChange={ (event) => { this.props.setLayerName(index, event.target.value) } }
-                  />
-                <div className={ style.layerToolBox__layerList__item__visible}>
-                  <Checkbox
-                     name={ "layer_is_visible_" + index }
-                     onChange={ (event) => { this.props.setLayerVisible(index, event.target.checked) } }
-                     defaultChecked={ layer.isVisible }
-                    />
-                </div>
-              </li>
+              <LayerToolBoxItem key={ layer.id }
+                                layerId={ layer.id }
+                                index={ index } />
             );
           }) }
         </ul>

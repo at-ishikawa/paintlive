@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+@import "../bases/color";
+
+.item {
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+  cursor: move;
+
+  &:hover {
+    background-color: color(var(--secondaryColor) alpha(0.3));
+  }
+
+  &.isSelected {
+    background-color: color(var(--secondaryColor) alpha(0.5));
+  }
+
+  &__visible {
+    margin: auto;
+    margin-left: 8px;
+  }
+}
+
+.textField {
+  padding: 2px;
+  border: 0;
+  background-color: initial;
+  &:focus {
+    background-color: white;
+  }
+}
