@@ -14,7 +14,8 @@ class LayerToolBoxComponent extends React.Component {
         <ul className={ style.layerToolBox__layerList}>
           { this.props.layers.map((layer, index) => {
             return (
-              <LayerToolBoxItem key={ index }
+              <LayerToolBoxItem key={ layer.id }
+                                layerId={ layer.id }
                                 index={ index } />
             );
           }) }

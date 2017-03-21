@@ -3,12 +3,17 @@ import { createActions } from 'redux-actions';
 export const {
   addLayer,
   removeLayer,
+  moveLayer,
   selectLayer,
   setLayerName,
   setLayerVisible
 } = createActions({
   ADD_LAYER: () => ({}),
   REMOVE_LAYER: () => ({}),
+  MOVE_LAYER: (sourceId, targetId) => ({
+    sourceId: sourceId,
+    targetId: targetId
+  }),
   SELECT_LAYER: (index) => ({
     layerIndex: index
   }),

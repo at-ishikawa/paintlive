@@ -2,6 +2,8 @@ import React from 'react';
 import GoogleTagManager from '../modules/GoogleTagManager';
 import Env from 'Env';
 import DevTools from '../modules/DevTools';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 class Container extends React.Component {
   render() {
@@ -20,4 +22,4 @@ class Container extends React.Component {
   }
 }
 
-export default Container;
+export default DragDropContext(HTML5Backend)(Container);
