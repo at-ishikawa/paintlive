@@ -5,17 +5,29 @@ import style from 'modules/ui/dialog';
 
 class Dialog extends React.Component {
   render() {
+    const defaultProps = {
+      zIndex: 1,
+      draggable: true
+    }
+    const { className, zIndex, draggable, isVisible, header, children, ...props } = {
+      ...defaultProps,
+      ...this.props
+    };
+    let onStart = draggable ? () => {} : () => false;
+
     return (
-      <div className={ style.dialog } style={{ "display": this.props.isVisible ? "block" : "none" }}>
+      <div className={ style.dialog + " " + className } style={{ "display": isVisible ? "block" : "none" }}
+           { ...props }>
         <Draggable
-          zIndex={this.props.zIndex ? this.props.zIndex : 1}
+          zIndex={ zIndex }
+          onStart={ onStart }
           >
             <div>
               <div className={ style.dialog__header }>
-                { this.props.header }
+                { header }
               </div>
               <div className={ style.dialog__body }>
-                { this.props.children }
+                { children }
               </div>
             </div>
           </Draggable>

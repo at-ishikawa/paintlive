@@ -51,6 +51,13 @@ input[type='checkbox'] {
   -webkit-appearance: none;
   appearance: none;
 }
+input[type="range"] {
+  appearance: none;
+  outline: none;
+  &::-webkit-slider-thumb {
+    appearance: none;
+  }
+}
 
 i {
   vertical-align: middle;

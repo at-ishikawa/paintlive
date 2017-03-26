@@ -4,6 +4,7 @@ const addPaintAction = (state, logCreator, action) => {
   var log = logCreator({
     point: action.point,
     layer: state.layers[state.currentLayerIndex],
+    lineWidth: state.lineWidth,
     color: state.color,
     isDragging: state.isDragging
   });
@@ -133,6 +134,11 @@ const paint = handleActions({
     currentPoint: action.payload.point
   }),
 
+  SET_LINE_WIDTH: (state, action) => ({
+    ...state,
+    lineWidth: action.payload.lineWidth
+  }),
+
   CHANGE_COLOR: (state, action) => ({
     ...state,
     color: action.payload.color
@@ -199,6 +205,7 @@ const paint = handleActions({
   isDragging: false,
   isSaved: true,
 
+  lineWidth: 1,
   color: {
     hex: "#000"
   },
