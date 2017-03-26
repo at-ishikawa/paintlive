@@ -4,14 +4,27 @@ import { bindActionCreators } from 'redux';
 import { PhotoshopPicker as ColorPicker } from 'react-color';
 import * as PaintToolBoxActions from 'actions/paintToolBox';
 import * as ColorPickerActions from 'actions/colorPicker';
+import * as PenOptionDialogActions from 'actions/penOptionDialog';
 // import { PenMode, SelectMode, PaintMode } from './modes/';
 import { PenMode } from './modes/';
+import PenOptionDialog from './PenOptionDialog';
 
 import style from "modules/paintToolBox";
 
 class PaintToolBoxComponent extends React.Component {
   componentDidMount() {
     this.props.setMode(new PenMode());
+  }
+
+  changeLineWidth = (lineWidth) => {
+    this.props.setLineWidth(lineWidth);
+
+    const canvas = this.refs.penOptionCanvas;
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.beginPath();
+    context.arc(canvas.width / 2, canvas.height / 2, lineWidth / 2, 0, 2 * Math.PI, true);
+    context.fill();
   }
 
   render() {
@@ -41,6 +54,10 @@ class PaintToolBoxComponent extends React.Component {
               onClick={ this.props.showColorPicker }
               style={{ "backgroundColor": this.props.colorPicker.selectedColor.hex }}>
           </li>
+          <li className={ style.toolBox__item }
+              onClick={ this.props.showPenOptionDialog }>
+            <canvas ref="penOptionCanvas" width="24" height="24" />
+          </li>
         </ul>
 
         { !this.props.colorPicker.isShown ?
@@ -54,6 +71,8 @@ class PaintToolBoxComponent extends React.Component {
                   />
           </div>
           }
+
+        <PenOptionDialog changeLineWidth={ this.changeLineWidth } />
       </div>
     );
   }
@@ -63,6 +82,7 @@ class PaintToolBoxComponent extends React.Component {
 const mapStateToProps = (state) => {
   return {
     ...state.paintToolBox,
+    paint: state.paint,
     colorPicker: state.colorPicker
   };
 }
@@ -70,7 +90,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     ...bindActionCreators(PaintToolBoxActions, dispatch),
-    ...bindActionCreators(ColorPickerActions, dispatch)
+    ...bindActionCreators(ColorPickerActions, dispatch),
+    ...bindActionCreators(PenOptionDialogActions, dispatch)
   }
 };
 

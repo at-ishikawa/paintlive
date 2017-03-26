@@ -4,7 +4,6 @@ class PenMode extends CanvasMode {
 
   constructor() {
     super();
-    this.lineWidth = 1;
   }
 
   getName = () => {
@@ -12,14 +11,14 @@ class PenMode extends CanvasMode {
   }
 
   getMouseUpAction = (properties) => {
-    const { point, layer, color } = { ...properties };
+    const { point, layer, color, lineWidth } = { ...properties };
     return {
       mode: this.getName(),
       point: point,
       isFirstPoint: false,
       isLastPoint: true,
       strokeStyle: color.hex,
-      lineWidth: this.lineWidth,
+      lineWidth: lineWidth,
       layerId: layer.id
     }
   }
@@ -37,7 +36,7 @@ class PenMode extends CanvasMode {
   }
 
   getMouseMoveAction = (properties) => {
-    const { point, layer, color, isDragging } = { ...properties };
+    const { point, layer, color, lineWidth, isDragging } = { ...properties };
     if (!isDragging) {
       return;
     }
@@ -48,7 +47,7 @@ class PenMode extends CanvasMode {
       isFirstPoint: false,
       isLastPoint: false,
       strokeStyle: color.hex,
-      lineWidth: this.lineWidth,
+      lineWidth: lineWidth,
       layerId: layer.id
     }
   }
