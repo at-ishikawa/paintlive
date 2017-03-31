@@ -19,7 +19,8 @@ class PenMode extends CanvasMode {
       isLastPoint: true,
       strokeStyle: color.hex,
       lineWidth: lineWidth,
-      layerId: layer.id
+      layerId: layer.id,
+      isBackgroundLayer: layer.isBackground
     }
   }
 
@@ -31,6 +32,7 @@ class PenMode extends CanvasMode {
       isFirstPoint: true,
       isLastPoint: false,
       layerId: layer.id,
+      isBackgroundLayer: layer.isBackground,
       strokeStyle: color.hex
     }
   }
@@ -48,7 +50,8 @@ class PenMode extends CanvasMode {
       isLastPoint: false,
       strokeStyle: color.hex,
       lineWidth: lineWidth,
-      layerId: layer.id
+      layerId: layer.id,
+      isBackgroundLayer: layer.isBackground
     }
   }
 }

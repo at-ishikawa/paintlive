@@ -6,7 +6,7 @@ import * as PaintToolBoxActions from 'actions/paintToolBox';
 import * as ColorPickerActions from 'actions/colorPicker';
 import * as PenOptionDialogActions from 'actions/penOptionDialog';
 // import { PenMode, SelectMode, PaintMode } from './modes/';
-import { PenMode } from './modes/';
+import { EraserMode, PenMode } from './modes/';
 import PenOptionDialog from './PenOptionDialog';
 
 import style from "modules/paintToolBox";
@@ -39,6 +39,10 @@ class PaintToolBoxComponent extends React.Component {
           */}
           <li className={ style.toolBox__item + (this.props.name == "Pen" ? " " + style.isSelected : "") }
               onClick={ () => ( this.props.setMode(new PenMode()) ) }>
+            <i className="material-icons">edit</i>
+          </li>
+          <li className={ style.toolBox__item + (this.props.name == 'Eraser' ? " " + style.isSelected : "") }
+              onClick={ () => { this.props.setMode(new EraserMode()); } }>
             <i className="material-icons">edit</i>
           </li>
           {/* TODO

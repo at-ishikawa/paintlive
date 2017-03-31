@@ -45,6 +45,7 @@ class PaintComponent extends React.Component {
     });
 
     const drawFunctions = {
+      Eraser: this.drawLine,
       'Pen': this.drawLine,
       'Paint': this.drawPaint
     };
@@ -64,6 +65,11 @@ class PaintComponent extends React.Component {
 
   drawLine = (log) => {
     const context = this.getContext(log.layerId);
+    const globalCompositeOperation = context.globalCompositeOperation;
+    if (log.mode == 'Eraser' && !log.isBackgroundLayer) {
+      context.globalCompositeOperation = 'destination-out';
+    }
+
     if (log.isFirstPoint) {
       context.beginPath();
       context.moveTo(log.point.x, log.point.y);
@@ -76,6 +82,8 @@ class PaintComponent extends React.Component {
       context.lineWidth = log.lineWidth;
       context.stroke();
     }
+
+    context.globalCompositeOperation = globalCompositeOperation;
   }
 
   drawPaint = (log) => {

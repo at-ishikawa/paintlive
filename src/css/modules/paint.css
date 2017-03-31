@@ -18,6 +18,7 @@
   &__canvas {
     width: 720px;
     height: 480px;
+    background-color: transparent;
     position: absolute;
     top: 0;
     bottom: 0;
