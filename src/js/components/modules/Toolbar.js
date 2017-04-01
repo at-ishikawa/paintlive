@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Button from 'components/modules/ui/Button';
+import MenuItem from 'components/modules/ui/MenuItem';
 import TextField from 'components/modules/ui/TextField';
 
 import Dialog from './ui/Dialog';
@@ -22,10 +23,10 @@ class ToolbarComponent extends React.Component {
           <li className={ style.menu }>
             <div className={ style.menu__title }>File</div>
             <ul className={ style.dropdownMenu }>
-              <li className={ style.dropdownMenu__item }
-                  onClick={ this.props.showNewImageDialog }>
+              <MenuItem className={ style.dropdownMenu__item }
+                        onClick={ this.props.showNewImageDialog }>
                 New
-              </li>
+              </MenuItem>
               {/*
               <li className={ style.dropdownMenu__item }
                   onClick={ () => { this.props.saveImage(this.props.paint); } }>
@@ -33,10 +34,12 @@ class ToolbarComponent extends React.Component {
               </li>
               */}
               { painting &&
-                <li className={ style.dropdownMenu__item }
-                    onClick={ this.props.showExportImageDialog }>
+                <MenuItem className={ style.dropdownMenu__item }
+                          onClick={ this.props.showExportImageDialog }
+                          shortcutKey="e"
+                          controlMetaKey={ true }>
                   Export
-                </li>
+                </MenuItem>
               }
             </ul>
           </li>
@@ -44,10 +47,12 @@ class ToolbarComponent extends React.Component {
             <li className={ style.menu }>
               <div className={ style.menu__title }>Image</div>
               <ul className={ style.dropdownMenu }>
-                <li className={ style.dropdownMenu__item }
-                    onClick={ () => { this.refs.importImageFile.click() } }>
+                <MenuItem className={ style.dropdownMenu__item }
+                          onClick={ () => { this.refs.importImageFile.click() } }
+                          shortcutKey="i"
+                          controlMetaKey={ true }>
                   Import
-                </li>
+                </MenuItem>
               </ul>
             </li>
           }
