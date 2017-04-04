@@ -1,10 +1,8 @@
 machine:
+  node:
+    version: 6.3.0
   timezone:
     Asia/Tokyo
-
-test:
-  override:
-    - echo "test"
 
 deployment:
   production:

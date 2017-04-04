@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 
-const addPaintAction = (state, logCreator, action) => {
+export const addPaintAction = (state, logCreator, action) => {
   var log = logCreator({
     point: action.point,
     layer: state.layers[state.currentLayerIndex],
@@ -15,6 +15,27 @@ const addPaintAction = (state, logCreator, action) => {
   }
   return state.history;
 }
+
+export const initialState = {
+  contexts: [],
+  name: 'Untitled',
+  width: 780,
+  height: 640,
+  layers: [],
+  currentLayerIndex: 0,
+  currentMode: null,
+
+  currentPoint: null,
+  isDragging: false,
+  isSaved: true,
+
+  lineWidth: 1,
+  color: {
+    hex: "#000"
+  },
+
+  history: []
+};
 
 const paint = handleActions({
   INITIALIZE: (state, action) => ({
@@ -192,25 +213,6 @@ const paint = handleActions({
     ...state,
     isSaved: true
   })
-}, {
-  contexts: [],
-  name: 'Untitled',
-  width: 780,
-  height: 640,
-  layers: [],
-  currentLayerIndex: 0,
-  currentMode: null,
-
-  currentPoint: null,
-  isDragging: false,
-  isSaved: true,
-
-  lineWidth: 1,
-  color: {
-    hex: "#000"
-  },
-
-  history: []
-});
+}, initialState);
 
 export default paint;
