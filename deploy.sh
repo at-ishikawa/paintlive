@@ -1,6 +1,7 @@
 #! /bin/bash
 
-IP=`curl -s inet-ip.info`
+# IP=`curl -s inet-ip.info`
+IP=`curl -s globalip.me`
 
 end() {
     aws ec2 revoke-security-group-ingress --group-id ${SECURITY_GROUP_ID} --protocol tcp --port 22 --cidr ${IP}/32

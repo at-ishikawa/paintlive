@@ -2,9 +2,13 @@ machine:
   timezone:
     Asia/Tokyo
 
+dependencies:
+  override:
+    - yarn
+
 test:
   override:
-    - echo "test"
+    - yarn test
 
 deployment:
   production:
