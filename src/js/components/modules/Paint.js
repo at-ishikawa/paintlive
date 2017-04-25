@@ -27,8 +27,11 @@ class PaintComponent extends React.Component {
   }
 
   draw = () => {
-    this.props.contexts.forEach((context, index) => {
-      const layer = this.props.layers[index];
+    this.props.layers.forEach((layer) => {
+      const context = this.getContext(layer.id);
+      if (!context) {
+        return;
+      }
       if (layer.isBackground) {
         context.fillStyle = '#fff';
         context.fillRect(0, 0, context.canvas.width, context.canvas.height);
@@ -61,12 +64,18 @@ class PaintComponent extends React.Component {
     const canvas = this.canvases.find((canvas) => {
       return canvas.id == layerId;
     });
+    if (!canvas) {
+      return;
+    }
     const context = canvas.getContext('2d');
     return context;
   }
 
   drawLine = (log) => {
     const context = this.getContext(log.layerId);
+    if (!context) {
+      return;
+    }
     const globalCompositeOperation = context.globalCompositeOperation;
     if (log.mode == 'Eraser' && !log.isBackgroundLayer) {
       context.globalCompositeOperation = 'destination-out';
@@ -90,6 +99,9 @@ class PaintComponent extends React.Component {
 
   drawPaint = (log) => {
     const context = this.getContext(log.layerId);
+    if (!context) {
+      return;
+    }
     const { point, color } = { ...log };
     const canvas = context.canvas;
     const left = 0;

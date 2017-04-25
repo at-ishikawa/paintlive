@@ -18,6 +18,43 @@ export const addPaintAction = (state, logCreator, action) => {
   return state.history;
 }
 
+export const getLayers = (nextHistory) => {
+  const layers = [];
+  nextHistory.forEach((action) => {
+    if (action.type != 'layer') {
+      return;
+    }
+    switch (action.event) {
+      case 'add':
+        layers.push(action.layer);
+        break;
+      case 'remove':
+        layers.splice(action.index, 1);
+        break;
+      case 'move':
+      {
+        const sourceIndex = layers.map(layer => layer.id).indexOf(action.sourceId);
+        const targetIndex = layers.map(layer => layer.id).indexOf(action.targetId);
+        if (sourceIndex == targetIndex) {
+          throw new Error(`SourceIndex: ${sourceIndex}, TargetIndex: ${targetIndex}`);
+        }
+        if (sourceIndex < 0 || layers.length <= sourceIndex || targetIndex < 0 || layers.length <= targetIndex) {
+          throw new Error(`SourceIndex: ${sourceIndex}, TargetIndex: ${targetIndex}`);
+        }
+        [layers[sourceIndex], layers[targetIndex]] = [layers[targetIndex], layers[sourceIndex]];
+        break;
+      }
+      case 'rename':
+        layers[action.index].name = action.name;
+        break;
+      case 'set_visibility':
+        layers[action.index].isVisible = action.isVisible;
+        break;
+    }
+  });
+  return layers;
+}
+
 export const initialState = {
   contexts: [],
   name: 'Untitled',
@@ -73,22 +110,20 @@ const paint = handleActions({
 
   ADD_LAYER: (state) => {
     const layerId = Math.floor(Math.random() * (1 << 30))
-    return {
-      ...state,
-      history: state.history.concat({
-        type: 'layer',
-        event: 'add',
-        layer: {
-          id: layerId,
-          name: 'Layer ' + (state.layers.length + 1),
-          isVisible: true
-        }
-      }),
-      layers: state.layers.concat({
+    const nextHistory = state.history.concat({
+      type: 'layer',
+      event: 'add',
+      layer: {
         id: layerId,
         name: 'Layer ' + (state.layers.length + 1),
         isVisible: true
-      })
+      }
+    });
+
+    return {
+      ...state,
+      history: nextHistory,
+      layers: getLayers(nextHistory)
     };
   },
   REMOVE_LAYER: (state) => {
@@ -96,19 +131,16 @@ const paint = handleActions({
       return state;
     }
 
+    const nextHistory = state.history.concat({
+      type: 'layer',
+      event: 'remove',
+      index: state.currentLayerIndex
+    });
+
     return {
       ...state,
-      history: state.history.concat({
-        type: 'layer',
-        event: 'remove',
-        index: state.currentLayerIndex
-      }),
-      layers: (function () {
-        var newLayers = state.layers.concat();
-        newLayers.splice(state.currentLayerIndex, 1);
-
-        return newLayers;
-      })(),
+      history: nextHistory,
+      layers: getLayers(nextHistory),
       contexts: (function () {
         var newContexts = state.contexts.concat();
         newContexts.splice(state.currentLayerIndex, 1);
@@ -131,54 +163,57 @@ const paint = handleActions({
       return state;
     }
 
+    if (Math.abs(sourceIndex - targetIndex) > 1) {
+      return state;
+    }
+
+    const nextHistory = state.history.concat({
+      type: 'layer',
+      event: 'move',
+      sourceId: action.payload.sourceId,
+      targetId: action.payload.targetId
+    });
+
+    const nextLayers = getLayers(nextHistory);
+
     return {
       ...state,
-      history: state.history.concat({
-        type: 'layer',
-        event: 'move',
-        sourceId: action.payload.sourceId,
-        targetId: action.payload.targetId
-      }),
-      layers: (() => {
-        const layers = state.layers;
-        [layers[sourceIndex], layers[targetIndex]] = [layers[targetIndex], layers[sourceIndex]];
-        return layers;
-      })(),
-      currentLayerIndex: state.layers.map(layer => layer.id).indexOf(action.payload.sourceId)
+      history: nextHistory,
+      layers: nextLayers,
+      currentLayerIndex: nextLayers.map(layer => layer.id).indexOf(action.payload.sourceId)
     }
   },
   SELECT_LAYER: (state, action) => ({
     ...state,
     currentLayerIndex: action.payload.layerIndex
   }),
-  SET_LAYER_NAME: (state, action) => ({
-    ...state,
-    history: state.history.concat({
+  SET_LAYER_NAME: (state, action) => {
+    const nextHistory = state.history.concat({
       type: 'layer',
       event: 'rename',
       index: action.payload.layerIndex,
       name: action.payload.layerName
-    }),
-    layers: (function() {
-      var newLayers = state.layers.concat();
-      newLayers[action.payload.layerIndex].name = action.payload.layerName;
-      return newLayers;
-    })()
-  }),
-  SET_LAYER_VISIBLE: (state, action) => ({
-    ...state,
-    history: state.history.concat({
+    });
+
+    return {
+      ...state,
+      history: nextHistory,
+      layers: getLayers(nextHistory)
+    }
+  },
+  SET_LAYER_VISIBLE: (state, action) => {
+    const nextHistory = state.history.concat({
       type: 'layer',
       event: 'set_visibility',
       index: action.payload.layerIndex,
       isVisible: action.payload.isVisible
-    }),
-    layers: (function() {
-      var newLayers = state.layers.concat();
-      newLayers[action.payload.layerIndex].isVisible = action.payload.isVisible;
-      return newLayers;
-    })()
-  }),
+    });
+    return {
+      ...state,
+      history: nextHistory,
+      layers: getLayers(nextHistory)
+    }
+  },
 
   ON_CLICK_PAINT: (state, action) => ({
     ...state,
@@ -215,38 +250,32 @@ const paint = handleActions({
 
   OPEN_NEW_IMAGE: (state, action) => {
     const layerId = Math.floor(Math.random() * (1 << 30));
-    return {
-      ...state,
-      width: action.payload.paintProperties.width,
-      height: action.payload.paintProperties.height,
-      contexts: [],
-      history: [{
-        type: 'layer',
-        event: 'add',
-        layer: {
-          id: layerId,
-          name: 'Background',
-          isVisible: true,
-          isBackground: true,
-          url: null
-        }
-      }],
-      layers: [{
+    const nextHistory = [{
+      type: 'layer',
+      event: 'add',
+      layer: {
         id: layerId,
         name: 'Background',
         isVisible: true,
         isBackground: true,
         url: null
-      }],
+      }
+    }];
+    return {
+      ...state,
+      width: action.payload.paintProperties.width,
+      height: action.payload.paintProperties.height,
+      contexts: [],
+      history: nextHistory,
+      layers: getLayers(nextHistory),
       currentLayerIndex: 0,
       currentMode: new PenMode(),
       isDragging: false
     };
   },
 
-  IMPORT_IMAGE: (state, action) => ({
-    ...state,
-    history: state.history.concat({
+  IMPORT_IMAGE: (state, action) => {
+    const nextHistory = state.history.concat({
       type: 'layer',
       event: 'add',
       layer: {
@@ -256,16 +285,14 @@ const paint = handleActions({
         isBackground: false,
         url: action.payload.url
       }
-    }),
-    layers: state.layers.concat([{
-      id: Math.floor(Math.random() * (1 << 30)),
-      name: action.payload.name,
-      isVisible: true,
-      isBackground: false,
-      url: action.payload.url
-    }]),
-    currentLayerIndex: state.layers.length
-  }),
+    });
+    return {
+      ...state,
+      history: nextHistory,
+      layers: getLayers(nextHistory),
+      currentLayerIndex: state.layers.length
+    }
+  },
   EXPORT_IMAGE: (state, action) => ({
     ...state,
     imageFileType: action.payload.properties.fileType

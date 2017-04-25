@@ -10,10 +10,6 @@ import style from "modules/penOptionDialog";
 
 class PenOptionDialogComponent extends React.Component {
 
-  componentDidMount() {
-    this.changeLineWidth(this.props.paint.lineWidth);
-  }
-
   changeLineWidth = (lineWidth) => {
     this.props.changeLineWidth(lineWidth);
 

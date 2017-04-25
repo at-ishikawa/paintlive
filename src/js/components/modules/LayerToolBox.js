@@ -9,6 +9,7 @@ import style from 'modules/layerToolBox';
 
 class LayerToolBoxComponent extends React.Component {
   render() {
+
     return (
       <div className={ style.layerToolBox }>
         <ul className={ style.layerToolBox__layerList}>
@@ -38,12 +39,10 @@ class LayerToolBoxComponent extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    layers: state.paint.layers,
-    currentLayerIndex: state.paint.currentLayerIndex
-  };
-}
+const mapStateToProps = (state) => ({
+  layers: state.paint.layers,
+  currentLayerIndex: state.paint.currentLayerIndex
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
