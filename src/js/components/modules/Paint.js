@@ -51,7 +51,9 @@ class PaintComponent extends React.Component {
     };
 
     this.props.history.forEach((log) => {
-      drawFunctions[log.mode](log);
+      if (log.type == 'paint') {
+        drawFunctions[log.mode](log);
+      }
     });
   }
 

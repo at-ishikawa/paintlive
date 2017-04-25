@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import { PenMode } from 'components/modules/modes/';
 
 export const addPaintAction = (state, logCreator, action) => {
   var log = logCreator({
@@ -9,6 +10,7 @@ export const addPaintAction = (state, logCreator, action) => {
     isDragging: state.isDragging
   });
   if (log) {
+    log.type = 'paint';
     const newHistory = state.history.concat();
     newHistory.push(log);
     return newHistory;
@@ -22,7 +24,6 @@ export const initialState = {
   width: 780,
   height: 640,
   layers: [],
-  layerHistory: [],
   currentLayerIndex: 0,
   currentMode: null,
 
@@ -35,7 +36,17 @@ export const initialState = {
     hex: "#000"
   },
 
-  history: []
+  history: [{
+    type: 'layer',
+    event: 'add',
+    layer: {
+      id: Math.floor(Math.random() * (1 << 30)),
+      name: 'Background',
+      isVisible: true,
+      isBackground: true,
+      url: null
+    }
+  }]
 };
 
 const paint = handleActions({
@@ -64,8 +75,9 @@ const paint = handleActions({
     const layerId = Math.floor(Math.random() * (1 << 30))
     return {
       ...state,
-      layerHistory: state.layerHistory.concat({
-        type: 'add',
+      history: state.history.concat({
+        type: 'layer',
+        event: 'add',
         layer: {
           id: layerId,
           name: 'Layer ' + (state.layers.length + 1),
@@ -86,35 +98,24 @@ const paint = handleActions({
 
     return {
       ...state,
-      layerHistory: state.layerHistory.concat({
-        type: 'remove',
+      history: state.history.concat({
+        type: 'layer',
+        event: 'remove',
         index: state.currentLayerIndex
       }),
       layers: (function () {
-        if (state.layers.length <= 1) {
-          return state.layers;
-        }
-
         var newLayers = state.layers.concat();
         newLayers.splice(state.currentLayerIndex, 1);
 
         return newLayers;
       })(),
       contexts: (function () {
-        if (state.layers.length <= 1) {
-          return state.contexts;
-        }
-
         var newContexts = state.contexts.concat();
         newContexts.splice(state.currentLayerIndex, 1);
 
         return newContexts;
       })(),
       currentLayerIndex: (function () {
-        if (state.layers.length <= 1) {
-          return state.currentLayerIndex;
-        }
-
         if (state.currentLayerIndex >= state.layers.length - 1) {
           return state.layers.length - 2;
         }
@@ -132,8 +133,9 @@ const paint = handleActions({
 
     return {
       ...state,
-      layerHistory: state.layerHistory.concat({
-        type: 'move',
+      history: state.history.concat({
+        type: 'layer',
+        event: 'move',
         sourceId: action.payload.sourceId,
         targetId: action.payload.targetId
       }),
@@ -151,8 +153,9 @@ const paint = handleActions({
   }),
   SET_LAYER_NAME: (state, action) => ({
     ...state,
-    layerHistory: state.layerHistory.concat({
-      type: 'change name',
+    history: state.history.concat({
+      type: 'layer',
+      event: 'rename',
       index: action.payload.layerIndex,
       name: action.payload.layerName
     }),
@@ -164,8 +167,9 @@ const paint = handleActions({
   }),
   SET_LAYER_VISIBLE: (state, action) => ({
     ...state,
-    layerHistory: state.layerHistory.concat({
-      type: 'change visibility',
+    history: state.history.concat({
+      type: 'layer',
+      event: 'set_visibility',
       index: action.payload.layerIndex,
       isVisible: action.payload.isVisible
     }),
@@ -216,8 +220,9 @@ const paint = handleActions({
       width: action.payload.paintProperties.width,
       height: action.payload.paintProperties.height,
       contexts: [],
-      layerHistory: [{
-        type: 'add',
+      history: [{
+        type: 'layer',
+        event: 'add',
         layer: {
           id: layerId,
           name: 'Background',
@@ -233,17 +238,17 @@ const paint = handleActions({
         isBackground: true,
         url: null
       }],
-      history: [],
       currentLayerIndex: 0,
-      currentMode: null,
+      currentMode: new PenMode(),
       isDragging: false
     };
   },
 
   IMPORT_IMAGE: (state, action) => ({
     ...state,
-    layerHistory: state.layerHistory.concat({
-      type: 'add',
+    history: state.history.concat({
+      type: 'layer',
+      event: 'add',
       layer: {
         id: Math.floor(Math.random() * (1 << 30)),
         name: action.payload.name,

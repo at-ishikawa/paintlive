@@ -12,10 +12,6 @@ import PenOptionDialog from './PenOptionDialog';
 import style from "modules/paintToolBox";
 
 class PaintToolBoxComponent extends React.Component {
-  componentDidMount() {
-    this.props.setMode(new PenMode());
-  }
-
   changeLineWidth = (lineWidth) => {
     this.props.setLineWidth(lineWidth);
 

@@ -12,14 +12,14 @@ describe('paint reducer for layers', () => {
   });
 
   it('should add layer', () => {
-    const actual = reducer(undefined, layerActions.addLayer());
-    expect(actual.layerHistory)
-      .toHaveLength(1);
+    const actual = reducer(initialState, layerActions.addLayer());
+    expect(actual.history)
+      .toHaveLength(2);
   });
 
   it('should remove layer', () => {
     const state = {
-      layerHistory: [],
+      history: [],
       layers: [],
       contexts: [{}, {}],
       currentLayerIndex: 0
@@ -27,7 +27,7 @@ describe('paint reducer for layers', () => {
 
     state.layers.push({});
     let actual = reducer(state, layerActions.removeLayer());
-    expect(actual.layerHistory)
+    expect(actual.history)
       .toHaveLength(0);
     expect(actual.layers)
       .toHaveLength(1);
@@ -36,7 +36,7 @@ describe('paint reducer for layers', () => {
     expect(state.layers)
       .toHaveLength(2);
     actual = reducer(state, layerActions.removeLayer());
-    expect(actual.layerHistory)
+    expect(actual.history)
       .toHaveLength(1);
     expect(actual.layers)
       .toHaveLength(1);
@@ -44,7 +44,7 @@ describe('paint reducer for layers', () => {
 
   it('should move layer', () => {
     const state = {
-      layerHistory: [],
+      history: [],
       layers: [
         {id: 1},
         {id: 2}
@@ -67,7 +67,7 @@ describe('paint reducer for layers', () => {
         {id: 2},
         {id: 1}
       ]);
-    expect(actual.layerHistory)
+    expect(actual.history)
       .toHaveLength(1);
     expect(actual.currentLayerIndex)
       .toEqual(1);
@@ -75,17 +75,17 @@ describe('paint reducer for layers', () => {
 
   it('should set layer name', () => {
     const state = {
-      layerHistory: [],
+      history: [],
       layers: [{}]
     };
     const actual = reducer(state, layerActions.setLayerName(0, 'New Layer'));
-    expect(actual.layerHistory)
+    expect(actual.history)
       .toHaveLength(1);
   });
 
   it('should set layer visible', () => {
     const state = {
-      layerHistory: [],
+      history: [],
       layers: [{
         isVisible: true
       }]
@@ -93,7 +93,7 @@ describe('paint reducer for layers', () => {
     const actual = reducer(state, layerActions.setLayerVisible(0, false));
     expect(actual.layers[0].isVisible)
       .toBe(false);
-    expect(actual.layerHistory)
+    expect(actual.history)
       .toHaveLength(1);
   });
 });
@@ -101,14 +101,14 @@ describe('paint reducer for layers', () => {
 describe('paint reducer for images', () => {
   it('should open new image', () => {
     const state = {
-      layerHistory: [],
+      history: [],
       layers: []
     };
     const actual = reducer(state, toolbarActions.openNewImage({
       width: 1000,
       height: 1000
     }));
-    expect(actual.layerHistory)
+    expect(actual.history)
       .toHaveLength(1);
     expect(actual.layers)
       .toHaveLength(1);
@@ -116,11 +116,11 @@ describe('paint reducer for images', () => {
 
   it('should import image', () => {
     const state = {
-      layerHistory: [],
+      history: [],
       layers: []
     };
     const actual = reducer(state, actions.importImage('name', 'http://example.com/example.png'));
-    expect(actual.layerHistory)
+    expect(actual.history)
       .toHaveLength(1);
   });
 });
