@@ -11,11 +11,16 @@ export const addPaintAction = (state, logCreator, action) => {
   });
   if (log) {
     log.type = 'paint';
-    const newHistory = state.history.concat();
-    newHistory.push(log);
-    return newHistory;
+    const newHistory = getNextHistory(state.history, state.currentHistoryIndex, log);
+    return {
+      history: newHistory,
+      currentHistoryIndex: state.currentHistoryIndex + 1
+    };
   }
-  return state.history;
+  return {
+    history: state.history,
+    currentHistoryIndex: state.currentHistoryIndex
+  };
 }
 
 export const getLayers = (nextHistory) => {
@@ -55,6 +60,10 @@ export const getLayers = (nextHistory) => {
   return layers;
 }
 
+const getNextHistory = (history, currentHistoryIndex, log) => {
+  return history.slice(0, currentHistoryIndex).concat(log);
+};
+
 export const initialState = {
   contexts: [],
   name: 'Untitled',
@@ -83,7 +92,8 @@ export const initialState = {
       isBackground: true,
       url: null
     }
-  }]
+  }],
+  currentHistoryIndex: 0
 };
 
 const paint = handleActions({
@@ -110,7 +120,7 @@ const paint = handleActions({
 
   ADD_LAYER: (state) => {
     const layerId = Math.floor(Math.random() * (1 << 30))
-    const nextHistory = state.history.concat({
+    const nextHistory = getNextHistory(state.history, state.currentHistoryIndex, {
       type: 'layer',
       event: 'add',
       layer: {
@@ -123,7 +133,8 @@ const paint = handleActions({
     return {
       ...state,
       history: nextHistory,
-      layers: getLayers(nextHistory)
+      layers: getLayers(nextHistory),
+      currentHistoryIndex: state.currentHistoryIndex + 1
     };
   },
   REMOVE_LAYER: (state) => {
@@ -131,7 +142,7 @@ const paint = handleActions({
       return state;
     }
 
-    const nextHistory = state.history.concat({
+    const nextHistory = getNextHistory(state.history, state.currentHistoryIndex, {
       type: 'layer',
       event: 'remove',
       index: state.currentLayerIndex
@@ -140,6 +151,7 @@ const paint = handleActions({
     return {
       ...state,
       history: nextHistory,
+      currentHistoryIndex: state.currentHistoryIndex + 1,
       layers: getLayers(nextHistory),
       contexts: (function () {
         var newContexts = state.contexts.concat();
@@ -167,7 +179,7 @@ const paint = handleActions({
       return state;
     }
 
-    const nextHistory = state.history.concat({
+    const nextHistory = getNextHistory(state.history, state.currentHistoryIndex, {
       type: 'layer',
       event: 'move',
       sourceId: action.payload.sourceId,
@@ -179,6 +191,7 @@ const paint = handleActions({
     return {
       ...state,
       history: nextHistory,
+      currentHistoryIndex: state.currentHistoryIndex + 1,
       layers: nextLayers,
       currentLayerIndex: nextLayers.map(layer => layer.id).indexOf(action.payload.sourceId)
     }
@@ -188,7 +201,7 @@ const paint = handleActions({
     currentLayerIndex: action.payload.layerIndex
   }),
   SET_LAYER_NAME: (state, action) => {
-    const nextHistory = state.history.concat({
+    const nextHistory = getNextHistory(state.history, state.currentHistoryIndex, {
       type: 'layer',
       event: 'rename',
       index: action.payload.layerIndex,
@@ -198,11 +211,12 @@ const paint = handleActions({
     return {
       ...state,
       history: nextHistory,
+      currentHistoryIndex: state.currentHistoryIndex + 1,
       layers: getLayers(nextHistory)
     }
   },
   SET_LAYER_VISIBLE: (state, action) => {
-    const nextHistory = state.history.concat({
+    const nextHistory = getNextHistory(state.history, state.currentHistoryIndex, {
       type: 'layer',
       event: 'set_visibility',
       index: action.payload.layerIndex,
@@ -211,30 +225,31 @@ const paint = handleActions({
     return {
       ...state,
       history: nextHistory,
+      currentHistoryIndex: state.currentHistoryIndex + 1,
       layers: getLayers(nextHistory)
     }
   },
 
   ON_CLICK_PAINT: (state, action) => ({
     ...state,
-    history: addPaintAction(state, state.currentMode.getClickAction, action.payload),
+    ...addPaintAction(state, state.currentMode.getClickAction, action.payload),
     currentPoint: action.payload.point
   }),
   ON_MOUSE_DOWN_PAINT: (state, action) => ({
     ...state,
-    history: addPaintAction(state, state.currentMode.getMouseDownAction, action.payload),
+    ...addPaintAction(state, state.currentMode.getMouseDownAction, action.payload),
     currentPoint: action.payload.point,
     isDragging: true
   }),
   ON_MOUSE_UP_PAINT: (state, action) => ({
     ...state,
-    history: addPaintAction(state, state.currentMode.getMouseUpAction, action.payload),
+    ...addPaintAction(state, state.currentMode.getMouseUpAction, action.payload),
     currentPoint: action.payload.point,
     isDragging: false
   }),
   ON_MOUSE_MOVE_PAINT: (state, action) => ({
     ...state,
-    history: addPaintAction(state, state.currentMode.getMouseMoveAction, action.payload),
+    ...addPaintAction(state, state.currentMode.getMouseMoveAction, action.payload),
     currentPoint: action.payload.point
   }),
 
@@ -267,6 +282,7 @@ const paint = handleActions({
       height: action.payload.paintProperties.height,
       contexts: [],
       history: nextHistory,
+      currentHistoryIndex: 1,
       layers: getLayers(nextHistory),
       currentLayerIndex: 0,
       currentMode: new PenMode(),
@@ -275,7 +291,7 @@ const paint = handleActions({
   },
 
   IMPORT_IMAGE: (state, action) => {
-    const nextHistory = state.history.concat({
+    const nextHistory = getNextHistory(state.history, state.currentHistoryIndex, {
       type: 'layer',
       event: 'add',
       layer: {
@@ -289,6 +305,7 @@ const paint = handleActions({
     return {
       ...state,
       history: nextHistory,
+      currentHistoryIndex: state.currentHistoryIndex + 1,
       layers: getLayers(nextHistory),
       currentLayerIndex: state.layers.length
     }
