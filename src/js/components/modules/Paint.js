@@ -27,8 +27,11 @@ class PaintComponent extends React.Component {
   }
 
   draw = () => {
-    this.props.contexts.forEach((context, index) => {
-      const layer = this.props.layers[index];
+    this.props.layers.forEach((layer) => {
+      const context = this.getContext(layer.id);
+      if (!context) {
+        return;
+      }
       if (layer.isBackground) {
         context.fillStyle = '#fff';
         context.fillRect(0, 0, context.canvas.width, context.canvas.height);
@@ -50,8 +53,10 @@ class PaintComponent extends React.Component {
       'Paint': this.drawPaint
     };
 
-    this.props.history.forEach((log) => {
-      drawFunctions[log.mode](log);
+    this.props.history.slice(0, this.props.currentHistoryIndex + 1).forEach((log) => {
+      if (log.type == 'paint') {
+        drawFunctions[log.mode](log);
+      }
     });
   }
 
@@ -59,35 +64,46 @@ class PaintComponent extends React.Component {
     const canvas = this.canvases.find((canvas) => {
       return canvas.id == layerId;
     });
+    if (!canvas) {
+      return;
+    }
     const context = canvas.getContext('2d');
     return context;
   }
 
   drawLine = (log) => {
     const context = this.getContext(log.layerId);
+    if (!context) {
+      return;
+    }
     const globalCompositeOperation = context.globalCompositeOperation;
     if (log.mode == 'Eraser' && !log.isBackgroundLayer) {
       context.globalCompositeOperation = 'destination-out';
     }
 
-    if (log.isFirstPoint) {
-      context.beginPath();
-      context.moveTo(log.point.x, log.point.y);
-    } else if (log.isLastPoint) {
-      context.lineTo(log.point.x, log.point.y);
-      context.closePath();
-    } else {
-      context.lineTo(log.point.x, log.point.y);
-      context.strokeStyle = log.strokeStyle;
-      context.lineWidth = log.lineWidth;
-      context.stroke();
-    }
+    let isFirstPoint = true;
+    context.beginPath();
+    log.points.forEach((point) => {
+      if (isFirstPoint) {
+        context.moveTo(point.x, point.y);
+        isFirstPoint = false;
+      } else {
+        context.lineTo(point.x, point.y);
+      }
+    });
+    context.strokeStyle = log.strokeStyle;
+    context.lineWidth = log.lineWidth;
+    context.stroke();
+    context.closePath();
 
     context.globalCompositeOperation = globalCompositeOperation;
   }
 
   drawPaint = (log) => {
     const context = this.getContext(log.layerId);
+    if (!context) {
+      return;
+    }
     const { point, color } = { ...log };
     const canvas = context.canvas;
     const left = 0;

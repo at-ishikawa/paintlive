@@ -11,48 +11,31 @@ class PenMode extends CanvasMode {
   }
 
   getMouseUpAction = (properties) => {
-    const { point, layer, color, lineWidth } = { ...properties };
-    return {
-      mode: this.getName(),
-      point: point,
-      isFirstPoint: false,
-      isLastPoint: true,
-      strokeStyle: color.hex,
-      lineWidth: lineWidth,
-      layerId: layer.id,
-      isBackgroundLayer: layer.isBackground
-    }
+    const { point, history } = { ...properties };
+    history.slice(-1)[0].points.push(point);
   }
 
   getMouseDownAction = (properties) => {
-    const { point, layer, color } = { ...properties };
+    const { point, layer, lineWidth, color } = { ...properties };
     return {
       mode: this.getName(),
-      point: point,
-      isFirstPoint: true,
-      isLastPoint: false,
       layerId: layer.id,
       isBackgroundLayer: layer.isBackground,
-      strokeStyle: color.hex
+      strokeStyle: color.hex,
+      lineWidth: lineWidth,
+      points: [
+        point
+      ]
     }
   }
 
   getMouseMoveAction = (properties) => {
-    const { point, layer, color, lineWidth, isDragging } = { ...properties };
+    const { point, isDragging, history } = { ...properties };
     if (!isDragging) {
       return;
     }
 
-    return {
-      mode: this.getName(),
-      point: point,
-      isFirstPoint: false,
-      isLastPoint: false,
-      strokeStyle: color.hex,
-      lineWidth: lineWidth,
-      layerId: layer.id,
-      isBackgroundLayer: layer.isBackground
-    }
+    history.slice(-1)[0].points.push(point);
   }
 }
 

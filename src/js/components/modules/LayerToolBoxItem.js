@@ -20,15 +20,16 @@ class LayerToolBoxItemComponent extends React.Component {
           onClick={ () => { this.props.selectLayer(index) } }>
         <TextField
           className={ style.textField }
-          value={ layer.name }
+          value={ layer.displayName }
           name={ "layer_name_" + index }
-          onChange={ (event) => { this.props.setLayerName(index, event.target.value) } }
+          onChange={ (event) => { this.props.changeLayerName(index, event.target.value) } }
+          onBlur={ (event) => { this.props.setLayerName(index, event.target.value) } }
         />
         <div className={ style.item__visible }>
           <Checkbox
             name={ "layer_is_visible_" + index }
             onChange={ (event) => { this.props.setLayerVisible(index, event.target.checked) } }
-            defaultChecked={ layer.isVisible }
+            checked={ layer.isVisible }
           />
         </div>
       </li>

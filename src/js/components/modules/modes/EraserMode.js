@@ -21,8 +21,7 @@ class EraserMode extends CanvasMode {
   }
 
   getMouseUpAction = (properties) => {
-    const props = this.penMode.getMouseUpAction(properties);
-    return this.getAction(props);
+    this.penMode.getMouseUpAction(properties);
   }
 
   getMouseDownAction = (properties) => {
@@ -31,12 +30,7 @@ class EraserMode extends CanvasMode {
   }
 
   getMouseMoveAction = (properties) => {
-    if (!properties.isDragging) {
-      return;
-    }
-
-    const props = this.penMode.getMouseMoveAction(properties);
-    return this.getAction(props);
+    this.penMode.getMouseMoveAction(properties);
   }
 }
 

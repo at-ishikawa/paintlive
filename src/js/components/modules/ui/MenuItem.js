@@ -40,6 +40,10 @@ class MenuItem extends React.Component {
       return;
     }
 
+    if (this.props.isDisabled) {
+      return;
+    }
+
     event.preventDefault();
     this.props.onClick();
   }
@@ -53,9 +57,20 @@ class MenuItem extends React.Component {
       keys.push(this.props.shortcutKey.toUpperCase());
     }
 
+    const classNames = [];
+    let { isDisabled, className, onClick } = { ...this.props };
+    if (className) {
+      classNames.push(className);
+    }
+
+    if (isDisabled) {
+      classNames.push(style.isDisabled);
+      onClick = null;
+    }
+
     return (
-      <li className={ this.props.className }
-          onClick={ this.props.onClick }>
+      <li className={ classNames.join(' ') }
+          onClick={ onClick }>
         { this.props.children }
         { keys.length > 0 &&
           <div className={ style.shortcutKey }>

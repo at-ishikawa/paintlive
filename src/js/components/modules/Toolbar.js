@@ -45,6 +45,27 @@ class ToolbarComponent extends React.Component {
           </li>
           { painting &&
             <li className={ style.menu }>
+              <div className={ style.menu__title }>Edit</div>
+              <ul className={ style.dropdownMenu }>
+                <MenuItem className={ style.dropdownMenu__item }
+                          onClick={ this.props.undo }
+                          isDisabled={ !this.props.paint.canUndo }
+                          shortcutKey="z"
+                          controlMetaKey={ true }>
+                  Undo
+                </MenuItem>
+                <MenuItem className={ style.dropdownMenu__item }
+                          onClick={ this.props.redo }
+                          isDisabled={ !this.props.paint.canRedo }
+                          shortcutKey="y"
+                          controlMetaKey={ true }>
+                  Redo
+                </MenuItem>
+              </ul>
+            </li>
+          }
+          { painting &&
+            <li className={ style.menu }>
               <div className={ style.menu__title }>Image</div>
               <ul className={ style.dropdownMenu }>
                 <MenuItem className={ style.dropdownMenu__item }
