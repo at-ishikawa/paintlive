@@ -5,6 +5,7 @@ export const {
   removeLayer,
   moveLayer,
   selectLayer,
+  changeLayerDisplayName,
   setLayerName,
   setLayerVisible
 } = createActions({
@@ -16,6 +17,10 @@ export const {
   }),
   SELECT_LAYER: (index) => ({
     layerIndex: index
+  }),
+  CHANGE_LAYER_DISPLAY_NAME: (index, name) => ({
+    layerIndex: index,
+    layerName: name
   }),
   SET_LAYER_NAME: (index, name) => ({
     layerIndex: index,

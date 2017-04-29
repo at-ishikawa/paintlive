@@ -2,26 +2,30 @@ import { handleActions } from 'redux-actions';
 import { PenMode } from 'components/modules/modes/';
 
 export const addPaintAction = (state, logCreator, action) => {
+  let history = state.history.concat();
   var log = logCreator({
     point: action.point,
     layer: state.layers[state.currentLayerIndex],
     lineWidth: state.lineWidth,
     color: state.color,
-    isDragging: state.isDragging
+    isDragging: state.isDragging,
+    history: history
   });
   if (log) {
     log.type = 'paint';
     const newHistory = getNextHistory(state.history, state.currentHistoryIndex, log);
     return {
+      canUndo: true,
+      canRedo: false,
       history: newHistory,
       currentHistoryIndex: state.currentHistoryIndex + 1
     };
   }
   return {
-    history: state.history,
+    history: history,
     currentHistoryIndex: state.currentHistoryIndex
   };
-}
+};
 
 export const getLayers = (nextHistory) => {
   const layers = [];
@@ -31,7 +35,7 @@ export const getLayers = (nextHistory) => {
     }
     switch (action.event) {
       case 'add':
-        layers.push(action.layer);
+        layers.push(Object.assign({}, action.layer));
         break;
       case 'remove':
         layers.splice(action.index, 1);
@@ -57,11 +61,15 @@ export const getLayers = (nextHistory) => {
         break;
     }
   });
+
+  layers.forEach(layer => {
+    layer.displayName = layer.name;
+  });
   return layers;
 }
 
 const getNextHistory = (history, currentHistoryIndex, log) => {
-  return history.slice(0, currentHistoryIndex).concat(log);
+  return history.slice(0, currentHistoryIndex + 1).concat(log);
 };
 
 export const initialState = {
@@ -93,7 +101,9 @@ export const initialState = {
       url: null
     }
   }],
-  currentHistoryIndex: 0
+  currentHistoryIndex: 0,
+  canUndo: false,
+  canRedo: false
 };
 
 const paint = handleActions({
@@ -132,6 +142,8 @@ const paint = handleActions({
 
     return {
       ...state,
+      canUndo: true,
+      canRedo: false,
       history: nextHistory,
       layers: getLayers(nextHistory),
       currentHistoryIndex: state.currentHistoryIndex + 1
@@ -150,6 +162,8 @@ const paint = handleActions({
 
     return {
       ...state,
+      canUndo: true,
+      canRedo: false,
       history: nextHistory,
       currentHistoryIndex: state.currentHistoryIndex + 1,
       layers: getLayers(nextHistory),
@@ -190,6 +204,8 @@ const paint = handleActions({
 
     return {
       ...state,
+      canUndo: true,
+      canRedo: false,
       history: nextHistory,
       currentHistoryIndex: state.currentHistoryIndex + 1,
       layers: nextLayers,
@@ -200,6 +216,16 @@ const paint = handleActions({
     ...state,
     currentLayerIndex: action.payload.layerIndex
   }),
+  CHANGE_LAYER_DISPLAY_NAME: (state, action) => {
+    const layers = state.layers.concat();
+    layers[action.payload.layerIndex].displayName = action.payload.layerName;
+    return {
+      ...state,
+      canUndo: true,
+      canRedo: false,
+      layers: layers
+    };
+  },
   SET_LAYER_NAME: (state, action) => {
     const nextHistory = getNextHistory(state.history, state.currentHistoryIndex, {
       type: 'layer',
@@ -210,6 +236,8 @@ const paint = handleActions({
 
     return {
       ...state,
+      canUndo: true,
+      canRedo: false,
       history: nextHistory,
       currentHistoryIndex: state.currentHistoryIndex + 1,
       layers: getLayers(nextHistory)
@@ -224,6 +252,8 @@ const paint = handleActions({
     });
     return {
       ...state,
+      canUndo: true,
+      canRedo: false,
       history: nextHistory,
       currentHistoryIndex: state.currentHistoryIndex + 1,
       layers: getLayers(nextHistory)
@@ -281,8 +311,10 @@ const paint = handleActions({
       width: action.payload.paintProperties.width,
       height: action.payload.paintProperties.height,
       contexts: [],
+      canUndo: false,
+      canRedo: false,
       history: nextHistory,
-      currentHistoryIndex: 1,
+      currentHistoryIndex: 0,
       layers: getLayers(nextHistory),
       currentLayerIndex: 0,
       currentMode: new PenMode(),
@@ -304,6 +336,8 @@ const paint = handleActions({
     });
     return {
       ...state,
+      canUndo: true,
+      canRedo: false,
       history: nextHistory,
       currentHistoryIndex: state.currentHistoryIndex + 1,
       layers: getLayers(nextHistory),
@@ -328,7 +362,38 @@ const paint = handleActions({
   END_SAVE_IMAGE: (state) => ({
     ...state,
     isSaved: true
-  })
+  }),
+
+  UNDO: (state) => {
+    if (!state.canUndo) {
+      return state;
+    }
+
+    const canUndo = state.currentHistoryIndex > 1;
+
+    return {
+      ...state,
+      canUndo: canUndo,
+      canRedo: true,
+      layers: getLayers(state.history.slice(0, state.currentHistoryIndex)),
+      currentHistoryIndex: state.currentHistoryIndex - 1
+    };
+  },
+  REDO: (state) => {
+    if (!state.canRedo) {
+      return state;
+    }
+
+    const canRedo = state.currentHistoryIndex + 2 < state.history.length;
+
+    return {
+      ...state,
+      canUndo: true,
+      canRedo: canRedo,
+      layers: getLayers(state.history.slice(0, state.currentHistoryIndex + 2)),
+      currentHistoryIndex: state.currentHistoryIndex + 1
+    };
+  }
 }, initialState);
 
 export default paint;

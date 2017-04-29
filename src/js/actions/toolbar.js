@@ -5,7 +5,9 @@ export const {
   openNewImage,
   cancelNewImageDialog,
   setWidthOnNewImageDialog,
-  setHeightOnNewImageDialog
+  setHeightOnNewImageDialog,
+  undo,
+  redo
 } = createActions({
   SHOW_NEW_IMAGE_DIALOG: () => ({
   }),
@@ -19,7 +21,9 @@ export const {
   }),
   SET_HEIGHT_ON_NEW_IMAGE_DIALOG: (height) => ({
     height: height
-  })
+  }),
+  UNDO: () => ({}),
+  REDO: () => ({})
 });
 
 export const {

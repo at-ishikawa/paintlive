@@ -1,3 +1,9 @@
+@import '../../bases/color';
+
+.isDisabled {
+  pointer-events: none;
+  color: var(--neutralAccentColor);
+}
 .shortcutKey {
   display: inline;
   margin-left: 16px;
