@@ -282,6 +282,10 @@ const paint = handleActions({
     ...addPaintAction(state, state.currentMode.getMouseMoveAction, action.payload),
     currentPoint: action.payload.point
   }),
+  ON_MOUSE_OUT_PAINT: (state) => ({
+    ...state,
+    currentPoint: null
+  }),
 
   SET_LINE_WIDTH: (state, action) => ({
     ...state,
