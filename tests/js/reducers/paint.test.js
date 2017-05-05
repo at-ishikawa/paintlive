@@ -3,6 +3,20 @@ import * as layerActions from 'actions/layer';
 import * as toolbarActions from 'actions/toolbar';
 import reducer, { getLayers, initialState } from 'reducers/paint';
 
+describe('paint reducer for canvases', () => {
+  it('should reset currentPoint by mouse point out', () => {
+    const state = {
+      ...initialState,
+      currentPoint: {
+        x: 0,
+        y: 0
+      }
+    };
+    const actual = reducer(state, actions.onMouseOutPaint());
+    expect(actual.currentPoint).toBeNull();
+  });
+});
+
 describe('paint reducer for layers', () => {
   it('should return the initial state', () => {
     const expected = {...initialState};

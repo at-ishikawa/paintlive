@@ -8,6 +8,7 @@ export const {
   onMouseDownPaint,
   onMouseUpPaint,
   onMouseMovePaint,
+  onMouseOutPaint,
 
   importImage,
   exportedImage,
@@ -34,6 +35,7 @@ export const {
   ON_MOUSE_MOVE_PAINT: (point) => ({
     point: point
   }),
+  ON_MOUSE_OUT_PAINT: () => ({}),
 
   IMPORT_IMAGE: (name, url) => ({
     name: name,

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PaintActions from 'actions/paint';
+import ArrayUtils from 'utils/array';
 
 import style from "modules/paint";
 
@@ -27,6 +28,9 @@ class PaintComponent extends React.Component {
   }
 
   draw = () => {
+    if (ArrayUtils.isEmpty(this.props.layers)) {
+      return;
+    }
     this.props.layers.forEach((layer) => {
       const context = this.getContext(layer.id);
       if (!context) {
@@ -58,6 +62,30 @@ class PaintComponent extends React.Component {
         drawFunctions[log.mode](log);
       }
     });
+
+    if (this.props.currentPoint) {
+      switch (this.props.currentMode.getName()) {
+        case 'Pen':
+        case 'Eraser':
+          this.drawPreviewCircle(ArrayUtils.last(this.props.layers).id);
+          break;
+      }
+    }
+  }
+
+  drawPreviewCircle(layerId) {
+    const context = this.getContext(layerId);
+    const lineDash = context.getLineDash();
+
+    context.beginPath();
+    context.strokeStyle = '#000';
+    context.setLineDash([2]);
+    context.lineWidth = 1;
+    context.arc(this.props.currentPoint.x, this.props.currentPoint.y, this.props.lineWidth / 2, 2 * Math.PI, false);
+    context.stroke();
+    context.closePath();
+
+    context.setLineDash(lineDash);
   }
 
   getContext = (layerId) => {
@@ -243,6 +271,10 @@ class PaintComponent extends React.Component {
     this.props.onMouseMovePaint(point);
   }
 
+  onMouseOut = () => {
+    this.props.onMouseOutPaint();
+  }
+
   render() {
     return (
       <div className={ style.paint }>
@@ -270,6 +302,7 @@ class PaintComponent extends React.Component {
               onMouseDown={ this.onMouseDown }
               onMouseUp={ this.onMouseUp }
               onMouseMove={ this.onMouseMove }
+              onMouseOut={ this.onMouseOut }
               hidden={ !layer.isVisible }
               >
             </canvas>
